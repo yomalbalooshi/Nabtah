@@ -30,7 +30,7 @@
     <li><a href="#features-and-usage">Features and Usage</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#technologies">Technologies Used</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#acknowledgments-and-links">Acknowledgments and Links</a></li>
   </ol>
 </details>
 <br />
@@ -92,5 +92,7 @@ Nabtah is powered by the MERN stack which is a popular technology stack for buil
 
 For any inquiries or feedback, please contact us at [contact@nabtah.com](mailto:contact@nabtah.com).
 
-## Acknowledgments
+## Acknowledgments and Links
+
+Trello Board - [Nabtah Trello Board](https://trello.com/b/G51RF25E/nabtah)
 References here.
