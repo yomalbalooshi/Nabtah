@@ -78,7 +78,7 @@ If you are a business, you can sign up from our business portal and work with us
 Nabtah is powered by the MERN stack which is a popular technology stack for building full-stack web applications. It consists of MongoDB, Express.js, React.js, and Node.js, providing a seamless and efficient development experience for creating dynamic and interactive web applications.
 
 
-- [![React][React.js]][React-url]
+- [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
 - ![Express badge](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
 - ![MongoDB badge](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 - ![Node.js badge](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
