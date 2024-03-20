@@ -95,4 +95,3 @@ For any inquiries or feedback, please contact us at [contact@nabtah.com](mailto:
 ## Acknowledgments and Links
 
 Trello Board - [Nabtah Trello Board](https://trello.com/b/G51RF25E/nabtah)
-References here.
