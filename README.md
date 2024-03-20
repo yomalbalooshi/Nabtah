@@ -29,13 +29,14 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 <br />
+
 ---
+
 ## About Nabtah
 
 Nabtah is your one-stop destination for all your plant and plant care needs. Our platform connects you with shops offering a wide range of plants, tools, and accessories, making it easy to find everything you need to nurture your green space. Whether you're a seasoned gardener or just starting out, Nabtah has you covered with a curated selection of shops selling plants and gardening essentials.
@@ -47,5 +48,7 @@ Nabtah is your one-stop destination for all your plant and plant care needs. Our
 - **Convenient delivery**: Get all your services and products delivered to your doorstep. Whenever you want and wherever you want.
 
 ---
+
+## Getting Started
 
 
