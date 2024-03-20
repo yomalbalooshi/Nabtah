@@ -27,23 +27,22 @@
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
     <li><a href="#what-nabtah-offers">What Nabtah Offers</a></li>
-    <li><a href="#getting-started">Getting Started</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#usage"> Features and usage</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#technologies">Technologies Used</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
+    
   </ol>
 </details>
 <br />
 
 ---
 <!-- About The Project -->
-## About Nabtah
+## About Nabtah {#about-the-project}
 
 Nabtah is your one-stop destination for all your plant and plant care needs. Our platform connects you with shops offering a wide range of plants, tools, and accessories, making it easy to find everything you need to nurture your green space. Whether you're a seasoned gardener or just starting out, Nabtah has you covered with a curated selection of shops selling plants and gardening essentials.
 <!-- What Nabtah Offers -->
-## What Natah offers
+## What Natah offers {#what-nabtah-offers}
 
 - **Wide Range of Products**: Partering with our local outlets, Nabtah offers a curated selection of plants, tools, and accessories for all your gardening needs.
 - **Easier Shopping Experience**: Our platform makes it easy to find and purchase the products you need, all in one place.
@@ -51,8 +50,56 @@ Nabtah is your one-stop destination for all your plant and plant care needs. Our
 
 ---
 
-<!-- Getting Started -->
+<!-- Features and usage -->
 
-## Getting Started
+## Features and usage {#usage}
+### For Users
+
+If you are a user, you can sign up from our user portal and access the website's features where you can do the following:
+
+- **Browse and Purchase Products**: Explore a diverse selection of plants, tools, and accessories, and conveniently purchase them online.
+- **Browse and Subscribe to Services**: Discover a variety of available services and select subscription plans that suit your needs.
+- **Access our Featured Bundles and Packages**: Explore curated bundles designed to simplify your gardening experience, offering a comprehensive selection of plant services and products.
+- **Discover More!**: Explore our website to uncover a plethora of additional features waiting for you to discover!
+
+### For Businesses
+
+If you are a business, you can sign up from our business portal and work with us to gain the following features:
+
+- **Expand Your Reach**: Showcase your products to a large audience of gardening enthusiasts and expand your customer base.
+- **Marketing Opportunities**: Take advantage of marketing opportunities such as featured listings and promotions to increase visibility.
+- **Analytics and Insights**: Gain insights into customer behavior and preferences through analytics tools to optimize your offerings and strategies.
+
+---
+
+## Technologies used {#technologies}
+
+
+Nabtah is powered by the MERN stack which is a popular technology stack for building full-stack web applications. It consists of MongoDB, Express.js, React.js, and Node.js, providing a seamless and efficient development experience for creating dynamic and interactive web applications.
+
+
+- [![React][React.js]][React-url]
+- ![Express badge](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+- ![MongoDB badge](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+- ![Node.js badge](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+- ![JS badge](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+- ![HTML badge](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+- ![CSS badge](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
+---
+
+## Contact {#contact}
+
+For any inquiries or feedback, please contact us at [contact@nabtah.com](mailto:contact@nabtah.com).
+
+## Acknowledgments {#acknowledgments}
+References here.
+
+
+
+
+
+
+
 
 
