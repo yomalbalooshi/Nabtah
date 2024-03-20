@@ -41,7 +41,7 @@
 
 Nabtah is your one-stop destination for all your plant and plant care needs. Our platform connects you with shops offering a wide range of plants, tools, and accessories, making it easy to find everything you need to nurture your green space. Whether you're a seasoned gardener or just starting out, Nabtah has you covered with a curated selection of shops selling plants and gardening essentials.
 <!-- What Nabtah Offers -->
-## What Natah offers {#what-nabtah-offers}
+## What Natah offers
 
 - **Wide Range of Products**: Partering with our local outlets, Nabtah offers a curated selection of plants, tools, and accessories for all your gardening needs.
 - **Easier Shopping Experience**: Our platform makes it easy to find and purchase the products you need, all in one place.
