@@ -25,20 +25,19 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#about-nabtah">About Nabtah</a></li>
     <li><a href="#what-nabtah-offers">What Nabtah Offers</a></li>
-    <li><a href="#usage"> Features and usage</a></li>
+    <li><a href="#features-and-usage">Features and Usage</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#technologies">Technologies Used</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
-    
   </ol>
 </details>
 <br />
 
 ---
 <!-- About The Project -->
-## About Nabtah {#about-the-project}
+## About Nabtah
 
 Nabtah is your one-stop destination for all your plant and plant care needs. Our platform connects you with shops offering a wide range of plants, tools, and accessories, making it easy to find everything you need to nurture your green space. Whether you're a seasoned gardener or just starting out, Nabtah has you covered with a curated selection of shops selling plants and gardening essentials.
 <!-- What Nabtah Offers -->
@@ -52,7 +51,7 @@ Nabtah is your one-stop destination for all your plant and plant care needs. Our
 
 <!-- Features and usage -->
 
-## Features and usage {#usage}
+## Features and usage
 ### For Users
 
 If you are a user, you can sign up from our user portal and access the website's features where you can do the following:
@@ -72,7 +71,7 @@ If you are a business, you can sign up from our business portal and work with us
 
 ---
 
-## Technologies used {#technologies}
+## Technologies used
 
 
 Nabtah is powered by the MERN stack which is a popular technology stack for building full-stack web applications. It consists of MongoDB, Express.js, React.js, and Node.js, providing a seamless and efficient development experience for creating dynamic and interactive web applications.
@@ -88,18 +87,9 @@ Nabtah is powered by the MERN stack which is a popular technology stack for buil
 
 ---
 
-## Contact {#contact}
+## Contact
 
 For any inquiries or feedback, please contact us at [contact@nabtah.com](mailto:contact@nabtah.com).
 
-## Acknowledgments {#acknowledgments}
+## Acknowledgments
 References here.
-
-
-
-
-
-
-
-
-
