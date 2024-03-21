@@ -11,6 +11,7 @@ import PackageForm from './pages/PackageForm'
 import Landing from './pages/Landing'
 import PlantDetail from './components/PlantDetail'
 import VendorList from './pages/VendorList'
+import ServiceList from './pages/ServiceList'
 
 const App = () => {
   const [vendors, setVendors] = useState([])
@@ -41,6 +42,7 @@ const App = () => {
             path="/vendorlist"
             element={<VendorList vendors={vendors} />}
           />
+          <Route path="/servicelist" element={<ServiceList />} />
         </Routes>
       </main>
     </div>
