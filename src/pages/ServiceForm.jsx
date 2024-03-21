@@ -2,17 +2,18 @@ import { useNavigate } from 'react-router-dom'
 import Client from '../services/api'
 import { useState } from 'react'
 
-const ProduceForm = () => {
+const ServiceForm = () => {
   let navigate = useNavigate()
 
   // const { vendorId } = useParams('vendorId')
 
   const [formValues, setFormValues] = useState({
     name: '',
-    type: '',
     description: '',
     available: true,
-    price: ''
+    price: '',
+    quantity: '',
+    frequency: ''
   })
 
   const handleChange = (e) => {
@@ -21,16 +22,17 @@ const ProduceForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const produce = { formValues, vendorId }
-    await Client.post(`/produce`, produce)
+    navigate(`/`)
+    const service = { formValues, vendorId }
+    await Client.post(`/service`, service)
     setFormValues({
       name: '',
-      type: '',
       description: '',
       available: true,
-      price: ''
+      price: '',
+      quantity: '',
+      frequency: ''
     })
-    navigate(`/`)
   }
 
   return (
@@ -40,4 +42,4 @@ const ProduceForm = () => {
   )
 }
 
-export default ProduceForm
+export default ServiceForm
