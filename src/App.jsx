@@ -1,10 +1,11 @@
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
 import NavBar from './components/NavBar'
 import ProduceForm from './pages/ProduceForm'
 import ServiceForm from './pages/ServiceForm'
 import ToolForm from './pages/ToolForm'
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
+import PackageForm from './pages/PackageForm'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/produceform" element={<ProduceForm />} />
           <Route path="/toolform" element={<ToolForm />} />
           <Route path="/serviceform" element={<ServiceForm />} />
+          <Route path="/packageform" element={<PackageForm />} />
         </Routes>
       </main>
     </div>
