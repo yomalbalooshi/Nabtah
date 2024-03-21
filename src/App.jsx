@@ -10,9 +10,10 @@ import ToolForm from './pages/ToolForm'
 import PackageForm from './pages/PackageForm'
 import Landing from './pages/Landing'
 import PlantDetail from './components/PlantDetail'
+import VendorList from './pages/VendorList'
 
 const App = () => {
-  const [vendors, setVendors] = useState([''])
+  const [vendors, setVendors] = useState([])
 
   useEffect(() => {
     const getVendors = async () => {
@@ -36,6 +37,10 @@ const App = () => {
           <Route path="/serviceform" element={<ServiceForm />} />
           <Route path="/packageform" element={<PackageForm />} />
           <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
+          <Route
+            path="/vendorlist"
+            element={<VendorList vendors={vendors} />}
+          />
         </Routes>
       </main>
     </div>
