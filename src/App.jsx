@@ -9,6 +9,7 @@ import ServiceForm from './pages/ServiceForm'
 import ToolForm from './pages/ToolForm'
 import PackageForm from './pages/PackageForm'
 import Landing from './pages/Landing'
+import PlantDetail from './components/PlantDetail'
 
 const App = () => {
   const [vendors, setVendors] = useState([''])
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/toolform" element={<ToolForm />} />
           <Route path="/serviceform" element={<ServiceForm />} />
           <Route path="/packageform" element={<PackageForm />} />
+          <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
         </Routes>
       </main>
     </div>
