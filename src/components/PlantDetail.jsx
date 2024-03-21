@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Client from '../services/api'
 const PlantDetail = () => {
@@ -28,10 +28,13 @@ const PlantDetail = () => {
         <p>Watering Instruction: {plantDetail.watering}</p>
         <p>Pruning month(s):</p>
         <div>
-          {plantDetail?.pruningMonth?.map((prune) => (
-            <p>{prune}</p>
+          {plantDetail?.pruningMonth?.map((prune, i) => (
+            <p key={i}>{prune}</p>
           ))}
         </div>
+        <Link to="/home">
+          <button className="bg-green-400">Back</button>
+        </Link>
       </div>
     </div>
   )
