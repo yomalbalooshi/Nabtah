@@ -9,7 +9,7 @@ import '../styles/vendorList.css'
 const VendorList = () => {
   const [vendors, setVendors] = useState([])
   const [searchedArray, setSearchedArray] = useState([])
-  const [selectedCities, setSelectedCities] = useState(null)
+  const [selectedCities, setSelectedCities] = useState([])
   const [first, setFirst] = useState(0)
   const [rows, setRows] = useState(6)
 
@@ -54,16 +54,22 @@ const VendorList = () => {
     getVendorDetails()
   }, [])
 
+  useEffect(() => {
+    handleSearch()
+  }, [selectedCities])
+
   const handleSearch = (event) => {
-    const value = event.target.value
+    const value = event?.target?.value
     const newVendorsArray = vendors
       .filter((va) => {
         if (!value) return true
         return va.name.toLowerCase().includes(value.toLowerCase())
       })
       .filter((val) => {
-        if(selectedCities.length === 0) return true
-        return selectedCities.includes(val)
+        if (selectedCities.length === 0) return true
+        const vendorCity = val.location.split(',')[0]
+        console.log(vendorCity)
+        return selectedCities.some((city) => city.name === vendorCity)
       })
     setSearchedArray(newVendorsArray)
     setFirst(0)
