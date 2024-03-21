@@ -5,7 +5,9 @@ const LoginButton = () => {
 
   return (
     !isAuthenticated && (
-      <button onClick={() => loginWithRedirect()}>Log In</button>
+      <div className=" flex justify-center">
+        <button onClick={() => loginWithRedirect()}>Log In</button>
+      </div>
     )
   )
 }
