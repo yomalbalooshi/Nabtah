@@ -3,14 +3,47 @@ import { useState, useEffect } from 'react'
 import { getAllVendors } from '../services/vendor'
 import { Paginator } from 'primereact/paginator'
 import { InputText } from 'primereact/inputtext'
+import { MultiSelect } from 'primereact/multiselect'
 import '../styles/vendorList.css'
 
 const VendorList = () => {
   const [vendors, setVendors] = useState([])
   const [searchedArray, setSearchedArray] = useState([])
-  const [searchedLocation, setSearchedLocation] = useState([])
+  const [selectedCities, setSelectedCities] = useState(null)
   const [first, setFirst] = useState(0)
-  const [rows, setRows] = useState(8)
+  const [rows, setRows] = useState(6)
+
+  const cities = [
+    { name: 'Manama' },
+    { name: 'Riffa' },
+    { name: 'Hamad Town' },
+    { name: "A'ali" },
+    { name: 'Isa Town' },
+    { name: 'Sitra' },
+    { name: 'Budaiya' },
+    { name: 'Jidhafs' },
+    { name: 'Al-Malikiyah' },
+    { name: 'Al-Muharraq' },
+    { name: 'Diraz' },
+    { name: 'Hidd' },
+    { name: 'Sanad' },
+    { name: 'Zallaq' },
+    { name: 'Jannusan' },
+    { name: 'Salmabad' },
+    { name: 'Saar' },
+    { name: 'Tubli' },
+    { name: 'Galali' },
+    { name: 'Juffair' },
+    { name: 'Karzakkan' },
+    { name: 'Karrana' },
+    { name: "Ma'ameer" },
+    { name: 'Qalali' },
+    { name: 'Ras Zuwayed' },
+    { name: 'Seef' },
+    { name: 'Tashan' },
+    { name: 'Zayed Town' },
+    { name: 'Al-Hoora' }
+  ]
 
   useEffect(() => {
     const getVendorDetails = async () => {
@@ -23,10 +56,15 @@ const VendorList = () => {
 
   const handleSearch = (event) => {
     const value = event.target.value
-    const newVendorsArray = vendors.filter((va) => {
-      if (!value) return true
-      return va.name.toLowerCase().includes(value.toLowerCase())
-    })
+    const newVendorsArray = vendors
+      .filter((va) => {
+        if (!value) return true
+        return va.name.toLowerCase().includes(value.toLowerCase())
+      })
+      .filter((val) => {
+        if(selectedCities.length === 0) return true
+        return selectedCities.includes(val)
+      })
     setSearchedArray(newVendorsArray)
     setFirst(0)
   }
@@ -44,6 +82,15 @@ const VendorList = () => {
           placeholder="Search for Vendor"
           className="w-1/3"
           onChange={handleSearch}
+        />
+        <MultiSelect
+          value={selectedCities}
+          onChange={(e) => setSelectedCities(e.value)}
+          options={cities}
+          optionLabel="name"
+          placeholder="Select Cities"
+          maxSelectedLabels={3}
+          className="w-1/6 md:w-20rem"
         />
       </div>
       <h2 className="text-center text-3xl mt-8">Our Vendors</h2>
