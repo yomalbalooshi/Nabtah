@@ -1,0 +1,15 @@
+.p-card-content {
+  padding: 0;
+}
+
+.p-card-body {
+  padding: 0;
+}
+
+.p-card:hover {
+  background-color: rgba(173, 219, 173, 0.1);
+}
+
+.p-highlight {
+  background-color: rgba(184, 240, 221, 0.753);
+}
