@@ -69,16 +69,18 @@ const Home = ({ vendors }) => {
         </h2>
         <div className="flex justify-around mt-20 text-center">
           {plants.map((plant) => (
-            <Link to={`/plantDetail/${plant._id}`}>
-              <div className=" flex flex-col" key={plant._id}>
-                <img
-                  className=" max-w-96 min-h-72 max-h-72"
-                  src={plant.image}
-                  alt={plant.name}
-                />
-                <h2>{plant.name}</h2>
-              </div>
-            </Link>
+            <div key={plant._id}>
+              <Link to={`/plantDetail/${plant._id}`}>
+                <div className=" flex flex-col">
+                  <img
+                    className=" max-w-96 min-h-72 max-h-72"
+                    src={plant.image}
+                    alt={plant.name}
+                  />
+                  <h2>{plant.name}</h2>
+                </div>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
