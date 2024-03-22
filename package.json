@@ -11,6 +11,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "axios": "^1.6.8",
+    "primereact": "^10.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"

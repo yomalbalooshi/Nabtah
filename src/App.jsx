@@ -1,4 +1,5 @@
 import './App.css'
+import 'primereact/resources/themes/lara-light-teal/theme.css'
 import { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Client from './services/api'
