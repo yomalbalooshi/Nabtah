@@ -11,7 +11,7 @@ const ToolForm = () => {
     name: '',
     description: '',
     available: true,
-    price: ''
+    price: 0
   })
 
   const handleChange = (e) => {
@@ -27,13 +27,13 @@ const ToolForm = () => {
       name: '',
       description: '',
       available: true,
-      price: ''
+      price: 0
     })
   }
 
   return (
     <div>
-      <h3>awaiting form libs</h3>
+      <h3>awaiting form libs - toolform</h3>
     </div>
   )
 }

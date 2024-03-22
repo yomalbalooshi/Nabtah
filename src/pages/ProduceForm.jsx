@@ -12,7 +12,7 @@ const ProduceForm = () => {
     type: '',
     description: '',
     available: true,
-    price: ''
+    price: 0
   })
 
   const handleChange = (e) => {
@@ -28,14 +28,14 @@ const ProduceForm = () => {
       type: '',
       description: '',
       available: true,
-      price: ''
+      price: 0
     })
     navigate(`/`)
   }
 
   return (
     <div>
-      <h3>awaiting form libs</h3>
+      <h3>awaiting form libs - produce form</h3>
     </div>
   )
 }
