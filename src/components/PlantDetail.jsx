@@ -1,15 +1,15 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Client from '../services/api'
+import { showPlant } from '../services/plant'
 const PlantDetail = () => {
   const { plantId } = useParams()
   const [plantDetail, setPlantDetail] = useState({})
 
   useEffect(() => {
     const getPlantDetail = async () => {
-      const response = await Client.get(`/plant/${plantId}`)
-      console.log(response.data)
-      setPlantDetail(response.data)
+      let response = await showPlant(plantId)
+      setPlantDetail(response)
     }
     getPlantDetail()
   }, [])
