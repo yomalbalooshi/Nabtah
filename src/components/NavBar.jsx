@@ -8,10 +8,20 @@ const NavBar = () => {
 
   return (
     <div>
-      <Link to="/home">Home</Link>
-      <LoginButton />
-      <LogoutButton />
-      <CustomerProfile />
+      <div>
+        <div className=" flex justify-around  bg-green-200 text-blue-900">
+          <Link to="/home">Home</Link>
+          <Link to="/servicelist">Services</Link>
+          <Link to="/vendorlist">Vendors</Link>
+          <Link to="/serviceform">Add a Service</Link>
+          <Link to="/produceform">Add a Produce</Link>
+          <Link to="/packageform">Add a Package</Link>
+          <Link to="/toolform">Add a tool</Link>
+        </div>
+        <LoginButton />
+        <LogoutButton />
+        <CustomerProfile />
+      </div>
     </div>
   )
 }
