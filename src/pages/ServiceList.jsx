@@ -29,8 +29,10 @@ const ServiceList = () => {
       return (
         <AccordionTab
           key={service._id}
-          header={service.name}
-          disabled={service.disabled}
+          header={
+            service.available ? service.name : `${service.name} (unavailable)`
+          }
+          disabled={service.available === false}
         >
           <div className=" flex justify-between">
             <div className=" flex flex-col justify-center ">

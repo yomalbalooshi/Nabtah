@@ -16,6 +16,7 @@ import VendorList from './pages/VendorList'
 import ServiceList from './pages/ServiceList'
 import AddPlant from './pages/AddPlant'
 import Account from './pages/Account'
+import PlantList from './pages/PlantList'
 import { showUserDetails } from './services/user'
 
 
@@ -58,6 +59,7 @@ const App = () => {
             path="/account"
             element={<Account authenticatedUser={authenticatedUser} />}
           />
+          <Route path="/plantlist" element={<PlantList />} />
         </Routes>
       </main>
     </div>
