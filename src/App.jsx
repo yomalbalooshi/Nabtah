@@ -43,16 +43,13 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Landing />} />
-          {/* <Route path="/home" element={<Home vendors={vendors} />} /> */}
+          <Route path="/home" element={<Home />} />
           <Route path="/produceform" element={<ProduceForm />} />
           <Route path="/toolform" element={<ToolForm />} />
           <Route path="/serviceform" element={<ServiceForm />} />
           <Route path="/packageform" element={<PackageForm />} />
           <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
-          <Route
-            path="/vendorlist"
-            // element={<VendorList vendors={vendors} />}
-          />
+          <Route path="/vendorlist" element={<VendorList />} />
           <Route path="/servicelist" element={<ServiceList />} />
           <Route
             path="/account"
