@@ -18,11 +18,10 @@ const NavBar = () => {
           <Link to="/produceform">Add a Produce</Link>
           <Link to="/packageform">Add a Package</Link>
           <Link to="/toolform">Add a tool</Link>
+          {!isAuthenticated && <LoginButton />}
+          {isAuthenticated && <Link to="/account">Account</Link>}
+          {isAuthenticated && <LogoutButton />}
         </div>
-        {!isAuthenticated && <LoginButton />}
-        {isAuthenticated && <LogoutButton />}
-      {/* <Account/> */}
-        <Account />
       </div>
     </div>
   )
