@@ -67,6 +67,7 @@ const VendorList = () => {
       })
       .filter((val) => {
         if (selectedCities.length === 0) return true
+        return selectedCities.includes(val)
         const vendorCity = val.location.split(',')[0]
         return selectedCities.some((city) => city.name === vendorCity)
       })

@@ -16,3 +16,6 @@
 body {
   margin: 0;
 }
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
+  background-color: #ffffff !important;
+}

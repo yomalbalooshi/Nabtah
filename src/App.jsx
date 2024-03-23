@@ -14,8 +14,10 @@ import Landing from './pages/Landing'
 import PlantDetail from './components/PlantDetail'
 import VendorList from './pages/VendorList'
 import ServiceList from './pages/ServiceList'
+import AddPlant from './pages/AddPlant'
 import Account from './pages/Account'
 import { showUserDetails } from './services/user'
+
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
@@ -48,6 +50,7 @@ const App = () => {
           <Route path="/toolform" element={<ToolForm />} />
           <Route path="/serviceform" element={<ServiceForm />} />
           <Route path="/packageform" element={<PackageForm />} />
+          <Route path="/addplant" element={<AddPlant />} />
           <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
           <Route path="/vendorlist" element={<VendorList />} />
           <Route path="/servicelist" element={<ServiceList />} />
