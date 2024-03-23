@@ -25,6 +25,7 @@ const App = () => {
     if (isAuthenticated && user) {
       const getuserDetails = async () => {
         let response = await showUserDetails(user.sub, user)
+        response.role = user['https://nabtah.com/roles'][0]
         setauthenticatedUser(response)
         localStorage.setItem('auth0_id', user.sub)
         localStorage.setItem('_id', authenticatedUser._id)
