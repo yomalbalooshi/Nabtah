@@ -148,6 +148,7 @@ const ProduceForm = () => {
                 <InputText
                   id="price"
                   name="price"
+                  step=".01"
                   type="number"
                   min={0}
                   required

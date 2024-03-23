@@ -1,21 +1,36 @@
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
-import { addTool } from '../services/tool'
+import { updateTool, toolDetails } from '../services/tool'
 
-const ToolForm = () => {
+const UpdateToolForm = () => {
   let navigate = useNavigate()
-
-  // const { vendorId } = useParams('vendorId')
-  const [available, setAvailable] = useState(null)
-
+  let { id } = useParams()
+  const [toolDetail, setToolDetail] = useState(null)
   const [formValues, setFormValues] = useState({
     name: '',
     description: '',
     available: null,
     price: 0
   })
+
+  useEffect(() => {
+    const getToolDetails = async () => {
+      let response = await toolDetails(id)
+      setToolDetail(response)
+    }
+    getToolDetails()
+  }, [])
+
+  useEffect(() => {
+    setFormValues({
+      name: toolDetail?.name,
+      description: toolDetail?.description,
+      available: toolDetail?.available,
+      price: toolDetail?.price
+    })
+  }, [toolDetail])
 
   const handleChange = (e) => {
     setFormValues({
@@ -27,14 +42,8 @@ const ToolForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     navigate(`/`)
-    const tool = { ...formValues, available: available, vendorId }
-    await addTool(tool)
-    setFormValues({
-      name: '',
-      description: '',
-      available: true,
-      price: 0
-    })
+    const tool = { ...formValues, id: id }
+    await updateTool(tool)
   }
 
   return (
@@ -60,6 +69,7 @@ const ToolForm = () => {
                   id="name"
                   name="name"
                   type="text"
+                  value={formValues?.name}
                   required
                   className="block w-full "
                   onChange={handleChange}
@@ -78,6 +88,7 @@ const ToolForm = () => {
                 <InputText
                   id="description"
                   name="description"
+                  value={formValues?.description}
                   type="text"
                   required
                   className="block w-full "
@@ -97,8 +108,13 @@ const ToolForm = () => {
                 <Dropdown
                   id="available"
                   name="available"
-                  value={available}
-                  onChange={(e) => setAvailable(e.value)}
+                  value={formValues?.available}
+                  onChange={(e) =>
+                    setFormValues((prev) => ({
+                      ...prev,
+                      available: e.value
+                    }))
+                  }
                   options={[
                     { name: 'Yes', value: true },
                     { name: 'No', value: false }
@@ -123,6 +139,7 @@ const ToolForm = () => {
                   name="price"
                   type="number"
                   step=".01"
+                  value={formValues?.price}
                   min={0}
                   required
                   className="block w-full "
@@ -136,7 +153,7 @@ const ToolForm = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-14"
               >
-                Add Tool
+                Update Tool
               </button>
             </div>
           </form>
@@ -146,4 +163,4 @@ const ToolForm = () => {
   )
 }
 
-export default ToolForm
+export default UpdateToolForm

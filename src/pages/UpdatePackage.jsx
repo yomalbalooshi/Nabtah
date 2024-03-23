@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
@@ -9,10 +9,12 @@ import {
   getAllVendorTools,
   getAllVendorServices
 } from '../services/vendor'
-import { addPackage } from '../services/package'
+import { updatePackage, showPackage } from '../services/package'
 
-const PackageForm = () => {
+const UpdatePackage = () => {
   let navigate = useNavigate()
+  let { id } = useParams()
+  const [packageDetails, setPackageDetails] = useState(null)
   const [available, setAvailable] = useState(null)
   const [vendorPlants, setVendorPlants] = useState(null)
   const [vendorProduce, setVendorProduce] = useState(null)
@@ -24,7 +26,7 @@ const PackageForm = () => {
   const [selectedTools, setSelectedTools] = useState(null)
 
   let vendorId = '65fcf85f7fd2d32df8293118'
-  // const { vendorId } = useParams('vendorId')
+
   const [formValues, setFormValues] = useState({
     name: '',
     price: '',
@@ -54,42 +56,47 @@ const PackageForm = () => {
       const data = await getAllVendorTools(vendorId)
       setVendorTools(data)
     }
+    const getPackageDetails = async () => {
+      let response = await showPackage(id)
+      setPackageDetails(response)
+    }
     handleVendorPlants()
     handleVendorProduce()
     handleVendorServices()
     handleVendorTools()
+    getPackageDetails()
   }, [])
 
+  useEffect(() => {
+    setFormValues({
+      name: packageDetails?.name,
+      type: packageDetails?.type,
+      description: packageDetails?.description,
+      available: packageDetails?.available,
+      price: packageDetails?.price,
+      frequency: packageDetails?.frequency,
+      plants: packageDetails?.plants,
+      services: packageDetails?.services,
+      produce: packageDetails?.produce,
+      tools: packageDetails?.tools
+    })
+  }, [packageDetails])
+
+  console.log(formValues)
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // navigate(`/`)
     const vendorPackage = {
       ...formValues,
-      available: available,
-      plants: selectedPlants.map((plant) => plant._id),
-      produce: selectedProduce.map((produce) => produce._id),
-      services: selectedServices.map((service) => service._id),
-      tools: selectedTools.map((tool) => tool._id)
-      // vendorId
+      id: id
     }
-    await addPackage(vendorPackage)
-    setFormValues({
-      name: '',
-      price: '',
-      description: '',
-      frequency: '',
-      plants: [],
-      services: [],
-      produce: [],
-      tools: [],
-      available: null
-    })
-    navigate(`/`)
+    await updatePackage(vendorPackage)
   }
-  console.log('selected plants ', selectedPlants)
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -112,6 +119,7 @@ const PackageForm = () => {
                 <InputText
                   id="name"
                   name="name"
+                  value={formValues.name}
                   type="text"
                   required
                   className="block w-full "
@@ -131,6 +139,7 @@ const PackageForm = () => {
                 <InputText
                   id="description"
                   name="description"
+                  value={formValues.description}
                   type="text"
                   required
                   className="block w-full "
@@ -148,10 +157,16 @@ const PackageForm = () => {
               </label>
               <div className="mt-2">
                 <MultiSelect
-                  value={selectedPlants}
                   id="plants"
                   name="plants"
-                  onChange={(e) => setSelectedPlants(e.value)}
+                  value={formValues.plants}
+                  maxSelectedLabels={2}
+                  onChange={(e) =>
+                    setFormValues((prevformValues) => ({
+                      ...prevformValues,
+                      plants: e.value
+                    }))
+                  }
                   options={vendorPlants}
                   optionLabel="name"
                   filter
@@ -171,8 +186,14 @@ const PackageForm = () => {
                 <MultiSelect
                   id="produce"
                   name="produce"
-                  value={selectedProduce}
-                  onChange={(e) => setSelectedProduce(e.value)}
+                  maxSelectedLabels={2}
+                  value={formValues.produce}
+                  onChange={(e) =>
+                    setFormValues((prevformValues) => ({
+                      ...prevformValues,
+                      produce: e.value
+                    }))
+                  }
                   options={vendorProduce}
                   optionLabel="name"
                   filter
@@ -192,8 +213,14 @@ const PackageForm = () => {
                 <MultiSelect
                   id="services"
                   name="services"
-                  value={selectedServices}
-                  onChange={(e) => setSelectedServices(e.value)}
+                  maxSelectedLabels={2}
+                  value={formValues.services}
+                  onChange={(e) =>
+                    setFormValues((prevformValues) => ({
+                      ...prevformValues,
+                      services: e.value
+                    }))
+                  }
                   options={vendorServices}
                   optionLabel="name"
                   filter
@@ -213,8 +240,14 @@ const PackageForm = () => {
                 <MultiSelect
                   id="tools"
                   name="tools"
-                  value={selectedTools}
-                  onChange={(e) => setSelectedTools(e.value)}
+                  value={formValues.tools}
+                  maxSelectedLabels={2}
+                  onChange={(e) =>
+                    setFormValues((prevformValues) => ({
+                      ...prevformValues,
+                      tools: e.value
+                    }))
+                  }
                   options={vendorTools}
                   optionLabel="name"
                   filter
@@ -234,8 +267,13 @@ const PackageForm = () => {
                 <Dropdown
                   id="available"
                   name="available"
-                  value={available}
-                  onChange={(e) => setAvailable(e.value)}
+                  value={formValues?.available}
+                  onChange={(e) =>
+                    setFormValues((prev) => ({
+                      ...prev,
+                      available: e.value
+                    }))
+                  }
                   options={[
                     { name: 'Yes', value: true },
                     { name: 'No', value: false }
@@ -258,6 +296,7 @@ const PackageForm = () => {
                 <InputText
                   id="frequency"
                   name="frequency"
+                  value={formValues.frequency}
                   type="text"
                   required
                   className="block w-full "
@@ -279,6 +318,7 @@ const PackageForm = () => {
                   name="price"
                   type="number"
                   step=".01"
+                  value={formValues.price}
                   min={0}
                   required
                   className="block w-full "
@@ -292,7 +332,7 @@ const PackageForm = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-14"
               >
-                Add Package
+                Update Package
               </button>
             </div>
           </form>
@@ -302,4 +342,4 @@ const PackageForm = () => {
   )
 }
 
-export default PackageForm
+export default UpdatePackage

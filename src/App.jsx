@@ -19,6 +19,11 @@ import Account from './pages/Account'
 import PlantList from './pages/PlantList'
 import { showUserDetails } from './services/user'
 
+import UpdateToolForm from './pages/UpdateTool'
+import UpdateService from './pages/UpdateService'
+import UpdateProduce from './pages/UpdateProduce'
+import UpdatePlant from './pages/UpdatePlant'
+import UpdatePackage from './pages/UpdatePackage'
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
@@ -48,10 +53,17 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
           <Route path="/produceform" element={<ProduceForm />} />
+          <Route path="/updateproduce/:id" element={<UpdateProduce />} />
+
           <Route path="/toolform" element={<ToolForm />} />
+          <Route path="/updatetool/:id" element={<UpdateToolForm />} />
           <Route path="/serviceform" element={<ServiceForm />} />
+          <Route path="/updateservice/:id" element={<UpdateService />} />
           <Route path="/packageform" element={<PackageForm />} />
+          <Route path="/updatepackage/:id" element={<UpdatePackage />} />
           <Route path="/addplant" element={<AddPlant />} />
+          <Route path="/updateplant/:id" element={<UpdatePlant />} />
+
           <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
           <Route path="/vendorlist" element={<VendorList />} />
           <Route path="/servicelist" element={<ServiceList />} />

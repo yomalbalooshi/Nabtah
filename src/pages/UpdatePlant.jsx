@@ -1,142 +1,73 @@
-import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Paginator } from 'primereact/paginator'
-import { Card } from 'primereact/card'
-import { addPlant } from '../services/plant'
+import { useNavigate, useParams } from 'react-router-dom'
+import { showPlant, updatePlant } from '../services/plant'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { MultiSelect } from 'primereact/multiselect'
-import { getAllVendorPlants } from '../services/vendor'
 import '../styles/vendorList.css'
 
-const AddPlant = () => {
-  const [plants, setPlants] = useState(null)
-  const [searchQuery, setSearchQuery] = useState(null)
-  const [plantDetails, setPlantDetails] = useState(null)
-  const [vendorPlants, setVendorPlants] = useState(null)
-  const [addedPlantIds, setAddedPlantIds] = useState([])
-  const [first, setFirst] = useState(0)
-  const [rows, setRows] = useState(12)
-  const vendorApiIds = vendorPlants?.map((plant) => plant.apiId)
-  let vendorId = '65fcf85f7fd2d32df8293118'
+const UpdatePlant = () => {
+  let navigate = useNavigate()
+  let { id } = useParams()
+  const [plantDetails, setPlantDetail] = useState(null)
+  const [formValues, setFormValues] = useState(null)
 
   useEffect(() => {
-    const handleVendorPlants = async () => {
-      const data = await getAllVendorPlants(vendorId)
-      setVendorPlants(data)
+    const getPlantDetails = async () => {
+      let response = await showPlant(id)
+      setPlantDetail(response)
     }
-    handleVendorPlants()
+    getPlantDetails()
   }, [])
 
-  const handleSearch = async (e) => {
-    e.preventDefault()
-    let response = await axios.get(
-      `https://perenual.com/api/species-list?key=sk-Cipx65fb29fbeab5f4804&q=${searchQuery}`
-    )
-    setPlants(response.data.data)
-  }
-  const onPageChange = (event) => {
-    setFirst(event.first)
-    setRows(event.rows)
+  useEffect(() => {
+    setFormValues({
+      apiId: plantDetails?.id,
+      name: plantDetails?.name,
+      category: plantDetails?.category,
+      scientificName: plantDetails?.scientificName,
+      family: plantDetails?.family,
+      cycle: plantDetails?.cycle,
+      watering: plantDetails?.watering,
+      sunlight: plantDetails?.sunlight,
+      pruningMonth: plantDetails?.pruningMonth,
+      pruningCount: {
+        amount: plantDetails?.pruningCount.amount,
+        interval: plantDetails?.pruningCount.interval
+      },
+      description: plantDetails?.description,
+      image: plantDetails?.image,
+      available: plantDetails?.available,
+      price: plantDetails?.price
+    })
+  }, [plantDetails])
+
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.id]: e.target.value })
   }
 
-  const handleClick = async (e, id) => {
-    let selectedPlant
-    let response = await axios.get(
-      `https://perenual.com/api/species/details/${id}?key=sk-Cipx65fb29fbeab5f4804`
-    )
-    selectedPlant = response.data
-    setPlantDetails({
-      apiId: selectedPlant.id,
-      name: selectedPlant.common_name,
-      category: selectedPlant.type,
-      scientificName: selectedPlant.scientific_name[0],
-      family: selectedPlant.family,
-      cycle: selectedPlant.cycle,
-      watering: selectedPlant.watering,
-      sunlight: selectedPlant.sunlight[0],
-      pruningMonth: selectedPlant.pruning_month,
-      pruningCount: {
-        amount: selectedPlant.pruning_count.amount,
-        interval: selectedPlant.pruning_count.interval
-      },
-      description: selectedPlant.description,
-      vendor: vendorId
-    })
-  }
+  console.log(formValues)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await addPlant(plantDetails)
-    setAddedPlantIds([...addedPlantIds, plantDetails.apiId])
+    // navigate(`/`)
+    const plant = {
+      ...formValues,
+      id: id
+    }
+    console.log('plant', plant)
+    await updatePlant(plant)
   }
-
-  let filteredPlants = plants?.filter(
-    (plant) =>
-      !plant.cycle.toLowerCase().includes('premium') &&
-      !vendorApiIds.includes(String(plant.id)) &&
-      !addedPlantIds.includes(plant.id)
-  )
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
-        <div className="flex justify-center  mt-20">
-          <div>
-            <InputText
-              type="text"
-              placeholder="Search for a Plant"
-              className="w-96"
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <div>
-            <button
-              type="submit"
-              className=" w-32 h-12 rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  ml-6"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </form>
-      {filteredPlants && <h2 className="text-center text-3xl mt-8">Plants</h2>}
-      <div className="flex flex-wrap justify-around text-center">
-        {filteredPlants?.slice(first, first + rows).map((plant) => (
-          <Card
-            key={plant.id}
-            className="my-6 shadow-lg transition-transform duration-400 transform hover:scale-105 rounded-lg pb-10"
-          >
-            <div className="flex flex-col">
-              <img
-                className="rounded-t-lg w-96 h-56 object-cover"
-                src={plant.default_image.original_url}
-              />
-              <h2 className="text-2xl pt-4">{plant.common_name}</h2>
-              <p className="text-sm p-4 text-gray-500">
-                {plant.scientific_name}
-              </p>
-            </div>
-            <button
-              onClick={(e) => handleClick(e, plant.id)}
-              className=" w-32  rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  ml-6"
-            >
-              Add
-            </button>
-          </Card>
-        ))}
-      </div>
-      {filteredPlants && (
-        <Paginator
-          first={first}
-          rows={rows}
-          totalRecords={filteredPlants?.length}
-          onPageChange={onPageChange}
-        />
-      )}
-
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="mt-10 text-center text-5xl font-semibold leading-9 tracking-tight text-gray-900">
+            Plant
+          </h2>
+        </div>
         <div className=" shadow-2xl max-w-7xl mx-auto flex justify-center pb-16  mb-10">
           <form
             className="space-y-8 w-full mx-auto pl-20 pr-20 pt-10"
@@ -156,13 +87,8 @@ const AddPlant = () => {
                   type="text"
                   required
                   className="block w-full "
-                  value={plantDetails?.name}
-                  onChange={(e) =>
-                    setPlantDetails((prevPlantDetails) => ({
-                      ...prevPlantDetails,
-                      name: e.target.value
-                    }))
-                  }
+                  value={formValues?.name}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -182,13 +108,8 @@ const AddPlant = () => {
                   type="text"
                   required
                   className="block w-full "
-                  value={plantDetails?.description}
-                  onChange={(e) =>
-                    setPlantDetails((prevPlantDetails) => ({
-                      ...prevPlantDetails,
-                      description: e.target.value
-                    }))
-                  }
+                  value={formValues?.description}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -207,13 +128,8 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full "
-                    value={plantDetails?.category}
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        category: e.target.value
-                      }))
-                    }
+                    value={formValues?.category}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -231,13 +147,8 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full"
-                    value={plantDetails?.scientificName}
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        scientificName: e.target.value
-                      }))
-                    }
+                    value={formValues?.scientificName}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -255,13 +166,8 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full"
-                    value={plantDetails?.family}
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        family: e.target.value
-                      }))
-                    }
+                    value={formValues?.family}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -280,13 +186,8 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full"
-                    value={plantDetails?.cycle}
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        cycle: e.target.value
-                      }))
-                    }
+                    value={formValues?.cycle}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -304,13 +205,8 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full"
-                    value={plantDetails?.watering}
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        watering: e.target.value
-                      }))
-                    }
+                    value={formValues?.watering}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -328,9 +224,9 @@ const AddPlant = () => {
                     type="number"
                     required
                     className="block w-full"
-                    value={plantDetails?.pruningCount.amount}
+                    value={formValues?.pruningCount.amount}
                     onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
+                      setFormValues((prevPlantDetails) => ({
                         ...prevPlantDetails,
                         pruningCount: {
                           ...plantDetails.pruningCount,
@@ -355,9 +251,9 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full"
-                    value={plantDetails?.pruningCount.interval}
+                    value={formValues?.pruningCount.interval}
                     onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
+                      setFormValues((prevPlantDetails) => ({
                         ...prevPlantDetails,
                         pruningCount: {
                           ...plantDetails.pruningCount,
@@ -382,13 +278,8 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full"
-                    value={plantDetails?.sunlight}
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        sunlight: e.target.value
-                      }))
-                    }
+                    value={formValues?.sunlight}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -406,12 +297,8 @@ const AddPlant = () => {
                     type="text"
                     required
                     className="block w-full"
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        image: e.target.value
-                      }))
-                    }
+                    value={formValues?.image}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -427,10 +314,10 @@ const AddPlant = () => {
                   <Dropdown
                     id="available"
                     name="available"
-                    value={plantDetails?.available}
+                    value={formValues?.available}
                     onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
+                      setFormValues((prevformValues) => ({
+                        ...prevformValues,
                         available: e.value
                       }))
                     }
@@ -461,12 +348,8 @@ const AddPlant = () => {
                     min={0}
                     required
                     className="block w-full "
-                    onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
-                        price: e.target.value
-                      }))
-                    }
+                    value={formValues?.price}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -481,10 +364,10 @@ const AddPlant = () => {
                   <MultiSelect
                     id="pruningmonths"
                     name="pruningmonths"
-                    value={plantDetails?.pruningMonth}
+                    value={formValues?.pruningMonth}
                     onChange={(e) =>
-                      setPlantDetails((prevPlantDetails) => ({
-                        ...prevPlantDetails,
+                      setFormValues((prevformValues) => ({
+                        ...prevformValues,
                         pruningMonth: e.value
                       }))
                     }
@@ -515,7 +398,7 @@ const AddPlant = () => {
                 type="submit"
                 className="  flex justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6"
               >
-                Add Plant
+                Update Plant
               </button>
             </div>
           </form>
@@ -525,4 +408,4 @@ const AddPlant = () => {
   )
 }
 
-export default AddPlant
+export default UpdatePlant
