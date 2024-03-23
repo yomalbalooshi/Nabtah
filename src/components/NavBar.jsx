@@ -1,15 +1,17 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import LoginButton from './LoginButton'
 import LogoutButton from './LogoutButton'
-import CustomerProfile from '../pages/CustomerProfile'
+import Account from '../pages/Account'
+
 const NavBar = () => {
-  const { loginWithRedirect } = useAuth0()
+  const { isAuthenticated } = useAuth0()
 
   return (
     <div>
-      <LoginButton />
-      <LogoutButton />
-      <CustomerProfile />
+      {!isAuthenticated && <LoginButton />}
+      {isAuthenticated && <LogoutButton />}
+      {/* <Account/> */}
+      <Account />
     </div>
   )
 }
