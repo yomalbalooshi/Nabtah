@@ -1,10 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import LoginButton from './LoginButton'
 import LogoutButton from './LogoutButton'
-import CustomerProfile from '../pages/CustomerProfile'
+import Account from '../pages/Account'
+
 import { Link } from 'react-router-dom'
 const NavBar = () => {
-  const { loginWithRedirect } = useAuth0()
+  const { isAuthenticated } = useAuth0()
 
   return (
     <div>
@@ -17,10 +18,10 @@ const NavBar = () => {
           <Link to="/produceform">Add a Produce</Link>
           <Link to="/packageform">Add a Package</Link>
           <Link to="/toolform">Add a tool</Link>
+          {!isAuthenticated && <LoginButton />}
+          {isAuthenticated && <Link to="/account">Account</Link>}
+          {isAuthenticated && <LogoutButton />}
         </div>
-        <LoginButton />
-        <LogoutButton />
-        <CustomerProfile />
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import Client from './services/api'
 import Home from './pages/Home'
 import NavBar from './components/NavBar'
+import { useAuth0 } from '@auth0/auth0-react'
 import ProduceForm from './pages/ProduceForm'
 import ServiceForm from './pages/ServiceForm'
 import ToolForm from './pages/ToolForm'
@@ -13,18 +14,27 @@ import Landing from './pages/Landing'
 import PlantDetail from './components/PlantDetail'
 import VendorList from './pages/VendorList'
 import ServiceList from './pages/ServiceList'
+import Account from './pages/Account'
+import { showUserDetails } from './services/user'
 
 const App = () => {
-  const [vendors, setVendors] = useState([])
+  const { user, isAuthenticated, isLoading } = useAuth0()
+  const [authenticatedUser, setauthenticatedUser] = useState([])
 
   useEffect(() => {
-    const getVendors = async () => {
-      const response = await Client.get('/vendor')
-      console.log(response.data)
-      setVendors(response.data)
+    if (isAuthenticated && user) {
+      const getuserDetails = async () => {
+        let response = await showUserDetails(user.sub, user)
+        setauthenticatedUser(response)
+        localStorage.setItem('auth0_id', user.sub)
+        localStorage.setItem('_id', authenticatedUser._id)
+      }
+      getuserDetails()
+      console.log(user)
+    } else {
+      localStorage.clear()
     }
-    getVendors()
-  }, [])
+  }, [isAuthenticated, user])
 
   return (
     <div>
@@ -33,7 +43,7 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home vendors={vendors} />} />
+          {/* <Route path="/home" element={<Home vendors={vendors} />} /> */}
           <Route path="/produceform" element={<ProduceForm />} />
           <Route path="/toolform" element={<ToolForm />} />
           <Route path="/serviceform" element={<ServiceForm />} />
@@ -41,9 +51,13 @@ const App = () => {
           <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
           <Route
             path="/vendorlist"
-            element={<VendorList vendors={vendors} />}
+            // element={<VendorList vendors={vendors} />}
           />
           <Route path="/servicelist" element={<ServiceList />} />
+          <Route
+            path="/account"
+            element={<Account authenticatedUser={authenticatedUser} />}
+          />
         </Routes>
       </main>
     </div>
