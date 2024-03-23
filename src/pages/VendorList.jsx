@@ -13,7 +13,6 @@ const VendorList = () => {
   const [first, setFirst] = useState(0)
   const [rows, setRows] = useState(6)
 
-  console.log(vendors)
   const cities = [
     { name: 'Manama' },
     { name: 'Riffa' },
