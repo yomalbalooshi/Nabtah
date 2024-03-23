@@ -11,6 +11,8 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "axios": "^1.6.8",
+    "axios": "^1.6.8",
+    "primereact": "^10.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"
@@ -19,6 +21,9 @@
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",
     "vite": "^5.2.0"
   }
 }
