@@ -13,6 +13,7 @@ const VendorList = () => {
   const [first, setFirst] = useState(0)
   const [rows, setRows] = useState(6)
 
+  console.log(vendors)
   const cities = [
     { name: 'Manama' },
     { name: 'Riffa' },
@@ -67,8 +68,7 @@ const VendorList = () => {
       })
       .filter((val) => {
         if (selectedCities.length === 0) return true
-        return selectedCities.includes(val)
-        const vendorCity = val.location.split(',')[0]
+        const vendorCity = val?.location?.split(',')[0]
         return selectedCities.some((city) => city.name === vendorCity)
       })
     setSearchedArray(newVendorsArray)
