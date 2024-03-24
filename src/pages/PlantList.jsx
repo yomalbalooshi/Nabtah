@@ -23,7 +23,7 @@ const PlantList = () => {
         {plants.map((plant) => (
           <Card
             key={plant._id}
-            className=" w-2/5 my-6 shadow-lg transition-transform duration-400 transform hover:scale-105 rounded-lg"
+            className=" w-2/5 h-56 my-6 shadow-lg transition-transform duration-400 transform hover:scale-105 rounded-lg"
           >
             <PlantCard plant={plant} />
           </Card>

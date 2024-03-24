@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const PlantCard = ({ plant }) => {
   const [showDetails, setShowDetails] = useState(false)
@@ -17,28 +18,38 @@ const PlantCard = ({ plant }) => {
             alt={plant.name}
           />
         </div>
-        <div className="flex flex-col align-middle text-center">
+        <div className="text-center w-96">
           {showDetails ? (
             <div>
-              <p>{plant.origin}</p>
-              <p>{plant.sunlight}</p>
-              <p>{plant.watering}</p>
-              <p>
-                Prune {plant.pruningCount.amount} times a{' '}
-                {plant.pruningCount.interval}
-              </p>
-              <button
-                className="text-sm w-32 mt-9 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded"
-                onClick={toggleDetails}
-              >
-                See Less
-              </button>
+              <div className="flex flex-col pt-4 gap-5">
+                <p className=" text-xs">{plant.origin}</p>
+                <p className=" text-xs">{plant.sunlight}</p>
+                <p className=" text-xs">{plant.watering}</p>
+                <p className=" text-xs">
+                  Prune {plant.pruningCount.amount} times a{' '}
+                  {plant.pruningCount.interval}
+                </p>
+              </div>
+              <div className="flex justify-around mt-6">
+                <button
+                  className="text-sm bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={toggleDetails}
+                >
+                  See Less
+                </button>
+                <Link
+                  className="text-sm bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  to={`/plantDetail/${plant._id}`}
+                >
+                  <button>Visit Plant Page</button>
+                </Link>
+              </div>
             </div>
           ) : (
-            <div>
+            <div className=" flex flex-col gap-4">
               <h2 className="text-2xl pt-4">{plant.name}</h2>
-              <p className="text-sm text-gray-500">{plant.description}</p>
-              <div className=" flex justify-around pt-10 ">
+              <p className="text-sm text-gray-500 mt-2">{plant.description}</p>
+              <div className=" flex justify-around">
                 <button
                   className="text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded"
                   onClick={toggleDetails}
