@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import AddToCart from './AddToCart'
 import { Link } from 'react-router-dom'
 import { IoMdSunny } from 'react-icons/io'
 import { FaWater } from 'react-icons/fa'
@@ -8,7 +9,6 @@ import { FaShoppingCart } from 'react-icons/fa'
 
 const PlantCard = ({ plant }) => {
   const [showDetails, setShowDetails] = useState(false)
-
   const toggleDetails = () => {
     setShowDetails(!showDetails)
   }
@@ -103,9 +103,10 @@ const PlantCard = ({ plant }) => {
                 >
                   See More
                 </button>
-                <button className=" w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle">
+                {/* <button className=" w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle">
                   <FaShoppingCart />
-                </button>
+                </button> */}
+                <AddToCart product={plant} productType={'Plant'} />
               </div>
             </div>
           )}

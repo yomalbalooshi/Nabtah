@@ -34,3 +34,38 @@ export const deleteOwnedPlant = async (id, data) => {
     throw error
   }
 }
+export const addItemToCustomerCart = async (id, data) => {
+  try {
+    const res = await Client.post(`/customer/${id}/cart`, data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+export const getCustomerCartItem = async (data) => {
+  try {
+    const res = await Client.get(`/customer/${data.id}/cartItem/${data.itemId}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const updateCartItem = async (id, data) => {
+  try {
+    const res = await Client.put(`/customer/${id}/cart`, data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+export const deleteCartItem = async (id, data) => {
+  try {
+    const res = await Client.delete(`/customer/${id}/cart`, {
+      data
+    })
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
