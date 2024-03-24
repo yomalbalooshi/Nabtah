@@ -7,7 +7,7 @@ import { addSerice } from '../services/service'
 const ServiceForm = () => {
   let navigate = useNavigate()
   const [available, setAvailable] = useState(null)
-  const [type, setType] = useState(null)
+
   // const { vendorId } = useParams('vendorId')
 
   const [formValues, setFormValues] = useState({
@@ -127,6 +127,7 @@ const ServiceForm = () => {
                 <InputText
                   id="price"
                   name="price"
+                  step=".01"
                   type="number"
                   min={0}
                   required
