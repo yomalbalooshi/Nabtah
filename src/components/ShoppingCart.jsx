@@ -5,6 +5,9 @@ import { InputSwitch } from 'primereact/inputswitch'
 import { Button } from 'primereact/button'
 import { ShoppingCartContext } from '../context/ShoppingCartContext'
 import { getCustomerDetails } from '../services/customer'
+import { loadStripe } from '@stripe/stripe-js'
+import Client from '../services/api'
+
 const ShoppingCart = ({ authenticatedUser }) => {
   const [shoppingCartItems, setshoppingCartItems] = useState([])
 
@@ -15,6 +18,33 @@ const ShoppingCart = ({ authenticatedUser }) => {
     }
     getuserDetails()
   }, [])
+
+  console.log(shoppingCartItems)
+
+  const handlePurchase = async () => {
+    const stripe = await loadStripe(
+      'pk_test_51OxrxoIWiRBaab8WUp26UQLP1KA1MLIKzGNGjpr2z42WO2aAmlRg6JdTLLkDvI34NSXKGhCIzAgU3OvYNU76fucv00zL7j5y8l'
+    )
+
+    const payload = {
+      products: shoppingCartItems
+    }
+
+    try {
+      const response = await Client.post('/create-checkout-session', payload)
+      const session = await response.data
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id
+      })
+
+      if (result.error) {
+        console.error(result.error.message)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
   return authenticatedUser ? (
     // <div>
@@ -114,6 +144,7 @@ const ShoppingCart = ({ authenticatedUser }) => {
             <button
               type="button"
               className="mt-6 text-sm px-6 py-2.5 w-full bg-[#333] hover:bg-[#111] text-white rounded-md"
+              onClick={handlePurchase}
             >
               Check out
             </button>

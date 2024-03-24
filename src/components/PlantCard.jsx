@@ -19,7 +19,7 @@ const PlantCard = ({ plant }) => {
         <div>
           <img
             className="rounded-l-lg w-80 min-w-80 h-56 object-cover"
-            src={plant.image}
+            src={plant?.image}
             alt={plant.name}
           />
         </div>
