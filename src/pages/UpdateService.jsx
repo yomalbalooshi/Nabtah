@@ -1,47 +1,60 @@
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
-import { addTool } from '../services/tool'
+import { updateService, serviceDetails } from '../services/service'
 
-const ToolForm = () => {
+const ServiceForm = () => {
   let navigate = useNavigate()
-
-  // const { vendorId } = useParams('vendorId')
-  const [available, setAvailable] = useState(null)
-
+  let { id } = useParams()
+  const [serviceDetail, setServiceDetail] = useState(null)
   const [formValues, setFormValues] = useState({
     name: '',
+    quantity: '',
+    frequency: '',
     description: '',
     available: null,
     price: 0
   })
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    const getServiceDetails = async () => {
+      let response = await serviceDetails(id)
+      setServiceDetail(response)
+    }
+    getServiceDetails()
+  }, [])
+
+  useEffect(() => {
     setFormValues({
-      ...formValues,
-      [e.target.id]: e.target.value
+      name: serviceDetail?.name,
+      description: serviceDetail?.description,
+      available: serviceDetail?.available,
+      price: serviceDetail?.price,
+      quantity: serviceDetail?.quantity,
+      frequency: serviceDetail?.frequency
     })
+  }, [serviceDetail])
+
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.id]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    navigate(`/`)
-    const tool = { ...formValues, available: available, vendorId }
-    await addTool(tool)
-    setFormValues({
-      name: '',
-      description: '',
-      available: true,
-      price: 0
-    })
+    // navigate(`/`)
+    const service = {
+      ...formValues,
+      id: id
+    }
+    await updateService(service)
   }
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-5xl font-semibold leading-9 tracking-tight text-gray-900">
-          Tool
+          Service
         </h2>
       </div>
 
@@ -59,6 +72,7 @@ const ToolForm = () => {
                 <InputText
                   id="name"
                   name="name"
+                  value={formValues.name}
                   type="text"
                   required
                   className="block w-full "
@@ -78,6 +92,7 @@ const ToolForm = () => {
                 <InputText
                   id="description"
                   name="description"
+                  value={formValues.description}
                   type="text"
                   required
                   className="block w-full "
@@ -97,8 +112,13 @@ const ToolForm = () => {
                 <Dropdown
                   id="available"
                   name="available"
-                  value={available}
-                  onChange={(e) => setAvailable(e.value)}
+                  value={formValues.available}
+                  onChange={(e) =>
+                    setFormValues((prev) => ({
+                      ...prev,
+                      available: e.value
+                    }))
+                  }
                   options={[
                     { name: 'Yes', value: true },
                     { name: 'No', value: false }
@@ -121,8 +141,49 @@ const ToolForm = () => {
                 <InputText
                   id="price"
                   name="price"
-                  type="number"
                   step=".01"
+                  type="number"
+                  value={formValues.price}
+                  min={0}
+                  required
+                  className="block w-full "
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="quantity"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Quantity
+              </label>
+              <div className="mt-2">
+                <InputText
+                  id="quantity"
+                  name="quantity"
+                  type="number"
+                  value={formValues.quantity}
+                  min={0}
+                  required
+                  className="block w-full "
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="frequency"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Frequency
+              </label>
+              <div className="mt-2">
+                <InputText
+                  id="frequency"
+                  name="frequency"
+                  value={formValues.frequency}
+                  type="text"
                   min={0}
                   required
                   className="block w-full "
@@ -136,7 +197,7 @@ const ToolForm = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-14"
               >
-                Add Tool
+                Add Serivce
               </button>
             </div>
           </form>
@@ -146,4 +207,4 @@ const ToolForm = () => {
   )
 }
 
-export default ToolForm
+export default ServiceForm

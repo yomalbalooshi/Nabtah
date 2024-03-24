@@ -1,9 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Client from '../services/api'
+import { getAllVendors } from '../services/vendor'
 
-const Home = ({ vendors }) => {
+const Home = () => {
   const [plants, setPlants] = useState([])
+  const [vendors, setVendors] =useState([])
+
+  useEffect(() => {
+    const getVendorDetails = async () => {
+      let response = await getAllVendors()
+      setVendors(response)
+      setSearchedArray(response)
+    }
+    getVendorDetails()
+  }, [])
 
   const vendorRef = useRef()
   const plantRef = useRef()

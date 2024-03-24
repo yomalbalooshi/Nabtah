@@ -67,8 +67,7 @@ const VendorList = () => {
       })
       .filter((val) => {
         if (selectedCities.length === 0) return true
-        const vendorCity = val.location.split(',')[0]
-        console.log(vendorCity)
+        const vendorCity = val?.location?.split(',')[0]
         return selectedCities.some((city) => city.name === vendorCity)
       })
     setSearchedArray(newVendorsArray)
