@@ -1,6 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import Client from '../services/api'
 import { showPlant } from '../services/plant'
 const PlantDetail = () => {
   const { plantId } = useParams()
