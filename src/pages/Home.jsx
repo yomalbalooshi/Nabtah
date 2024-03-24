@@ -11,7 +11,6 @@ const Home = () => {
     const getVendorDetails = async () => {
       let response = await getAllVendors()
       setVendors(response)
-      setSearchedArray(response)
     }
     getVendorDetails()
   }, [])
