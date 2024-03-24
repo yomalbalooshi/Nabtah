@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { IoMdSunny } from 'react-icons/io'
+import { FaWater } from 'react-icons/fa'
+import { IoCutOutline } from 'react-icons/io5'
+import { IoLocation } from 'react-icons/io5'
 
 const PlantCard = ({ plant }) => {
   const [showDetails, setShowDetails] = useState(false)
@@ -13,24 +17,62 @@ const PlantCard = ({ plant }) => {
       <div className="flex">
         <div>
           <img
-            className="rounded-l-lg w-52 min-w-52 h-56 object-cover"
+            className="rounded-l-lg w-80 min-w-80 h-56 object-cover"
             src={plant.image}
             alt={plant.name}
           />
         </div>
         <div className="text-center w-96">
           {showDetails ? (
-            <div>
+            <div className="ml-3">
               <div className="flex flex-col pt-4 gap-5">
-                <p className=" text-xs">{plant.origin}</p>
-                <p className=" text-xs">{plant.sunlight}</p>
-                <p className=" text-xs">{plant.watering}</p>
-                <p className=" text-xs">
-                  Prune {plant.pruningCount.amount} times a{' '}
+                <p className="text-xs flex items-center justify-center">
+                  <IoLocation
+                    className="mr-2 text-2xl "
+                    style={{
+                      color: 'red',
+                      stroke: 'black',
+                      strokeWidth: '1'
+                    }}
+                  />
+                  {plant.origin}
+                </p>
+                <p className="text-xs flex items-center justify-center">
+                  <IoMdSunny
+                    className="mr-2 text-2xl "
+                    style={{
+                      color: 'yellow',
+                      stroke: 'black',
+                      strokeWidth: '1'
+                    }}
+                  />
+                  {plant.sunlight}
+                </p>
+                <p className="text-xs flex items-center justify-center">
+                  <FaWater
+                    className="mr-2 text-2xl "
+                    style={{
+                      color: 'blue',
+                      stroke: 'black',
+                      strokeWidth: '1'
+                    }}
+                  />
+                  {plant.watering}
+                </p>
+                <p className="text-xs flex items-center justify-center">
+                  <IoCutOutline
+                    className="mr-2 text-2xl "
+                    style={{
+                      color: 'black',
+                      stroke: 'black',
+                      strokeWidth: '1'
+                    }}
+                  />
+                  Prune {plant.pruningCount.amount} times a
                   {plant.pruningCount.interval}
                 </p>
               </div>
-              <div className="flex justify-around mt-6">
+              <div className="flex justify-around mt-1">
                 <button
                   className="text-sm bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                   onClick={toggleDetails}
