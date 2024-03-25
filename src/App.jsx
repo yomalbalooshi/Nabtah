@@ -1,6 +1,6 @@
 import './App.css'
 import 'primereact/resources/themes/lara-light-teal/theme.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Client from './services/api'
 import Home from './pages/Home'
@@ -18,19 +18,20 @@ import AddPlant from './pages/AddPlant'
 import Account from './pages/Account'
 import PlantList from './pages/PlantList'
 import { showUserDetails } from './services/user'
-
 import UpdateToolForm from './pages/UpdateTool'
 import UpdateService from './pages/UpdateService'
 import UpdateProduce from './pages/UpdateProduce'
 import UpdatePlant from './pages/UpdatePlant'
 import UpdatePackage from './pages/UpdatePackage'
-
+import { ShoppingCartContext } from './context/ShoppingCartContext'
+import ShoppingCart from './components/ShoppingCart'
 import PaymentFailed from './pages/PaymentFailed'
 import PaymentSuccess from './pages/PaymentSuccess'
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
   const [authenticatedUser, setauthenticatedUser] = useState([])
+  let cart = useContext(ShoppingCartContext)
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -39,10 +40,12 @@ const App = () => {
         response.role = user['https://nabtah.com/roles'][0]
         setauthenticatedUser(response)
         localStorage.setItem('auth0_id', user.sub)
-        localStorage.setItem('_id', authenticatedUser._id)
+        localStorage.setItem('_id', response._id)
+        if (user['https://nabtah.com/roles'] == 'customer') {
+          cart.setCartFromDb(response.cart)
+        }
       }
       getuserDetails()
-      console.log(user)
     } else {
       localStorage.clear()
     }
@@ -76,6 +79,10 @@ const App = () => {
             element={<Account authenticatedUser={authenticatedUser} />}
           />
           <Route path="/plantlist" element={<PlantList />} />
+          <Route
+            path="/shoppingcart"
+            element={<ShoppingCart authenticatedUser={authenticatedUser} />}
+          />
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
           <Route path="/paymentfailed" element={<PaymentFailed />} />
         </Routes>
