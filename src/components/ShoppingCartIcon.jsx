@@ -1,8 +1,8 @@
 const ShoppingCartIcon = ({ ItemsCount }) => {
   return (
-    <div class="relative py-2">
-      <div class="t-0 absolute left-3">
-        <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
+    <div className="relative py-2">
+      <div className="t-0 absolute left-3">
+        <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
           {ItemsCount > 0 ? ItemsCount : 0}
         </p>
       </div>
@@ -12,7 +12,7 @@ const ShoppingCartIcon = ({ ItemsCount }) => {
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="file: mt-4 h-6 w-6"
+        className="file: mt-4 h-6 w-6"
       >
         <path
           stroke-linecap="round"

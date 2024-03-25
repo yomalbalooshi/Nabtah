@@ -24,7 +24,7 @@ const NavBar = () => {
           <Link to="/packageform">Add a Package</Link>
           <Link to="/toolform">Add a tool</Link>
           <Link to="/shoppingcart">
-            <ShoppingCartIcon ItemsCount={cartTotalProducts} />{' '}
+            <ShoppingCartIcon ItemsCount={cartTotalProducts} />
           </Link>
 
           <Link to="/plantlist">Plants</Link>

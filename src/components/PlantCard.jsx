@@ -44,7 +44,7 @@ const PlantCard = ({ plant }) => {
                 >
                   See More
                 </button>
-                <AddToCart product={plant} productType={'Plants'} />
+                <AddToCart product={plant} productType={'Plant'} />
               </div>
             </div>
           )}

@@ -1,7 +1,11 @@
 import { createContext, useState, useEffect } from 'react'
-import { getCustomerCart } from '../services/customer'
 import { useAuth0 } from '@auth0/auth0-react'
-
+import {
+  addItemToCustomerCart,
+  getCustomerCartItem,
+  updateCartItem,
+  deleteCartItem
+} from '../services/customer'
 export const ShoppingCartContext = createContext({
   items: [],
   getProductQuantity: () => {},
@@ -30,14 +34,22 @@ export function ShoppingCartProvider({ children }) {
     return quantity
   }
 
-  function addToCart(prodObj, prodType) {
+  async function addToCart(prodObj, prodType) {
     const quantity = getProductQuantity(prodObj._id)
-    console.log(quantity)
     if (quantity === 0) {
+      let itemToAdd = { itemId: prodObj._id, quantity: 1, itemModel: prodType }
       setCartProducts([
         ...cartProducts,
         { itemId: { ...prodObj }, quantity: 1, itemModel: prodType }
       ])
+      try {
+        let response = await addItemToCustomerCart(
+          localStorage.getItem('_id'),
+          itemToAdd
+        )
+      } catch (error) {
+        console.log(error)
+      }
     } else {
       setCartProducts(
         cartProducts.map((product) =>
@@ -46,28 +58,67 @@ export function ShoppingCartProvider({ children }) {
             : product
         )
       )
+      try {
+        let cartItemToUpdate = await getCustomerCartItem({
+          id: localStorage.getItem('_id'),
+          itemId: prodObj._id
+        })
+        let updatedCartItem = await updateCartItem(
+          localStorage.getItem('_id'),
+          {
+            itemId: cartItemToUpdate._id,
+            quantity: cartItemToUpdate.quantity + 1
+          }
+        )
+        console.log('getCustomerCartItem')
+        console.log(cartItemToUpdate._id)
+        console.log('updatedCartItem')
+        console.log(updatedCartItem)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
-  function removeOneFromCart(id) {
-    const quantity = getProductQuantity(id)
+
+  async function removeOneFromCart(itemId) {
+    const quantity = getProductQuantity(itemId)
     if (quantity == 1) {
-      deleteFromCart(id)
+      deleteFromCart(itemId)
     } else {
       setCartProducts(
         cartProducts.map((product) =>
-          product.itemId._id === id
+          product.itemId._id === itemId
             ? { ...product, quantity: product.quantity - 1 }
             : product
         )
       )
+      let cartItemToUpdate = await getCustomerCartItem({
+        id: localStorage.getItem('_id'),
+        itemId: itemId
+      })
+      let updatedCartItem = await updateCartItem(localStorage.getItem('_id'), {
+        itemId: cartItemToUpdate._id,
+        quantity: cartItemToUpdate.quantity - 1
+      })
     }
   }
-  function deleteFromCart(id) {
+  async function deleteFromCart(itemIdToDelete) {
     setCartProducts(
       cartProducts.filter((currentProduct) => {
-        return currentProduct.itemId._id != id
+        return currentProduct.itemId._id != itemIdToDelete
       })
     )
+    try {
+      let cartItemToUpdate = await getCustomerCartItem({
+        id: localStorage.getItem('_id'),
+        itemId: itemIdToDelete
+      })
+      let cartItemDelete = await deleteCartItem(localStorage.getItem('_id'), {
+        cartItemId: cartItemToUpdate._id
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
   function getProductsCount() {
     let totalQuantity = cartProducts.reduce(
