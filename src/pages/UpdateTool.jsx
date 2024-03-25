@@ -4,16 +4,11 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { updateTool, toolDetails } from '../services/tool'
 
-const UpdateToolForm = () => {
+const UpdateToolForm = ({ setUpdated }) => {
   let navigate = useNavigate()
   let { id } = useParams()
   const [toolDetail, setToolDetail] = useState(null)
-  const [formValues, setFormValues] = useState({
-    name: '',
-    description: '',
-    available: null,
-    price: 0
-  })
+  const [formValues, setFormValues] = useState(null)
 
   useEffect(() => {
     const getToolDetails = async () => {
@@ -28,7 +23,8 @@ const UpdateToolForm = () => {
       name: toolDetail?.name,
       description: toolDetail?.description,
       available: toolDetail?.available,
-      price: toolDetail?.price
+      price: toolDetail?.price,
+      image: toolDetail?.image
     })
   }, [toolDetail])
 
@@ -41,9 +37,11 @@ const UpdateToolForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    navigate(`/`)
+
+    navigate(`/account`)
     const tool = { ...formValues, id: id }
     await updateTool(tool)
+    setUpdated((prev) => !prev)
   }
 
   return (
@@ -96,7 +94,25 @@ const UpdateToolForm = () => {
                 />
               </div>
             </div>
-
+            <div>
+              <label
+                htmlFor="image"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Image
+              </label>
+              <div className="mt-2">
+                <InputText
+                  id="image"
+                  name="image"
+                  type="text"
+                  value={formValues?.image}
+                  required
+                  className="block w-full "
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
             <div>
               <label
                 htmlFor="available"
@@ -138,7 +154,7 @@ const UpdateToolForm = () => {
                   id="price"
                   name="price"
                   type="number"
-                  step=".01"
+                  step=".001"
                   value={formValues?.price}
                   min={0}
                   required

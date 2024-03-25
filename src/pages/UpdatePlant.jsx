@@ -7,7 +7,7 @@ import { Dropdown } from 'primereact/dropdown'
 import { MultiSelect } from 'primereact/multiselect'
 import '../styles/vendorList.css'
 
-const UpdatePlant = () => {
+const UpdatePlant = ({ setUpdated }) => {
   let navigate = useNavigate()
   let { id } = useParams()
   const [plantDetails, setPlantDetail] = useState(null)
@@ -51,13 +51,14 @@ const UpdatePlant = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // navigate(`/`)
+    navigate(`/account`)
+
     const plant = {
       ...formValues,
       id: id
     }
-    console.log('plant', plant)
     await updatePlant(plant)
+    setUpdated((prev) => !prev)
   }
 
   return (
@@ -343,7 +344,7 @@ const UpdatePlant = () => {
                   <InputText
                     id="price"
                     name="price"
-                    step=".01"
+                    step=".001"
                     type="number"
                     min={0}
                     required

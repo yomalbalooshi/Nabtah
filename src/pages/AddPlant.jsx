@@ -10,7 +10,7 @@ import { MultiSelect } from 'primereact/multiselect'
 import { getAllVendorPlants } from '../services/vendor'
 import '../styles/vendorList.css'
 
-const AddPlant = () => {
+const AddPlant = ({ authenticatedUser }) => {
   const [plants, setPlants] = useState(null)
   const [searchQuery, setSearchQuery] = useState(null)
   const [plantDetails, setPlantDetails] = useState(null)
@@ -19,7 +19,7 @@ const AddPlant = () => {
   const [first, setFirst] = useState(0)
   const [rows, setRows] = useState(12)
   const vendorApiIds = vendorPlants?.map((plant) => plant.apiId)
-  let vendorId = '65fcf85f7fd2d32df8293118'
+  let vendorId = authenticatedUser._id
 
   useEffect(() => {
     const handleVendorPlants = async () => {
@@ -457,7 +457,7 @@ const AddPlant = () => {
                   <InputText
                     id="price"
                     name="price"
-                    step=".01"
+                    step=".001"
                     type="number"
                     min={0}
                     required

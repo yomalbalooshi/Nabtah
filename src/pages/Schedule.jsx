@@ -9,12 +9,6 @@ import { MdWaterDrop } from 'react-icons/md'
 import { FaToolbox } from 'react-icons/fa'
 import { GiGardeningShears } from 'react-icons/gi'
 
-const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394
-  }
-}
-
 const Schedule = () => {
   let { id } = useParams()
   const [customerOrders, setCustomerOrders] = useState()
@@ -123,7 +117,7 @@ const Schedule = () => {
     const wateringDates = []
     let currentDate = moment(createdAt)
     const nextYear = moment(createdAt).add(2, 'year')
-    // currentDate.add(wateringInterval, 'days')
+    currentDate.add(wateringInterval, 'days')
     while (currentDate.isBefore(nextYear, 'day')) {
       wateringDates.push(currentDate.format('YYYY-MM-DD'))
       currentDate.add(wateringInterval, 'days')
@@ -136,7 +130,7 @@ const Schedule = () => {
     const serviceDates = []
     let currentDate = moment(createdAt)
     const nextTwoYears = moment(createdAt).add(2, 'years')
-    // currentDate.add(frequencyInDays, 'days')
+    currentDate.add(frequencyInDays, 'days')
     while (currentDate.isBefore(nextTwoYears, 'day')) {
       serviceDates.push(currentDate.format('YYYY-MM-DD'))
       currentDate.add(frequencyInDays, 'days')
@@ -212,15 +206,15 @@ const Schedule = () => {
       pruningsToPerform.length > 0
     ) {
       return (
-        <div>
+        <div className="flex flex-col">
           {plantsToWater.length > 0 && (
-            <Badge status="success" text={`Watering`} />
+            <Badge status="success" text={`Water`} />
           )}
           {servicesToPerform.length > 0 && (
             <Badge status="processing" text={`Service`} />
           )}
           {pruningsToPerform.length > 0 && (
-            <Badge status="warning" text={`Pruning`} />
+            <Badge status="warning" text={`Prune`} />
           )}
         </div>
       )

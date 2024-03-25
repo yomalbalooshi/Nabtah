@@ -4,13 +4,12 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { updateService, serviceDetails } from '../services/service'
 
-const ServiceForm = () => {
+const UpdateService = ({ setUpdated }) => {
   let navigate = useNavigate()
   let { id } = useParams()
   const [serviceDetail, setServiceDetail] = useState(null)
   const [formValues, setFormValues] = useState({
     name: '',
-    quantity: '',
     frequency: '',
     description: '',
     available: null,
@@ -31,7 +30,6 @@ const ServiceForm = () => {
       description: serviceDetail?.description,
       available: serviceDetail?.available,
       price: serviceDetail?.price,
-      quantity: serviceDetail?.quantity,
       frequency: serviceDetail?.frequency
     })
   }, [serviceDetail])
@@ -42,12 +40,13 @@ const ServiceForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // navigate(`/`)
+    navigate(`/account`)
     const service = {
       ...formValues,
       id: id
     }
     await updateService(service)
+    setUpdated((prev) => !prev)
   }
 
   return (
@@ -141,7 +140,7 @@ const ServiceForm = () => {
                 <InputText
                   id="price"
                   name="price"
-                  step=".01"
+                  step=".001"
                   type="number"
                   value={formValues.price}
                   min={0}
@@ -151,26 +150,7 @@ const ServiceForm = () => {
                 />
               </div>
             </div>
-            <div>
-              <label
-                htmlFor="quantity"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Quantity
-              </label>
-              <div className="mt-2">
-                <InputText
-                  id="quantity"
-                  name="quantity"
-                  type="number"
-                  value={formValues.quantity}
-                  min={0}
-                  required
-                  className="block w-full "
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
+
             <div>
               <label
                 htmlFor="frequency"
@@ -207,4 +187,4 @@ const ServiceForm = () => {
   )
 }
 
-export default ServiceForm
+export default UpdateService
