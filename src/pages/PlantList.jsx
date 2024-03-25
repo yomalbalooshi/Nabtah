@@ -19,15 +19,20 @@ const PlantList = () => {
   return (
     <div>
       <h1>PlantList</h1>
-      <div className="flex flex-wrap justify-around">
-        {plants.map((plant) => (
-          <Card
-            key={plant._id}
-            className=" w-2/5 my-6 shadow-lg transition-transform duration-400 transform hover:scale-105 rounded-lg"
-          >
-            <PlantCard plant={plant} />
-          </Card>
-        ))}
+      <div className="flex">
+        <div className="w-1/4 shadow-xl border-2 border-gray-50 flex flex-col items-center">
+          <h2 className="mt-4">Filters</h2>
+        </div>
+        <div className="flex flex-wrap justify-around w-3/4">
+          {plants.map((plant) => (
+            <Card
+              key={plant._id}
+              className=" h-56 my-6 shadow-lg transition-transform duration-400 transform hover:scale-105 rounded-lg"
+            >
+              <PlantCard plant={plant} />
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   )

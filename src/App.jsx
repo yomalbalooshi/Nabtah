@@ -25,6 +25,9 @@ import UpdateProduce from './pages/UpdateProduce'
 import UpdatePlant from './pages/UpdatePlant'
 import UpdatePackage from './pages/UpdatePackage'
 
+import PaymentFailed from './pages/PaymentFailed'
+import PaymentSuccess from './pages/PaymentSuccess'
+
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
   const [authenticatedUser, setauthenticatedUser] = useState([])
@@ -72,6 +75,8 @@ const App = () => {
             element={<Account authenticatedUser={authenticatedUser} />}
           />
           <Route path="/plantlist" element={<PlantList />} />
+          <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route path="/paymentfailed" element={<PaymentFailed />} />
         </Routes>
       </main>
     </div>
