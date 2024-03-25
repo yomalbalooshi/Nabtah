@@ -18,6 +18,8 @@ import AddPlant from './pages/AddPlant'
 import Account from './pages/Account'
 import PlantList from './pages/PlantList'
 import { showUserDetails } from './services/user'
+import ToolList from './pages/ToolList'
+
 import UpdateToolForm from './pages/UpdateTool'
 import UpdateService from './pages/UpdateService'
 import UpdateProduce from './pages/UpdateProduce'
@@ -27,6 +29,8 @@ import { ShoppingCartContext } from './context/ShoppingCartContext'
 import ShoppingCart from './components/ShoppingCart'
 import PaymentFailed from './pages/PaymentFailed'
 import PaymentSuccess from './pages/PaymentSuccess'
+
+import Package from './pages/Package'
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
@@ -85,6 +89,8 @@ const App = () => {
           />
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
           <Route path="/paymentfailed" element={<PaymentFailed />} />
+          <Route path="/toollist" element={<ToolList />} />
+          <Route path="/packages" element={<Package />} />
         </Routes>
       </main>
     </div>

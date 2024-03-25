@@ -76,7 +76,8 @@ const AddPlant = () => {
     (plant) =>
       !plant.cycle.toLowerCase().includes('premium') &&
       !vendorApiIds.includes(String(plant.id)) &&
-      !addedPlantIds.includes(plant.id)
+      !addedPlantIds.includes(plant.id) &&
+      plant?.default_image?.original_url
   )
 
   return (
@@ -111,9 +112,9 @@ const AddPlant = () => {
             <div className="flex flex-col">
               <img
                 className="rounded-t-lg w-96 h-56 object-cover"
-                src={plant.default_image.original_url}
+                src={plant?.default_image?.original_url}
               />
-              <h2 className="text-2xl pt-4">{plant.common_name}</h2>
+              <h2 className="text-2xl pt-4">{plant?.common_name}</h2>
               <p className="text-sm p-4 text-gray-500">
                 {plant.scientific_name}
               </p>
