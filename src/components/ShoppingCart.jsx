@@ -21,6 +21,13 @@ const ShoppingCart = ({ authenticatedUser }) => {
 
   console.log(shoppingCartItems)
 
+  let sum = 0
+  for (let i = 0; i < shoppingCartItems?.length; i++) {
+    sum += shoppingCartItems[i].itemId.price
+  }
+
+  let shippingPrice = Math.random() * 20
+
   const handlePurchase = async () => {
     const stripe = await loadStripe(
       'pk_test_51OxrxoIWiRBaab8WUp26UQLP1KA1MLIKzGNGjpr2z42WO2aAmlRg6JdTLLkDvI34NSXKGhCIzAgU3OvYNU76fucv00zL7j5y8l'
@@ -80,7 +87,7 @@ const ShoppingCart = ({ authenticatedUser }) => {
         <h2 className="text-3xl font-extrabold text-[#333]">Shopping Cart</h2>
         <div className="grid lg:grid-cols-3 gap-12 relative mt-10">
           <div className="lg:col-span-2 space-y-6">
-            {shoppingCartItems.map((item) => (
+            {shoppingCartItems?.map((item) => (
               //       <div key={item._id}>{item.itemId.name}</div>
               //
               <div
@@ -132,13 +139,20 @@ const ShoppingCart = ({ authenticatedUser }) => {
             </h3>
             <ul className="text-[#333] text-sm divide-y mt-6">
               <li className="flex flex-wrap gap-4 py-3">
-                Subtotal <span className="ml-auto font-bold">$70.00</span>
+                Subtotal{' '}
+                <span className="ml-auto font-bold">BHD {sum.toFixed(3)}</span>
               </li>
               <li className="flex flex-wrap gap-4 py-3">
-                Shipping <span className="ml-auto font-bold">Free</span>
+                Shipping{' '}
+                <span className="ml-auto font-bold">
+                  BHD {shippingPrice.toFixed(3)}
+                </span>
               </li>
               <li className="flex flex-wrap gap-4 py-3 font-bold">
-                Total <span className="ml-auto">$74.00</span>
+                Total{' '}
+                <span className="ml-auto">
+                  BHD {(sum + shippingPrice).toFixed(3)}
+                </span>
               </li>
             </ul>
             <button
