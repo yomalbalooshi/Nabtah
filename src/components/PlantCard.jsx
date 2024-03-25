@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-
+import AddToCart from './AddToCart'
 const PlantCard = ({ plant }) => {
   const [showDetails, setShowDetails] = useState(false)
-
   const toggleDetails = () => {
     setShowDetails(!showDetails)
   }
@@ -45,9 +44,7 @@ const PlantCard = ({ plant }) => {
                 >
                   See More
                 </button>
-                <button className="text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded">
-                  Add to Cart
-                </button>
+                <AddToCart product={plant} productType={'Plants'} />
               </div>
             </div>
           )}

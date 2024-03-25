@@ -34,3 +34,11 @@ export const deleteOwnedPlant = async (id, data) => {
     throw error
   }
 }
+export const getCustomerCart = async (id) => {
+  try {
+    const res = await Client.get(`/customer/${id}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
