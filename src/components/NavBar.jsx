@@ -9,9 +9,12 @@ import { ShoppingCartContext } from '../context/ShoppingCartContext'
 import { useContext } from 'react'
 import ShoppingCartIcon from './ShoppingCartIcon'
 const NavBar = () => {
-  const { isAuthenticated } = useAuth0()
-  const cart = useContext(ShoppingCartContext)
-  const cartTotalProducts = cart.getProductsCount()
+  const { isAuthenticated, user } = useAuth0()
+  let cart = useContext(ShoppingCartContext)
+  let cartTotalProducts
+  if (isAuthenticated && user['https://nabtah.com/roles'] == 'customer') {
+    cartTotalProducts = cart.getProductsCount()
+  }
   return (
     <div>
       <div>
@@ -23,14 +26,19 @@ const NavBar = () => {
           <Link to="/produceform">Add a Produce</Link>
           <Link to="/packageform">Add a Package</Link>
           <Link to="/toolform">Add a tool</Link>
-          <Link to="/shoppingcart">
-            <ShoppingCartIcon ItemsCount={cartTotalProducts} />
-          </Link>
 
           <Link to="/plantlist">Plants</Link>
 
           {!isAuthenticated && <LoginButton />}
           {isAuthenticated && <Link to="/account">Account</Link>}
+
+          {isAuthenticated && user['https://nabtah.com/roles'] == 'customer' ? (
+            <Link to="/shoppingcart">
+              <ShoppingCartIcon ItemsCount={cartTotalProducts} />
+            </Link>
+          ) : (
+            <></>
+          )}
           {isAuthenticated && <LogoutButton />}
         </div>
       </div>

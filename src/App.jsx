@@ -28,7 +28,7 @@ import { ShoppingCartContext } from './context/ShoppingCartContext'
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
   const [authenticatedUser, setauthenticatedUser] = useState([])
-  const cart = useContext(ShoppingCartContext)
+  let cart = useContext(ShoppingCartContext)
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -38,7 +38,9 @@ const App = () => {
         setauthenticatedUser(response)
         localStorage.setItem('auth0_id', user.sub)
         localStorage.setItem('_id', response._id)
-        cart.setCartFromDb(response.cart)
+        if (user['https://nabtah.com/roles'] == 'customer') {
+          cart.setCartFromDb(response.cart)
+        }
       }
       getuserDetails()
       console.log(user)
@@ -46,9 +48,7 @@ const App = () => {
       localStorage.clear()
     }
   }, [isAuthenticated, user])
-  useEffect(() => {
-    console.log(cart.items)
-  }, [cart])
+
   return (
     <div>
       <h1 className=" text-cyan-900 text-3xl text-center">Nabtah</h1>
