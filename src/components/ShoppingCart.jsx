@@ -19,7 +19,7 @@ const ShoppingCart = ({ authenticatedUser }) => {
       setshoppingCartItems(response.cart)
     }
     getuserDetails()
-    setShippingPrice(Math.random() * 20)
+    setShippingPrice(Math.random() * 10)
   }, [])
 
   useEffect(() => {
@@ -29,8 +29,6 @@ const ShoppingCart = ({ authenticatedUser }) => {
     }
     setSum(total)
   }, [shoppingCartItems])
-
-  console.log(shoppingCartItems)
 
   const handlePurchase = async () => {
     const stripe = await loadStripe(
@@ -120,15 +118,23 @@ const ShoppingCart = ({ authenticatedUser }) => {
               </li>
               <li className="flex flex-wrap gap-4 py-3">
                 Shipping{' '}
-                <span className="ml-auto font-bold">
-                  BHD {shippingPrice.toFixed(3)}
-                </span>
+                {sum === 0 ? (
+                  <span className="ml-auto font-bold">N/A</span>
+                ) : (
+                  <span className="ml-auto font-bold">
+                    BHD {shippingPrice.toFixed(3)}
+                  </span>
+                )}
               </li>
               <li className="flex flex-wrap gap-4 py-3 font-bold">
                 Total{' '}
-                <span className="ml-auto">
-                  BHD {(sum + shippingPrice).toFixed(3)}
-                </span>
+                {sum === 0 ? (
+                  <span className="ml-auto font-bold">{sum.toFixed(3)}</span>
+                ) : (
+                  <span className="ml-auto">
+                    BHD {(sum + shippingPrice).toFixed(3)}
+                  </span>
+                )}
               </li>
             </ul>
             <button
