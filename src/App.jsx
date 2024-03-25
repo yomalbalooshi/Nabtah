@@ -24,7 +24,7 @@ import UpdateProduce from './pages/UpdateProduce'
 import UpdatePlant from './pages/UpdatePlant'
 import UpdatePackage from './pages/UpdatePackage'
 import { ShoppingCartContext } from './context/ShoppingCartContext'
-
+import ShoppingCart from './components/ShoppingCart'
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
   const [authenticatedUser, setauthenticatedUser] = useState([])
@@ -43,7 +43,6 @@ const App = () => {
         }
       }
       getuserDetails()
-      console.log(user)
     } else {
       localStorage.clear()
     }
@@ -77,6 +76,10 @@ const App = () => {
             element={<Account authenticatedUser={authenticatedUser} />}
           />
           <Route path="/plantlist" element={<PlantList />} />
+          <Route
+            path="/shoppingcart"
+            element={<ShoppingCart authenticatedUser={authenticatedUser} />}
+          />
         </Routes>
       </main>
     </div>
