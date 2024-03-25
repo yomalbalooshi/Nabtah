@@ -10,6 +10,8 @@ import Client from '../services/api'
 
 const ShoppingCart = ({ authenticatedUser }) => {
   const [shoppingCartItems, setshoppingCartItems] = useState([])
+  const [shippingPrice, setShippingPrice] = useState(0)
+  const [sum, setSum] = useState(0)
 
   useEffect(() => {
     const getuserDetails = async () => {
@@ -17,16 +19,18 @@ const ShoppingCart = ({ authenticatedUser }) => {
       setshoppingCartItems(response.cart)
     }
     getuserDetails()
+    setShippingPrice(Math.random() * 20)
   }, [])
 
+  useEffect(() => {
+    let total = 0
+    for (let i = 0; i < shoppingCartItems.length; i++) {
+      total += shoppingCartItems[i].itemId.price * shoppingCartItems[i].quantity
+    }
+    setSum(total)
+  }, [shoppingCartItems])
+
   console.log(shoppingCartItems)
-
-  let sum = 0
-  for (let i = 0; i < shoppingCartItems?.length; i++) {
-    sum += shoppingCartItems[i].itemId.price
-  }
-
-  let shippingPrice = Math.random() * 20
 
   const handlePurchase = async () => {
     const stripe = await loadStripe(

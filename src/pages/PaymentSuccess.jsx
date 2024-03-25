@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 const PaymentSuccess = () => {
+
+  useEffect(()=>{
+
+  },[])
+  
   return (
     <div className="flex justify-center">
       <div className="flex flex-col text-center mt-20">
