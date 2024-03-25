@@ -25,6 +25,9 @@ import UpdatePlant from './pages/UpdatePlant'
 import UpdatePackage from './pages/UpdatePackage'
 import { ShoppingCartContext } from './context/ShoppingCartContext'
 import ShoppingCart from './components/ShoppingCart'
+import PaymentFailed from './pages/PaymentFailed'
+import PaymentSuccess from './pages/PaymentSuccess'
+
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0()
   const [authenticatedUser, setauthenticatedUser] = useState([])
@@ -80,6 +83,8 @@ const App = () => {
             path="/shoppingcart"
             element={<ShoppingCart authenticatedUser={authenticatedUser} />}
           />
+          <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route path="/paymentfailed" element={<PaymentFailed />} />
         </Routes>
       </main>
     </div>
