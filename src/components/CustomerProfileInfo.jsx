@@ -15,7 +15,7 @@ const CustomerProfileInfo = ({ authenticatedUser }) => {
         <Panel header="Order History" toggleable>
           {authenticatedUser.orders.map((item, index) => (
             <Card key={index}>
-              <p className="m-0">{item}</p>
+              <p className="m-0">{item._id}</p>
             </Card>
           ))}
         </Panel>

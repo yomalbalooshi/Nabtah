@@ -54,7 +54,7 @@ const AddPlant = () => {
       scientificName: selectedPlant.scientific_name[0],
       family: selectedPlant.family,
       cycle: selectedPlant.cycle,
-      watering: selectedPlant.watering,
+      // watering: selectedPlant.watering,
       sunlight: selectedPlant.sunlight[0],
       pruningMonth: selectedPlant.pruning_month,
       pruningCount: {
@@ -302,7 +302,7 @@ const AddPlant = () => {
                   <InputText
                     id="watering"
                     name="watering"
-                    type="text"
+                    type="number"
                     required
                     className="block w-full"
                     value={plantDetails?.watering}
@@ -481,6 +481,7 @@ const AddPlant = () => {
                 <div className="mt-2">
                   <MultiSelect
                     id="pruningmonths"
+                    required
                     name="pruningmonths"
                     value={plantDetails?.pruningMonth}
                     onChange={(e) =>

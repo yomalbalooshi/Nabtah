@@ -19,17 +19,16 @@ import Account from './pages/Account'
 import PlantList from './pages/PlantList'
 import { showUserDetails } from './services/user'
 import ToolList from './pages/ToolList'
-
 import UpdateToolForm from './pages/UpdateTool'
 import UpdateService from './pages/UpdateService'
 import UpdateProduce from './pages/UpdateProduce'
 import UpdatePlant from './pages/UpdatePlant'
 import UpdatePackage from './pages/UpdatePackage'
+import Schedule from './pages/Schedule'
 import { ShoppingCartContext } from './context/ShoppingCartContext'
 import ShoppingCart from './components/ShoppingCart'
 import PaymentFailed from './pages/PaymentFailed'
 import PaymentSuccess from './pages/PaymentSuccess'
-
 import Package from './pages/Package'
 
 const App = () => {
@@ -65,7 +64,6 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/produceform" element={<ProduceForm />} />
           <Route path="/updateproduce/:id" element={<UpdateProduce />} />
-
           <Route path="/toolform" element={<ToolForm />} />
           <Route path="/updatetool/:id" element={<UpdateToolForm />} />
           <Route path="/serviceform" element={<ServiceForm />} />
@@ -74,7 +72,6 @@ const App = () => {
           <Route path="/updatepackage/:id" element={<UpdatePackage />} />
           <Route path="/addplant" element={<AddPlant />} />
           <Route path="/updateplant/:id" element={<UpdatePlant />} />
-
           <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
           <Route path="/vendorlist" element={<VendorList />} />
           <Route path="/servicelist" element={<ServiceList />} />
@@ -89,6 +86,7 @@ const App = () => {
           />
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
           <Route path="/paymentfailed" element={<PaymentFailed />} />
+          <Route path="/schedule/:id" element={<Schedule />} />
           <Route path="/toollist" element={<ToolList />} />
           <Route path="/packages" element={<Package />} />
         </Routes>
