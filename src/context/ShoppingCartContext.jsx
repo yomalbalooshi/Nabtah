@@ -25,8 +25,7 @@ export function ShoppingCartProvider({ children }) {
     console.log(cartItems)
   }
   function clearCart() {
-    setCartProducts()
-    console.log(cartItems)
+    setCartProducts([])
   }
   function getProductQuantity(id) {
     const quantity = cartProducts.find(
