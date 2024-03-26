@@ -32,7 +32,7 @@ import PaymentSuccess from './pages/PaymentSuccess'
 import Package from './pages/Package'
 import UpdateVendorDetails from './pages/UpdateVendorDetails'
 import UpdateCustomerDetails from './pages/UpdateCustomerDetails'
-
+import ContactUs from './pages/ContactUs'
 const App = () => {
   const [updated, setUpdated] = useState(false)
   const { user, isAuthenticated, isLoading } = useAuth0()
@@ -143,6 +143,7 @@ const App = () => {
             path="/updateCustomer/:id"
             element={<UpdateCustomerDetails setUpdated={setUpdated} />}
           />
+          <Route path="/contactus" element={<ContactUs />} />
         </Routes>
       </main>
     </div>
