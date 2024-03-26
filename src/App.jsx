@@ -43,7 +43,11 @@ const App = () => {
     if (isAuthenticated && user) {
       const getuserDetails = async () => {
         let response = await showUserDetails(user.sub, user)
-        if (!user['https://nabtah.com/roles']) {
+        if (
+          !user ||
+          !user['https://nabtah.com/roles'] ||
+          user['https://nabtah.com/roles'].length === 0
+        ) {
           //for the case the role wasnt loaded
           window.location.reload()
         }
