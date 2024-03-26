@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { getCustomerDetails } from '../services/customer'
 import { usePDF } from 'react-to-pdf'
+import { useNavigate } from 'react-router-dom'
+import { Button } from 'primereact/button'
 
-const CustomerProfileInfo = ({ authenticatedUser }) => {
-  const { toPDF, targetRef } = usePDF({ filename: 'invoice.pdf' })
+const CustomerProfileInfo = ({ authenticatedUser, updated }) => {
+  let navigate = useNavigate()
+  const { toPDF, targetRef } = usePDF({ filename: 'invoices.pdf' })
   const [userDetails, setuserDetails] = useState({})
   const changeDateFormat = (dateToFormat) => {
     let date = new Date(dateToFormat)
@@ -20,12 +23,43 @@ const CustomerProfileInfo = ({ authenticatedUser }) => {
       }
       getuserDetails()
     }
-  }, [])
+  }, [authenticatedUser])
+  useEffect(() => {
+    const handleCustomerDetails = async () => {
+      const data = await getCustomerDetails(authenticatedUser._id)
+      setuserDetails(data)
+    }
+    handleCustomerDetails()
+  }, [updated])
   return (
     authenticatedUser &&
     userDetails.orders && (
       <div className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:pb-24">
+          <div>
+            <div className="pb-10  text-lg">
+              <span className="font-semibold ">Email: </span>
+              <span>{userDetails.email ? userDetails.email : ''}</span>
+            </div>
+          </div>
+          <div>
+            <div className="pb-10  text-lg">
+              <span className="font-semibold ">Address: </span>
+              <span>
+                <span className="pr-3">
+                  {userDetails.address
+                    ? userDetails.address
+                    : 'Add an address to your account!'}
+                </span>
+                <Button
+                  icon="pi pi-pencil"
+                  className="mb-3 bg-white select-none rounded-lg border py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-cyan-600 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  onClick={() => navigate(`/updateCustomer/${userDetails._id}`)}
+                ></Button>
+              </span>
+            </div>
+          </div>
+
           <div className="max-w-xl">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               Order history
