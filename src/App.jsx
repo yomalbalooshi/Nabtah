@@ -30,6 +30,8 @@ import ShoppingCart from './components/ShoppingCart'
 import PaymentFailed from './pages/PaymentFailed'
 import PaymentSuccess from './pages/PaymentSuccess'
 import Package from './pages/Package'
+import UpdateVendorDetails from './pages/UpdateVendorDetails'
+import UpdateCustomerDetails from './pages/UpdateCustomerDetails'
 
 const App = () => {
   const [updated, setUpdated] = useState(false)
@@ -41,6 +43,14 @@ const App = () => {
     if (isAuthenticated && user) {
       const getuserDetails = async () => {
         let response = await showUserDetails(user.sub, user)
+        if (
+          !user ||
+          !user['https://nabtah.com/roles'] ||
+          user['https://nabtah.com/roles'].length === 0
+        ) {
+          //for the case the role wasnt loaded
+          window.location.reload()
+        }
         response.role = user['https://nabtah.com/roles'][0]
         setauthenticatedUser(response)
         localStorage.setItem('auth0_id', user.sub)
@@ -125,6 +135,14 @@ const App = () => {
           <Route path="/schedule/:id" element={<Schedule />} />
           <Route path="/toollist" element={<ToolList />} />
           <Route path="/packages" element={<Package />} />
+          <Route
+            path="/updateVendor/:id"
+            element={<UpdateVendorDetails setUpdated={setUpdated} />}
+          />
+          <Route
+            path="/updateCustomer/:id"
+            element={<UpdateCustomerDetails setUpdated={setUpdated} />}
+          />
         </Routes>
       </main>
     </div>

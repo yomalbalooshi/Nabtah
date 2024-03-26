@@ -58,3 +58,20 @@ export const getVendorCustomerOrders = async (id) => {
     throw error
   }
 }
+
+export const getVendorDetails = async (id) => {
+  try {
+    const res = await Client.get(`vendor/${id}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+export const updateVendorDetails = async (data) => {
+  try {
+    const res = await Client.put(`/vendor/${data.id}`, data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
