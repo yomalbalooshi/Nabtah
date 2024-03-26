@@ -15,15 +15,15 @@ const UpdatePackage = () => {
   let navigate = useNavigate()
   let { id } = useParams()
   const [packageDetails, setPackageDetails] = useState(null)
-  const [available, setAvailable] = useState(null)
+  // const [available, setAvailable] = useState(null)
   const [vendorPlants, setVendorPlants] = useState(null)
   const [vendorProduce, setVendorProduce] = useState(null)
   const [vendorTools, setVendorTools] = useState(null)
   const [vendorServices, setVendorServices] = useState(null)
-  const [selectedPlants, setSelectedPlants] = useState(null)
-  const [selectedProduce, setSelectedProduce] = useState(null)
-  const [selectedServices, setSelectedServices] = useState(null)
-  const [selectedTools, setSelectedTools] = useState(null)
+  // const [selectedPlants, setSelectedPlants] = useState(null)
+  // const [selectedProduce, setSelectedProduce] = useState(null)
+  // const [selectedServices, setSelectedServices] = useState(null)
+  // const [selectedTools, setSelectedTools] = useState(null)
 
   let vendorId = '65fcf85f7fd2d32df8293118'
 

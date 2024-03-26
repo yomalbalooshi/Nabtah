@@ -19,3 +19,6 @@ body {
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
   background-color: #ffffff !important;
 }
+.ant-badge-status-success {
+  background-color: rgb(28, 190, 188) !important;
+}
