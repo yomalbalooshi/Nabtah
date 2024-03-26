@@ -90,7 +90,7 @@ const PlantModel = ({ isRotating, setIsRotating, ...props }) => {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.root_HP_1_Mat2_0.geometry}
+            geometry={nodes.root_HP_1_Mat2_0.geometry}  
             material={materials['Mat.2']}
             position={[0.071, 0.06, 0.219]}
           />
