@@ -102,15 +102,35 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
         icon="pi pi-pencil"
         className="p-button-sm p-button-text"
         onClick={() => {
-          if (options.props.footer.includes('Plants')) {
+          if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Plant'
+            )
+          ) {
             navigate(`/updateplant/${rowData._id}`)
-          } else if (options.props.footer.includes('Packages')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Package'
+            )
+          ) {
             navigate(`/updatepackage/${rowData._id}`)
-          } else if (options.props.footer.includes('Tools')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Tool'
+            )
+          ) {
             navigate(`/updatetool/${rowData._id}`)
-          } else if (options.props.footer.includes('Produce')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Produce'
+            )
+          ) {
             navigate(`/updateproduce/${rowData._id}`)
-          } else if (options.props.footer.includes('Services')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Service'
+            )
+          ) {
             navigate(`/updateservice/${rowData._id}`)
           }
         }}
@@ -153,7 +173,20 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
       </ul>
     )
   }
-
+  const DataTableFooter = ({ totalRecords, rightSideButton }) => {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}
+      >
+        <div>Total {totalRecords} Records</div>
+        {rightSideButton}
+      </div>
+    )
+  }
   return (
     authenticatedUser && (
       <div>
@@ -164,7 +197,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
               rows={10}
               rowsPerPageOptions={[10, 25, 50, 100]}
               value={vendorPlants}
-              footer={`Total ${vendorPlants ? vendorPlants.length : 0} Plants`}
+              footer={
+                <DataTableFooter
+                  totalRecords={vendorPlants ? vendorPlants.length : 0}
+                  rightSideButton={
+                    <Button
+                      label="Add Plant"
+                      onClick={() => navigate(`/addplant/`)}
+                    />
+                  }
+                />
+              }
               tableStyle={{ minWidth: '60rem' }}
             >
               <Column header="Image" body={imageBodyTemplate}></Column>
@@ -188,7 +231,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorProduce}
-            footer={`Total ${vendorProduce ? vendorProduce.length : 0} Produce`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Produce"
+                    onClick={() => navigate(`/produceform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column header="Image" body={imageBodyTemplate}></Column>
@@ -208,9 +261,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorPackages}
-            footer={`Total ${
-              vendorPackages ? vendorPackages.length : 0
-            } Packages`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Package"
+                    onClick={() => navigate(`/packageform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column field="name" header="Name"></Column>
@@ -234,7 +295,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorTools}
-            footer={`Total ${vendorTools ? vendorTools.length : 0} Tools`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Tool"
+                    onClick={() => navigate(`/toolform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column header="Image" body={imageBodyTemplate}></Column>
@@ -254,9 +325,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorServices}
-            footer={`Total ${
-              vendorServices ? vendorServices.length : 0
-            } Services`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Service"
+                    onClick={() => navigate(`/serviceform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column field="name" header="Name"></Column>

@@ -4,12 +4,11 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { addProduce } from '../services/produce'
 
-const ProduceForm = () => {
+const ProduceForm = ({ authenticatedUser }) => {
   let navigate = useNavigate()
+  let vendorId = authenticatedUser._id
   const [available, setAvailable] = useState(null)
   const [type, setType] = useState(null)
-  // const { vendorId } = useParams('vendorId')
-
   const [formValues, setFormValues] = useState({
     name: '',
     type: '',
@@ -28,9 +27,10 @@ const ProduceForm = () => {
     const produce = {
       ...formValues,
       available: available,
-      type: type
-      // vendorId
+      type: type,
+      vendor: vendorId
     }
+    navigate(`/account`)
     await addProduce(produce)
     setFormValues({
       name: '',
@@ -40,7 +40,6 @@ const ProduceForm = () => {
       available: true,
       price: 0
     })
-    navigate(`/`)
   }
 
   return (

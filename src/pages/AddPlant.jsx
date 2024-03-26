@@ -8,9 +8,11 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { MultiSelect } from 'primereact/multiselect'
 import { getAllVendorPlants } from '../services/vendor'
+import { useNavigate } from 'react-router-dom'
 import '../styles/vendorList.css'
 
 const AddPlant = ({ authenticatedUser }) => {
+  let navigate = useNavigate()
   const [plants, setPlants] = useState(null)
   const [searchQuery, setSearchQuery] = useState(null)
   const [plantDetails, setPlantDetails] = useState(null)
@@ -68,6 +70,7 @@ const AddPlant = ({ authenticatedUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    navigate('/account')
     await addPlant(plantDetails)
     setAddedPlantIds([...addedPlantIds, plantDetails.apiId])
   }

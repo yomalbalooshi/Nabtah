@@ -4,12 +4,10 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { addTool } from '../services/tool'
 
-const ToolForm = () => {
+const ToolForm = ({ authenticatedUser }) => {
   let navigate = useNavigate()
-
-  // const { vendorId } = useParams('vendorId')
+  let vendorId = authenticatedUser._id
   const [available, setAvailable] = useState(null)
-
   const [formValues, setFormValues] = useState({
     name: '',
     description: '',
@@ -27,8 +25,8 @@ const ToolForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    navigate(`/`)
-    const tool = { ...formValues, available: available, vendorId }
+    navigate(`/account`)
+    const tool = { ...formValues, available: available, vendor: vendorId }
     await addTool(tool)
     setFormValues({
       name: '',

@@ -4,12 +4,10 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { addSerice } from '../services/service'
 
-const ServiceForm = () => {
+const ServiceForm = ({ authenticatedUser }) => {
   let navigate = useNavigate()
+  let vendorId = authenticatedUser._id
   const [available, setAvailable] = useState(null)
-
-  // const { vendorId } = useParams('vendorId')
-
   const [formValues, setFormValues] = useState({
     name: '',
     frequency: '',
@@ -24,13 +22,12 @@ const ServiceForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    navigate(`/`)
     const service = {
       ...formValues,
-      available: available
-
-      // vendorId
+      available: available,
+      vendor: vendorId
     }
+    navigate(`/account`)
     await addSerice(service)
     setFormValues({
       name: '',
