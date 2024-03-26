@@ -2,6 +2,8 @@ import { Dialog } from 'primereact/dialog'
 import { useState, useContext } from 'react'
 import { Button } from 'primereact/button'
 import { ShoppingCartContext } from '../context/ShoppingCartContext'
+import { FaShoppingCart } from 'react-icons/fa'
+
 const AddToCart = ({ product, productType }) => {
   const [visible, setVisible] = useState(false)
   const [position, setPosition] = useState('center')
@@ -62,12 +64,12 @@ const AddToCart = ({ product, productType }) => {
   return (
     <div>
       <Button
-        className="text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded"
+        className="w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle"
         onClick={() =>
           showAddtoCartModal('bottom', product.name, product.price)
         }
       >
-        Add to Cart
+        <FaShoppingCart />
       </Button>
       <Dialog
         header={`Add ${addtoCartModalTitle} to Cart!`}

@@ -17,16 +17,12 @@ const Account = ({ authenticatedUser, updated }) => {
   return (
     authenticatedUser && (
       <div>
-        <div className="surface-0 p-4 shadow-2 border-round flex space-x-8 justify-evenly">
-          <div>
-            <img
-              src={authenticatedUser.avatar}
-              alt={authenticatedUser.name}
-              className=" w-56 "
-            />
-          </div>
-          <div className=" flex-grow flex flex-col justify-center">
-            <p className="text-3xl font-medium text-900 mb-3 ">
+        <div
+          style={{ backgroundImage: `url(${authenticatedUser.avatar})` }}
+          className="bg-cover surface-0 shadow-2 border-round bg-center space-x-8 min-h-64 flex justify-center "
+        >
+          <div className="backdrop-blur-sm bg-black/45 w-full flex justify-center">
+            <p className=" mt-36 text-3xl font-medium text-neutral-50 mb-3 h-full align-text-bottom ">
               Welcome, {authenticatedUser.name}!
             </p>
           </div>
