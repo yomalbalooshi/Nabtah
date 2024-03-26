@@ -253,13 +253,13 @@ const Schedule = () => {
         {getPlantsToWater(selectedDate)?.map((plant, index) => (
           <div key={index} className="flex">
             <MdWaterDrop style={{ marginRight: '8px' }} />
-            <p className="text-blue-500"> Water {plant.name}</p>
+            <p className="text-sky-700"> Water {plant.name}</p>
           </div>
         ))}
         {getServicesToPerform(selectedDate)?.map((service, index) => (
           <div key={`service_${index}`} className="flex">
             <FaToolbox style={{ marginRight: '8px', marginTop: '3px' }} />
-            <p className="text-green-700">{service.name} Scheduled</p>
+            <p className="text-teal-700">{service.name} Scheduled</p>
           </div>
         ))}
         {getPruningsToPerform(selectedDate)?.map((plant, index) => (
@@ -267,7 +267,7 @@ const Schedule = () => {
             <GiGardeningShears
               style={{ marginRight: '8px', marginTop: '3px' }}
             />
-            <p className="text-green-700"> Prune {plant.name} </p>
+            <p className="text-yellow-600"> Prune {plant.name} </p>
           </div>
         ))}
       </Dialog>
