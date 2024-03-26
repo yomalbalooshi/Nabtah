@@ -1,10 +1,13 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getCustomerOrders } from '../services/customer'
 import React from 'react'
 import { Badge, Calendar } from 'antd'
 import moment from 'moment'
 import { Dialog } from 'primereact/dialog'
+import { MdWaterDrop } from 'react-icons/md'
+import { FaToolbox } from 'react-icons/fa'
+import { GiGardeningShears } from 'react-icons/gi'
 
 const getMonthData = (value) => {
   if (value.month() === 8) {
@@ -32,9 +35,39 @@ const Schedule = () => {
     )
   }
 
+  const getPurchasedServices = () => {
+    const frequencyInDays = {
+      Yearly: 365,
+      Monthly: 30,
+      Weekly: 7,
+      Daily: 1,
+      Quarterly: 90,
+      Biweekly: 14,
+      Bimonthly: 60,
+      Semiannually: 182
+    }
+
+    return customerOrders
+      ?.flatMap((order) =>
+        order.orderItems.filter((item) => item.itemModel === 'Service')
+      )
+      .map((service) => {
+        const frequency = service.itemId.frequency
+        const days = frequencyInDays[frequency]
+        return {
+          ...service,
+          itemId: {
+            ...service.itemId,
+            days: days
+          }
+        }
+      })
+  }
+
   const getPlantsToWater = (value) => {
     const purchasedPlants = getPurchasedPlants()
     const plantsToWater = []
+    const uniquePlantIds = new Set()
 
     purchasedPlants?.forEach((plant) => {
       const wateringDates = generateWateringDates(
@@ -42,40 +75,55 @@ const Schedule = () => {
         parseInt(plant.itemId.watering)
       )
 
-      if (wateringDates.includes(value?.format('YYYY-MM-DD'))) {
+      if (
+        wateringDates.includes(value?.format('YYYY-MM-DD')) &&
+        !uniquePlantIds.has(plant.itemId._id)
+      ) {
         plantsToWater.push(plant.itemId)
+        uniquePlantIds.add(plant.itemId._id)
+      }
+    })
+    return plantsToWater
+  }
+  const getServicesToPerform = (value) => {
+    const purchasedServices = getPurchasedServices()
+    const servicesToPerform = []
+
+    purchasedServices?.forEach((service) => {
+      const serviceDates = generateServiceDates(
+        service.createdAt,
+        service.itemId.days
+      )
+      const isWithinServiceDates = serviceDates.some((date) =>
+        value?.isSame(date, 'day')
+      )
+
+      if (isWithinServiceDates) {
+        servicesToPerform.push(service.itemId)
       }
     })
 
-    return plantsToWater
+    return servicesToPerform
   }
 
   const onPanelChange = (value, mode) => {
-    console.log(value.format('YYYY-MM-DD'), mode)
-    console.log(value)
+    setSelectedDate(null)
+    setVisible(null)
   }
   const onSelect = (value) => {
-    // console.log(value.format('YYYY-MM-DD'))
-
     setSelectedDate(value)
     setVisible(true)
-    console.log('selecteddate', selectedDate)
   }
   const monthCellRender = (value) => {
     const num = getMonthData(value)
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null
+    return num ? <div className="notes-month"></div> : null
   }
 
   const generateWateringDates = (createdAt, wateringInterval) => {
     const wateringDates = []
     let currentDate = moment(createdAt)
-    const nextYear = moment(createdAt).add(1, 'year')
-
+    const nextYear = moment(createdAt).add(2, 'year')
+    // currentDate.add(wateringInterval, 'days')
     while (currentDate.isBefore(nextYear, 'day')) {
       wateringDates.push(currentDate.format('YYYY-MM-DD'))
       currentDate.add(wateringInterval, 'days')
@@ -84,82 +132,96 @@ const Schedule = () => {
     return wateringDates
   }
 
-  // const dateCellRender = (value) => {
-  //   const purchasedPlants = getPurchasedPlants()
-  //   return (
-  //     <ul className="events">
-  //       {purchasedPlants?.map((plant) => {
-  //         const wateringDates = generateWateringDates(
-  //           plant.createdAt,
-  //           parseInt(plant.itemId.watering)
-  //         )
-  //         if (wateringDates.includes(value.format('YYYY-MM-DD'))) {
-  //           return (
-  //             <li>
-  //               <Badge status="success" text={`Water ${plant.itemId.name}`} />
-  //             </li>
-  //           )
-  //         }
-  //         return null
-  //       })}
-  //     </ul>
-  //   )
-  // }
-  // const dateCellRender = (value) => {
-  //   const purchasedPlants = getPurchasedPlants()
-  //   const plantsToWater = []
+  const generateServiceDates = (createdAt, frequencyInDays) => {
+    const serviceDates = []
+    let currentDate = moment(createdAt)
+    const nextTwoYears = moment(createdAt).add(2, 'years')
+    // currentDate.add(frequencyInDays, 'days')
+    while (currentDate.isBefore(nextTwoYears, 'day')) {
+      serviceDates.push(currentDate.format('YYYY-MM-DD'))
+      currentDate.add(frequencyInDays, 'days')
+    }
 
-  //   purchasedPlants?.forEach((plant) => {
-  //     const wateringDates = generateWateringDates(
-  //       plant.createdAt,
-  //       parseInt(plant.itemId.watering)
-  //     )
+    return serviceDates
+  }
+  const generatePruningDates = (createdAt, amount, interval) => {
+    const pruningDates = []
+    let currentDate = moment(createdAt)
 
-  //     if (wateringDates.includes(value.format('YYYY-MM-DD'))) {
-  //       plantsToWater.push(plant.itemId)
-  //     }
-  //   })
-  //   if (plantsToWater.length > 0) {
-  //     return (
-  //       <div>
-  //         <Badge status="success" text={`Watering`} />
-  //         {/* {selectedDate && selectedDate.isSame(value, 'day') && visible && (
+    let intervalDays
+    switch (interval) {
+      case 'daily':
+        intervalDays = 1
+        break
+      case 'weekly':
+        intervalDays = 7
+        break
+      case 'monthly':
+        intervalDays = 30
+        break
+      case 'yearly':
+        intervalDays = 365
+        break
+      default:
+        intervalDays = 30
+    }
+    intervalDays /= amount
 
-  //           <Dialog
-  //             header="Plants to Water"
-  //             visible={visible}
-  //             style={{ width: '50vw' }}
-  //             // onHide={() => setVisible(false)}
-  //           >
-  //             {plantsToWater.map((plant, index) => (
-  //               <div>
-  //                 <p key={index}>{plant.name}</p>
-  //               </div>
-  //             ))}
-  //             <button
-  //               onClick={() => {
-  //                 setVisible(false)
-  //                 setSelectedDate(null)
-  //               }}
-  //             >
-  //               hide
-  //             </button>
-  //           </Dialog>
-  //         )} */}
-  //       </div>
-  //     )
-  //   }
+    const twoYearsLater = moment(createdAt).add(2, 'years')
 
-  //   return null
-  // }
+    while (currentDate.isBefore(twoYearsLater)) {
+      currentDate.add(intervalDays, 'days') //change order if want to show for day purchased
+      pruningDates.push(currentDate.format('YYYY-MM-DD'))
+    }
+
+    return pruningDates
+  }
+  const getPruningsToPerform = (value) => {
+    const purchasedPlants = getPurchasedPlants()
+    const pruningsToPerform = []
+    const uniquePlantIds = new Set()
+
+    purchasedPlants?.forEach((plant) => {
+      const { pruningCount } = plant.itemId
+      if (pruningCount && !uniquePlantIds.has(plant.itemId._id)) {
+        const { amount, interval } = pruningCount
+        const pruningDates = generatePruningDates(
+          plant.createdAt,
+          amount,
+          interval
+        )
+
+        if (pruningDates.includes(value?.format('YYYY-MM-DD'))) {
+          pruningsToPerform.push(plant.itemId)
+        }
+        uniquePlantIds.add(plant.itemId._id)
+      }
+    })
+
+    return pruningsToPerform
+  }
 
   const dateCellRender = (value) => {
     const plantsToWater = getPlantsToWater(value)
+    const servicesToPerform = getServicesToPerform(value)
+    const pruningsToPerform = getPruningsToPerform(value)
 
-    if (plantsToWater.length > 0) {
+    if (
+      plantsToWater.length > 0 ||
+      servicesToPerform.length > 0 ||
+      pruningsToPerform.length > 0
+    ) {
       return (
         <div>
-          <Badge status="success" text={`Watering`} />
+          {plantsToWater.length > 0 && (
+            <Badge status="success" text={`Watering`} />
+          )}
+          {servicesToPerform.length > 0 && (
+            <Badge status="processing" text={`Service`} />
+          )}
+          {pruningsToPerform.length > 0 && (
+            <Badge status="warning" text={`Pruning`} />
+          )}
         </div>
       )
     }
@@ -180,7 +242,7 @@ const Schedule = () => {
         onSelect={onSelect}
       />
       <Dialog
-        header="Plants to Water"
+        header="Schedule for the Day"
         visible={visible}
         style={{ width: '50vw' }}
         onHide={() => {
@@ -189,8 +251,23 @@ const Schedule = () => {
         }}
       >
         {getPlantsToWater(selectedDate)?.map((plant, index) => (
-          <div key={index}>
-            <p>{plant.name}</p>
+          <div key={index} className="flex">
+            <MdWaterDrop style={{ marginRight: '8px' }} />
+            <p className="text-blue-500"> Water {plant.name}</p>
+          </div>
+        ))}
+        {getServicesToPerform(selectedDate)?.map((service, index) => (
+          <div key={`service_${index}`} className="flex">
+            <FaToolbox style={{ marginRight: '8px', marginTop: '3px' }} />
+            <p className="text-green-700">{service.name} Scheduled</p>
+          </div>
+        ))}
+        {getPruningsToPerform(selectedDate)?.map((plant, index) => (
+          <div key={`plant${index}`} className="flex">
+            <GiGardeningShears
+              style={{ marginRight: '8px', marginTop: '3px' }}
+            />
+            <p className="text-green-700"> Prune {plant.name} </p>
           </div>
         ))}
       </Dialog>
