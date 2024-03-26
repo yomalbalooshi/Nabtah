@@ -14,6 +14,7 @@ const ProduceForm = () => {
     name: '',
     type: '',
     description: '',
+    image: '',
     available: true,
     price: 0
   })
@@ -35,6 +36,7 @@ const ProduceForm = () => {
       name: '',
       type: '',
       description: '',
+      image: '',
       available: true,
       price: 0
     })
@@ -82,6 +84,24 @@ const ProduceForm = () => {
                 <InputText
                   id="description"
                   name="description"
+                  type="text"
+                  required
+                  className="block w-full "
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="image"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Image
+              </label>
+              <div className="mt-2">
+                <InputText
+                  id="image"
+                  name="image"
                   type="text"
                   required
                   className="block w-full "
@@ -148,7 +168,7 @@ const ProduceForm = () => {
                 <InputText
                   id="price"
                   name="price"
-                  step=".01"
+                  step=".001"
                   type="number"
                   min={0}
                   required

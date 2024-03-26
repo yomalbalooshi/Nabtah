@@ -11,21 +11,16 @@ import {
 } from '../services/vendor'
 import { updatePackage, showPackage } from '../services/package'
 
-const UpdatePackage = () => {
+const UpdatePackage = ({ setUpdated }) => {
   let navigate = useNavigate()
   let { id } = useParams()
   const [packageDetails, setPackageDetails] = useState(null)
-  // const [available, setAvailable] = useState(null)
   const [vendorPlants, setVendorPlants] = useState(null)
   const [vendorProduce, setVendorProduce] = useState(null)
   const [vendorTools, setVendorTools] = useState(null)
   const [vendorServices, setVendorServices] = useState(null)
-  // const [selectedPlants, setSelectedPlants] = useState(null)
-  // const [selectedProduce, setSelectedProduce] = useState(null)
-  // const [selectedServices, setSelectedServices] = useState(null)
-  // const [selectedTools, setSelectedTools] = useState(null)
 
-  let vendorId = '65fcf85f7fd2d32df8293118'
+  let vendorId = '66017e9dcebfb96f24f5f332'
 
   const [formValues, setFormValues] = useState({
     name: '',
@@ -82,19 +77,23 @@ const UpdatePackage = () => {
     })
   }, [packageDetails])
 
-  console.log(formValues)
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // navigate(`/`)
+    navigate(`/account`)
     const vendorPackage = {
       ...formValues,
+      plants: formValues.plants.map((plant) => plant._id),
+      produce: formValues.produce.map((produce) => produce._id),
+      services: formValues.services.map((service) => service._id),
+      tools: formValues.tools.map((tool) => tool._id),
       id: id
     }
     await updatePackage(vendorPackage)
+    setUpdated((prev) => !prev)
   }
 
   return (
@@ -317,7 +316,7 @@ const UpdatePackage = () => {
                   id="price"
                   name="price"
                   type="number"
-                  step=".01"
+                  step=".001"
                   value={formValues.price}
                   min={0}
                   required

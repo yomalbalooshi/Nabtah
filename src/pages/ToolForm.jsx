@@ -124,7 +124,7 @@ const ToolForm = () => {
                   id="price"
                   name="price"
                   type="number"
-                  step=".01"
+                  step=".001"
                   min={0}
                   required
                   className="block w-full "
