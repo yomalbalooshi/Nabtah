@@ -14,7 +14,8 @@ const ToolForm = () => {
     name: '',
     description: '',
     available: null,
-    price: 0
+    price: 0,
+    image: ''
   })
 
   const handleChange = (e) => {
@@ -33,7 +34,8 @@ const ToolForm = () => {
       name: '',
       description: '',
       available: true,
-      price: 0
+      price: 0,
+      image: ''
     })
   }
 
@@ -126,6 +128,25 @@ const ToolForm = () => {
                   min={0}
                   required
                   className="block w-full "
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="image"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Image
+              </label>
+              <div className="mt-2">
+                <InputText
+                  id="image"
+                  name="image"
+                  type="text"
+                  required
+                  className="block w-full"
                   onChange={handleChange}
                 />
               </div>
