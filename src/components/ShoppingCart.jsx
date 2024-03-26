@@ -47,34 +47,6 @@ const ShoppingCart = ({ authenticatedUser }) => {
   }
 
   return authenticatedUser ? (
-    // <div>
-    //   <h1>Shopping Cart</h1>
-    //   <button>{authenticatedUser._id}</button>
-
-    //   {/* <div>
-    //     {authenticatedUser.cart.map((item) => (
-    //       <div key={item._id}>{item.itemId.name}</div>
-    //     ))}
-    //   </div> */}
-    //   <div classNameName="flex">
-    //     <div classNameName="card flex-grow mr-11  ">
-    //       <div classNameName="flex justify-content-center align-items-center mb-4 gap-2"></div>
-    //       <DataTable
-    //         value={authenticatedUser.cart}
-    //         dataKey="_id"
-    //         tableStyle={{ minWidth: '50rem' }}
-    //       >
-    //         <Column headerStyle={{ width: '3rem' }}></Column>
-    //         <Column header="Product" body={imageBodyTemplate}></Column>
-    //         <Column field="itemId.name" header="Name"></Column>
-    //         <Column field="itemId.category" header="Type"></Column>
-    //         <Column field="quantity" header="quantity"></Column>
-    //         <Column field="itemId.price" header="price"></Column>
-    //       </DataTable>
-    //     </div>
-    //     <div classNameName="flex-grow min-w-80 card">Order Details</div>
-    //   </div>
-    // </div>
     <div className="font-[sans-serif]">
       <div className="max-w-7xl mx-auto p-6">
         <h2 className="text-3xl font-extrabold text-[#333]">Shopping Cart</h2>
