@@ -12,7 +12,6 @@ const ServiceForm = () => {
 
   const [formValues, setFormValues] = useState({
     name: '',
-    quantity: '',
     frequency: '',
     description: '',
     available: null,
@@ -25,6 +24,7 @@ const ServiceForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    navigate(`/`)
     const service = {
       ...formValues,
       available: available
@@ -34,13 +34,11 @@ const ServiceForm = () => {
     await addSerice(service)
     setFormValues({
       name: '',
-      quantity: '',
       frequency: '',
       description: '',
       available: null,
       price: 0
     })
-    navigate(`/`)
   }
 
   return (
@@ -127,7 +125,7 @@ const ServiceForm = () => {
                 <InputText
                   id="price"
                   name="price"
-                  step=".01"
+                  step=".001"
                   type="number"
                   min={0}
                   required
@@ -136,25 +134,7 @@ const ServiceForm = () => {
                 />
               </div>
             </div>
-            <div>
-              <label
-                htmlFor="quantity"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Quantity
-              </label>
-              <div className="mt-2">
-                <InputText
-                  id="quantity"
-                  name="quantity"
-                  type="number"
-                  min={0}
-                  required
-                  className="block w-full "
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
+
             <div>
               <label
                 htmlFor="frequency"

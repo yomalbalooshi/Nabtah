@@ -208,13 +208,13 @@ const Schedule = () => {
       return (
         <div className="flex flex-col">
           {plantsToWater.length > 0 && (
-            <Badge status="success" text={`Watering`} />
+            <Badge status="success" text={`Water`} />
           )}
           {servicesToPerform.length > 0 && (
             <Badge status="processing" text={`Service`} />
           )}
           {pruningsToPerform.length > 0 && (
-            <Badge status="warning" text={`Pruning`} />
+            <Badge status="warning" text={`Prune`} />
           )}
         </div>
       )

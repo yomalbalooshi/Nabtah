@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { updateProduce, produceDetails } from '../services/produce'
 
-const UpdateProduce = () => {
+const UpdateProduce = ({ setUpdated }) => {
   let navigate = useNavigate()
   let { id } = useParams()
   const [produceDetail, setProduceDetail] = useState(null)
@@ -41,12 +41,13 @@ const UpdateProduce = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // navigate(`/`)
+    navigate(`/account`)
     const produce = {
       ...formValues,
       id: id
     }
     await updateProduce(produce)
+    setUpdated((prev) => !prev)
   }
 
   return (
@@ -92,6 +93,25 @@ const UpdateProduce = () => {
                   id="description"
                   name="description"
                   value={formValues.description}
+                  type="text"
+                  required
+                  className="block w-full "
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="image"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Image
+              </label>
+              <div className="mt-2">
+                <InputText
+                  id="image"
+                  name="image"
+                  value={formValues.image}
                   type="text"
                   required
                   className="block w-full "
@@ -168,7 +188,7 @@ const UpdateProduce = () => {
                 <InputText
                   id="price"
                   name="price"
-                  step=".01"
+                  step=".001"
                   value={formValues.price}
                   type="number"
                   min={0}

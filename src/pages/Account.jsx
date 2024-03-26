@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useState, useEffect } from 'react'
 import CustomerProfileInfo from '../components/CustomerProfileInfo'
 import VendorProfileInfo from '../components/VendorProfileInfo'
-const Account = ({ authenticatedUser }) => {
+const Account = ({ authenticatedUser, updated }) => {
   const { user, isAuthenticated, isLoading } = useAuth0()
   const [userDetails, setuserDetails] = useState({})
   useEffect(() => {
@@ -32,7 +32,10 @@ const Account = ({ authenticatedUser }) => {
           </div>
         </div>
         {authenticatedUser.role === 'vendor' && (
-          <VendorProfileInfo authenticatedUser={authenticatedUser} />
+          <VendorProfileInfo
+            authenticatedUser={authenticatedUser}
+            updated={updated}
+          />
         )}
         {authenticatedUser.role === 'customer' && (
           <CustomerProfileInfo authenticatedUser={authenticatedUser} />
