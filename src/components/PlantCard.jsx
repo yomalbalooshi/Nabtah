@@ -20,7 +20,7 @@ const PlantCard = ({ plant }) => {
           <img
             className="rounded-l-lg w-80 min-w-80 h-56 object-cover"
             src={plant?.image}
-            alt={plant.name}
+            alt={plant?.name}
           />
         </div>
         <div className="w-96">
@@ -96,17 +96,20 @@ const PlantCard = ({ plant }) => {
                   {plant.description}
                 </p>
               </div>
-              <div className=" flex justify-end gap-2 pr-4 mt-8">
-                <button
-                  className="text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded"
-                  onClick={toggleDetails}
-                >
-                  See More
-                </button>
-                {/* <button className=" w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle">
+              <div className="flex justify-between items-center mx-4">
+                <div className="mt-10">BHD {plant.price}</div>
+                <div className=" flex justify-end gap-2 mt-8">
+                  <button
+                    className="text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded"
+                    onClick={toggleDetails}
+                  >
+                    See More
+                  </button>
+                  {/* <button className=" w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle">
                   <FaShoppingCart />
                 </button> */}
-                <AddToCart product={plant} productType={'Plant'} />
+                  <AddToCart product={plant} productType={'Plant'} />
+                </div>
               </div>
             </div>
           )}

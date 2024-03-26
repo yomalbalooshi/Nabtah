@@ -117,7 +117,10 @@ const App = () => {
             path="/shoppingcart"
             element={<ShoppingCart authenticatedUser={authenticatedUser} />}
           />
-          <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route
+            path="/paymentsuccess"
+            element={<PaymentSuccess authenticatedUser={authenticatedUser} />}
+          />
           <Route path="/paymentfailed" element={<PaymentFailed />} />
           <Route path="/schedule/:id" element={<Schedule />} />
           <Route path="/toollist" element={<ToolList />} />

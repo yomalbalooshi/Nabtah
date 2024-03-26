@@ -10,6 +10,8 @@ import Client from '../services/api'
 
 const ShoppingCart = ({ authenticatedUser }) => {
   const [shoppingCartItems, setshoppingCartItems] = useState([])
+  const [shippingPrice, setShippingPrice] = useState(0)
+  const [sum, setSum] = useState(0)
 
   useEffect(() => {
     const getuserDetails = async () => {
@@ -17,9 +19,16 @@ const ShoppingCart = ({ authenticatedUser }) => {
       setshoppingCartItems(response.cart)
     }
     getuserDetails()
+    setShippingPrice(Math.random() * 10)
   }, [])
 
-  console.log(shoppingCartItems)
+  useEffect(() => {
+    let total = 0
+    for (let i = 0; i < shoppingCartItems.length; i++) {
+      total += shoppingCartItems[i].itemId.price * shoppingCartItems[i].quantity
+    }
+    setSum(total)
+  }, [shoppingCartItems])
 
   const handlePurchase = async () => {
     const stripe = await loadStripe(
@@ -52,7 +61,7 @@ const ShoppingCart = ({ authenticatedUser }) => {
         <h2 className="text-3xl font-extrabold text-[#333]">Shopping Cart</h2>
         <div className="grid lg:grid-cols-3 gap-12 relative mt-10">
           <div className="lg:col-span-2 space-y-6">
-            {shoppingCartItems.map((item) => (
+            {shoppingCartItems?.map((item) => (
               //       <div key={item._id}>{item.itemId.name}</div>
               //
               <div
@@ -104,13 +113,28 @@ const ShoppingCart = ({ authenticatedUser }) => {
             </h3>
             <ul className="text-[#333] text-sm divide-y mt-6">
               <li className="flex flex-wrap gap-4 py-3">
-                Subtotal <span className="ml-auto font-bold">$70.00</span>
+                Subtotal{' '}
+                <span className="ml-auto font-bold">BHD {sum.toFixed(3)}</span>
               </li>
               <li className="flex flex-wrap gap-4 py-3">
-                Shipping <span className="ml-auto font-bold">Free</span>
+                Shipping{' '}
+                {sum === 0 ? (
+                  <span className="ml-auto font-bold">N/A</span>
+                ) : (
+                  <span className="ml-auto font-bold">
+                    BHD {shippingPrice.toFixed(3)}
+                  </span>
+                )}
               </li>
               <li className="flex flex-wrap gap-4 py-3 font-bold">
-                Total <span className="ml-auto">$74.00</span>
+                Total{' '}
+                {sum === 0 ? (
+                  <span className="ml-auto font-bold">{sum.toFixed(3)}</span>
+                ) : (
+                  <span className="ml-auto">
+                    BHD {(sum + shippingPrice).toFixed(3)}
+                  </span>
+                )}
               </li>
             </ul>
             <button
