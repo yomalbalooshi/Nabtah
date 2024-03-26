@@ -13,7 +13,8 @@ import {
   getAllVendorPackages,
   getAllVendorTools,
   getAllVendorServices,
-  getAllVendorProduce
+  getAllVendorProduce,
+  getVendorDetails
 } from '../services/vendor'
 
 const VendorProfileInfo = ({ authenticatedUser, updated }) => {
@@ -24,9 +25,7 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
   const [vendorTools, setVendorTools] = useState(null)
   const [vendorServices, setVendorServices] = useState(null)
   const [vendorPackages, setVendorPackages] = useState(null)
-
   console.log(updated)
-
   useEffect(() => {
     if (authenticatedUser) {
       console.log(authenticatedUser)
@@ -35,6 +34,10 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
   }, [authenticatedUser])
 
   useEffect(() => {
+    const handleVendorDetails = async () => {
+      const data = await getVendorDetails(authenticatedUser._id)
+      setuserDetails(data)
+    }
     const handleVendorPlants = async () => {
       const data = await getAllVendorPlants(authenticatedUser._id)
       setVendorPlants(data)
@@ -55,6 +58,7 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
       const data = await getAllVendorPackages(authenticatedUser._id)
       setVendorPackages(data)
     }
+    handleVendorDetails()
     handleVendorPlants()
     handleVendorProduce()
     handleVendorServices()
@@ -157,6 +161,28 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
   return (
     authenticatedUser && (
       <div>
+        <div className="p-10">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl pb-3">
+            {userDetails.name}
+          </h1>
+
+          <div>
+            <div className="pb-10  text-lg">
+              <span className="font-semibold ">Location: </span>
+              <span>
+                {userDetails.location
+                  ? userDetails.location
+                  : 'Add a location to your profile!'}
+              </span>
+            </div>
+          </div>
+          <Button
+            className="mb-3 bg-white select-none rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onClick={() => navigate(`/updateVendor/${userDetails._id}`)}
+          >
+            Edit Account Details
+          </Button>
+        </div>
         <Panel header="Plants" toggleable collapsed>
           <div className="card">
             <DataTable

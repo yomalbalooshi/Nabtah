@@ -69,3 +69,11 @@ export const deleteCartItem = async (id, data) => {
     throw error
   }
 }
+export const updateCustomerDetails = async (data) => {
+  try {
+    const res = await Client.put(`/customer/${data.id}`, data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
