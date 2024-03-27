@@ -23,7 +23,7 @@ const PlantCard = ({ plant }) => {
             alt={plant?.name}
           />
         </div>
-        <div className="w-96">
+        <div className="w-96 relative">
           {showDetails ? (
             <div className="ml-3 flex flex-col justify-between">
               <div className="flex flex-col pt-4 gap-4">
@@ -69,7 +69,7 @@ const PlantCard = ({ plant }) => {
                       strokeWidth: '1'
                     }}
                   />
-                  Prune {plant?.pruningCount?.amount} times a
+                  Prune {plant?.pruningCount?.amount} times a{' '}
                   {plant?.pruningCount?.interval}
                 </p>
               </div>
@@ -90,14 +90,16 @@ const PlantCard = ({ plant }) => {
             </div>
           ) : (
             <div className=" flex flex-col align-bottom">
-              <div className=" flex flex-col gap-4 text-center">
-                <h2 className="text-2xl pt-4">{plant.name}</h2>
-                <p className="text-sm text-gray-500 mt-2 px-4">
+              <div className=" flex flex-col gap-4 pl-4">
+                <div className="flex justify-between">
+                  <h2 className="text-2xl pt-4">{plant.name}</h2>
+                  <h2 className=" text-xl pt-5 mr-4">BHD {plant.price}</h2>
+                </div>
+                <p className="text-sm text-gray-500 mt-2">
                   {plant.description}
                 </p>
               </div>
-              <div className="flex justify-between items-center mx-4">
-                <div className="mt-10">BHD {plant.price}</div>
+              <div className="items-center mx-4 absolute bottom-3 right-0 ">
                 <div className=" flex justify-end gap-2 mt-8">
                   <button
                     className="text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded"
@@ -106,8 +108,8 @@ const PlantCard = ({ plant }) => {
                     See More
                   </button>
                   {/* <button className=" w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle">
-                  <FaShoppingCart />
-                </button> */}
+                    <FaShoppingCart />
+                  </button> */}
                   <AddToCart product={plant} productType={'Plant'} />
                 </div>
               </div>
