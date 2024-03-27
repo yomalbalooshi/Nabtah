@@ -17,9 +17,7 @@ const AddToCart = ({ product, productType }) => {
         <Button
           label="Add"
           onClick={() => {
-            // setVisible(false)
             cart.addToCart(product, productType)
-            console.log(cart.getProductQuantity(product._id))
           }}
           autoFocus
           className=" bg-green-600 hover:bg-green-700  "
@@ -69,7 +67,6 @@ const AddToCart = ({ product, productType }) => {
           showAddtoCartModal('bottom', product.name, product.price)
         }
       >
-        {/* <img src={ShoppingCartSVG} alt="Shopping Cart" /> */}
         <span>
           <FaShoppingCart />
         </span>

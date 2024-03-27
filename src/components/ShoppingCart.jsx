@@ -62,8 +62,6 @@ const ShoppingCart = ({ authenticatedUser }) => {
         <div className="grid lg:grid-cols-3 gap-12 relative mt-10">
           <div className="lg:col-span-2 space-y-6">
             {shoppingCartItems?.map((item) => (
-              //       <div key={item._id}>{item.itemId.name}</div>
-              //
               <div
                 key={item._id}
                 className="p-2 bg-white shadow-[0_0px_4px_0px_rgba(6,81,237,0.2)] rounded-md relative"

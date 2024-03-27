@@ -22,7 +22,36 @@ body {
 .ant-badge-status-success {
   background-color: rgb(28, 190, 188) !important;
 }
-
+/* 
 .p-timeline-event-connector {
   background-color: green;
+} */
+.p-card-body:hover {
+  cursor: pointer;
+}
+.p-tabview .p-tabview-nav {
+  display: flex;
+  justify-content: center;
+}
+.p-tabview-title {
+  margin-left: 10px;
+}
+
+.pi {
+  font-size: 1.2rem;
+  padding: 10px;
+}
+
+.p-divider.p-divider-horizontal:before {
+  border-width: 1px;
+}
+
+.successimg {
+  background-image: url('https://www.svgrepo.com/show/422280/correct-success-tick.svg');
+  background-size: cover;
+}
+
+.failimg {
+  background-image: url('https://www.svgrepo.com/show/367820/fail.svg');
+  background-size: cover;
 }

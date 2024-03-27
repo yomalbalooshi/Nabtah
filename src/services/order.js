@@ -2,7 +2,6 @@ import Client from './api'
 
 export const addOrder = async (data) => {
   try {
-    console.log(data)
     const res = await Client.post('/order', data)
     return res.data
   } catch (error) {

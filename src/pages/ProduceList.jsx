@@ -1,31 +1,23 @@
 import { useState, useEffect } from 'react'
 import { Card } from 'primereact/card'
 import { Paginator } from 'primereact/paginator'
-import { getAllPlants } from '../services/plant'
+import { getAllProduces } from '../services/produce'
 import { getAllVendors } from '../services/vendor'
-import PlantCard from '../components/PlantCard'
+import ProduceCard from '../components/ProduceCard'
 import { InputText } from 'primereact/inputtext'
 import { Slider } from 'primereact/slider'
-import { SelectButton } from 'primereact/selectbutton'
 import { Dropdown } from 'primereact/dropdown'
 import '../styles/plantList.css'
 
 const PlantList = ({}) => {
   const [vendors, setVendors] = useState([])
   const [selectedVendor, setSelectedVendor] = useState(null)
-  const [plants, setPlants] = useState([])
+  const [produce, setProduce] = useState([])
   const [search, setSearch] = useState('')
-  const [searchedPlants, setSearchedPlants] = useState([])
+  const [searchedproduce, setSearchedproduce] = useState([])
   const [price, setPrice] = useState([0, 100])
-  const [sunlight, setSunlight] = useState(null)
   const [first, setFirst] = useState(0)
   const [rows, setRows] = useState(6)
-
-  const items = [
-    { name: 'Low', value: 'low' },
-    { name: 'Partial', value: 'partial' },
-    { name: 'Full', value: 'full' }
-  ]
 
   useEffect(() => {
     const getVendorDetails = async () => {
@@ -37,38 +29,32 @@ const PlantList = ({}) => {
   }, [])
 
   useEffect(() => {
-    const getPlants = async () => {
-      let response = await getAllPlants()
-      setPlants(response)
-      setSearchedPlants(response)
+    const getProduce = async () => {
+      let response = await getAllProduces()
+      setProduce(response)
+      setSearchedproduce(response)
     }
-    getPlants()
+    getProduce()
   }, [])
-
   useEffect(() => {
     handleSearch()
-  }, [price, search, sunlight, selectedVendor])
+  }, [price, search, selectedVendor])
 
   const handleSearch = () => {
-    const newPlants = plants.filter((va) => {
-      //filtering by name
+    const newproduce = produce.filter((va) => {
       if (search && !va.name.toLowerCase().includes(search.toLowerCase()))
         return false
-      //filter by vendorId
       if (
         selectedVendor &&
         selectedVendor._id &&
         !va.vendor.includes(selectedVendor._id)
       )
         return false
-      //filter by sunlight
-      if (sunlight && !va.sunlight[0].toLowerCase().includes(sunlight))
-        return false
-      //filter by price
+
       if (va.price > price[1] || va.price < price[0]) return false
       return true
     })
-    setSearchedPlants(newPlants)
+    setSearchedproduce(newproduce)
   }
 
   const selectedVendorTemplate = (option, props) => {
@@ -129,18 +115,6 @@ const PlantList = ({}) => {
               />
             </div>
           </div>
-          <div className="mt-10">
-            <h1 className=" text-center">Sunlight Requirements</h1>
-            <div className="flex justify-content-center mt-4">
-              <SelectButton
-                value={sunlight}
-                onChange={(e) => setSunlight(e.value)}
-                optionLabel="name"
-                options={items}
-                className="sunlight"
-              />
-            </div>
-          </div>
           <div className="card flex justify-content-center mt-10">
             <div className="flex flex-col mt-5 text-center">
               <h1>Sort by Vendor</h1>
@@ -159,19 +133,18 @@ const PlantList = ({}) => {
           </div>
         </div>
         <div className="flex flex-wrap justify-around w-3/4">
-          {searchedPlants.map((plant) => (
+          {searchedproduce?.map((prod) => (
             <Card
-              key={plant._id}
+              key={prod._id}
               className="h-56 my-6 shadow-lg transition-transform duration-400 transform hover:scale-105 rounded-lg"
             >
-              <PlantCard plant={plant} />
+              <ProduceCard produce={prod} />
             </Card>
           ))}
           <Paginator
-            className="w-1/2"
             first={first}
             rows={rows}
-            totalRecords={searchedPlants.length}
+            totalRecords={searchedproduce.length}
             onPageChange={onPageChange}
           />
         </div>

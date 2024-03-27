@@ -14,7 +14,8 @@ import {
   getAllVendorTools,
   getAllVendorServices,
   getAllVendorProduce,
-  getVendorDetails
+  getVendorDetails,
+  getAllVendorOrders
 } from '../services/vendor'
 
 const VendorProfileInfo = ({ authenticatedUser, updated }) => {
@@ -25,10 +26,10 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
   const [vendorTools, setVendorTools] = useState(null)
   const [vendorServices, setVendorServices] = useState(null)
   const [vendorPackages, setVendorPackages] = useState(null)
-  console.log(updated)
+  const [vendorOrders, setvendorOrders] = useState(null)
+
   useEffect(() => {
     if (authenticatedUser) {
-      console.log(authenticatedUser)
       setuserDetails(authenticatedUser)
     }
   }, [authenticatedUser])
@@ -58,12 +59,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
       const data = await getAllVendorPackages(authenticatedUser._id)
       setVendorPackages(data)
     }
+    const handleVendorOrders = async () => {
+      const data = await getAllVendorOrders(authenticatedUser._id)
+      setvendorOrders(data)
+    }
     handleVendorDetails()
     handleVendorPlants()
     handleVendorProduce()
     handleVendorServices()
     handleVendorTools()
     handleVendorPackages()
+    handleVendorOrders()
   }, [updated])
 
   const imageBodyTemplate = (product) => {
@@ -106,15 +112,35 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
         icon="pi pi-pencil"
         className="p-button-sm p-button-text"
         onClick={() => {
-          if (options.props.footer.includes('Plants')) {
+          if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Plant'
+            )
+          ) {
             navigate(`/updateplant/${rowData._id}`)
-          } else if (options.props.footer.includes('Packages')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Package'
+            )
+          ) {
             navigate(`/updatepackage/${rowData._id}`)
-          } else if (options.props.footer.includes('Tools')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Tool'
+            )
+          ) {
             navigate(`/updatetool/${rowData._id}`)
-          } else if (options.props.footer.includes('Produce')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Produce'
+            )
+          ) {
             navigate(`/updateproduce/${rowData._id}`)
-          } else if (options.props.footer.includes('Services')) {
+          } else if (
+            options.props.footer.props.rightSideButton.props.label.includes(
+              'Service'
+            )
+          ) {
             navigate(`/updateservice/${rowData._id}`)
           }
         }}
@@ -158,6 +184,35 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
     )
   }
 
+  const DataTableFooter = ({ totalRecords, rightSideButton }) => {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}
+      >
+        <div>Total {totalRecords} Records</div>
+        {rightSideButton}
+      </div>
+    )
+  }
+
+  const changeDateFormat = (dateToFormat) => {
+    let date = new Date(dateToFormat)
+    let formattedDate =
+      date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+
+    return formattedDate
+  }
+
+  const dateTemplate = (rowData) => {
+    let formattedDate = changeDateFormat(rowData.createdAt)
+    return <span>{formattedDate}</span>
+  }
+
+
   return (
     authenticatedUser && (
       <div>
@@ -190,7 +245,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
               rows={10}
               rowsPerPageOptions={[10, 25, 50, 100]}
               value={vendorPlants}
-              footer={`Total ${vendorPlants ? vendorPlants.length : 0} Plants`}
+              footer={
+                <DataTableFooter
+                  totalRecords={vendorPlants ? vendorPlants.length : 0}
+                  rightSideButton={
+                    <Button
+                      label="Add Plant"
+                      onClick={() => navigate(`/addplant/`)}
+                    />
+                  }
+                />
+              }
               tableStyle={{ minWidth: '60rem' }}
             >
               <Column header="Image" body={imageBodyTemplate}></Column>
@@ -214,7 +279,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorProduce}
-            footer={`Total ${vendorProduce ? vendorProduce.length : 0} Produce`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Produce"
+                    onClick={() => navigate(`/produceform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column header="Image" body={imageBodyTemplate}></Column>
@@ -234,9 +309,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorPackages}
-            footer={`Total ${
-              vendorPackages ? vendorPackages.length : 0
-            } Packages`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Package"
+                    onClick={() => navigate(`/packageform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column field="name" header="Name"></Column>
@@ -260,7 +343,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorTools}
-            footer={`Total ${vendorTools ? vendorTools.length : 0} Tools`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Tool"
+                    onClick={() => navigate(`/toolform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column header="Image" body={imageBodyTemplate}></Column>
@@ -280,9 +373,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             rows={10}
             rowsPerPageOptions={[10, 25, 50, 100]}
             value={vendorServices}
-            footer={`Total ${
-              vendorServices ? vendorServices.length : 0
-            } Services`}
+            footer={
+              <DataTableFooter
+                totalRecords={vendorPlants ? vendorPlants.length : 0}
+                rightSideButton={
+                  <Button
+                    label="Add Service"
+                    onClick={() => navigate(`/serviceform/`)}
+                  />
+                }
+              />
+            }
             tableStyle={{ minWidth: '60rem' }}
           >
             <Column field="name" header="Name"></Column>
@@ -294,6 +395,22 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             ></Column>
             <Column header="Availability" body={statusBodyTemplate}></Column>
             <Column style={{ flex: '0 0 4rem' }} body={updateTemplate}></Column>
+          </DataTable>
+        </Panel>
+        <Panel header="Orders" toggleable collapsed>
+          <DataTable
+            paginator
+            rows={10}
+            rowsPerPageOptions={[10, 25, 50, 100]}
+            value={vendorOrders}
+            footer={`Total ${vendorOrders ? vendorOrders.length : 0} Orders`}
+            tableStyle={{ minWidth: '60rem' }}
+          >
+            <Column field="_id" header="Order ID"></Column>
+            <Column header="quantity" field="quantity"></Column>
+            <Column field="itemId.name" header="Item"></Column>
+
+            <Column body={dateTemplate} header="Order Date"></Column>
           </DataTable>
         </Panel>
       </div>
