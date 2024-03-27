@@ -14,7 +14,8 @@ import {
   getAllVendorTools,
   getAllVendorServices,
   getAllVendorProduce,
-  getVendorDetails
+  getVendorDetails,
+  getAllVendorOrders
 } from '../services/vendor'
 
 const VendorProfileInfo = ({ authenticatedUser, updated }) => {
@@ -25,6 +26,8 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
   const [vendorTools, setVendorTools] = useState(null)
   const [vendorServices, setVendorServices] = useState(null)
   const [vendorPackages, setVendorPackages] = useState(null)
+  const [vendorOrders, setvendorOrders] = useState(null)
+
   console.log(updated)
   useEffect(() => {
     if (authenticatedUser) {
@@ -58,12 +61,17 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
       const data = await getAllVendorPackages(authenticatedUser._id)
       setVendorPackages(data)
     }
+    const handleVendorOrders = async () => {
+      const data = await getAllVendorOrders(authenticatedUser._id)
+      setvendorOrders(data)
+    }
     handleVendorDetails()
     handleVendorPlants()
     handleVendorProduce()
     handleVendorServices()
     handleVendorTools()
     handleVendorPackages()
+    handleVendorOrders()
   }, [updated])
 
   const imageBodyTemplate = (product) => {
@@ -156,6 +164,18 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
         ))}
       </ul>
     )
+  }
+  const changeDateFormat = (dateToFormat) => {
+    let date = new Date(dateToFormat)
+    let formattedDate =
+      date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+
+    return formattedDate
+  }
+
+  const dateTemplate = (rowData) => {
+    let formattedDate = changeDateFormat(rowData.createdAt)
+    return <span>{formattedDate}</span>
   }
 
   return (
@@ -294,6 +314,22 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
             ></Column>
             <Column header="Availability" body={statusBodyTemplate}></Column>
             <Column style={{ flex: '0 0 4rem' }} body={updateTemplate}></Column>
+          </DataTable>
+        </Panel>
+        <Panel header="Orders" toggleable collapsed>
+          <DataTable
+            paginator
+            rows={10}
+            rowsPerPageOptions={[10, 25, 50, 100]}
+            value={vendorOrders}
+            footer={`Total ${vendorOrders ? vendorOrders.length : 0} Orders`}
+            tableStyle={{ minWidth: '60rem' }}
+          >
+            <Column field="_id" header="Order ID"></Column>
+            <Column header="quantity" field="quantity"></Column>
+            <Column field="itemId.name" header="Item"></Column>
+
+            <Column body={dateTemplate} header="Order Date"></Column>
           </DataTable>
         </Panel>
       </div>
