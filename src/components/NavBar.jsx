@@ -21,7 +21,6 @@ const NavBar = ({ authenticatedUser }) => {
     cartTotalProducts = cart.getProductsCount()
   }
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  console.log(authenticatedUser)
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }

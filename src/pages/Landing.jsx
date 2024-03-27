@@ -7,6 +7,7 @@ import { Timeline } from 'primereact/timeline'
 import { Card } from 'primereact/card'
 import { Divider } from 'primereact/divider'
 import 'primeicons/primeicons.css'
+import { Link } from 'react-router-dom'
 
 const Landing = () => {
   const [isRotating, setIsRotating] = useState(false)
@@ -92,9 +93,6 @@ const Landing = () => {
 
   return (
     <div className="bg-white">
-      <div className="justify-center flex pt-10 text-4xl font-bold">
-        <h2>About Nabtah</h2>
-      </div>
       <div className="flex">
         <div className="flex justify-center items-center">
           <div className="h-screen w-1/2">
@@ -123,12 +121,21 @@ const Landing = () => {
             <h2 className="text-3xl font-bold mb-10">
               Nabtah's 4 step process
             </h2>
-            <p className="text-lg text-gray-700 mb-8 text-center px-10">
-              Our website streamlines ordering and delivery in four simple
-              steps: customers browse and place orders, which are swiftly
-              processed and shipped, culminating in prompt delivery. This
-              ensures a smooth and satisfying shopping experience.
-            </p>
+            <div>
+              <p className="text-lg text-gray-700 mb-8 text-center px-10">
+                Our website streamlines ordering and delivery in four simple
+                steps: customers browse and place orders, which are swiftly
+                processed and shipped, culminating in prompt delivery. This
+                ensures a smooth and satisfying shopping experience.
+              </p>
+              <div className="flex justify-center">
+                <Link to="/contactus">
+                  <button className="  flex justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6">
+                    Contact us
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
