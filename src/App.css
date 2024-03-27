@@ -22,3 +22,13 @@ body {
 .ant-badge-status-success {
   background-color: rgb(28, 190, 188) !important;
 }
+.p-card-body:hover {
+  cursor: pointer;
+}
+.p-tabview .p-tabview-nav {
+  display: flex;
+  justify-content: center;
+}
+.p-tabview-title {
+  margin-left: 10px;
+}

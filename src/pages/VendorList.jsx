@@ -1,4 +1,5 @@
 import { Card } from 'primereact/card'
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getAllVendors } from '../services/vendor'
 import { Paginator } from 'primereact/paginator'
@@ -7,6 +8,7 @@ import { MultiSelect } from 'primereact/multiselect'
 import '../styles/vendorList.css'
 
 const VendorList = () => {
+  let navigate = useNavigate()
   const [vendors, setVendors] = useState([])
   const [searchedArray, setSearchedArray] = useState([])
   const [selectedCities, setSelectedCities] = useState([])
@@ -103,6 +105,7 @@ const VendorList = () => {
         {searchedArray.slice(first, first + rows).map((vendor) => (
           <Card
             key={vendor._id}
+            onClick={() => navigate(`/vendorproducts/${vendor._id}`)}
             className="my-6 shadow-lg transition-transform duration-400 transform hover:scale-105 rounded-lg"
           >
             <div className="flex flex-col">

@@ -11,8 +11,7 @@ import { getAllVendorPlants } from '../services/vendor'
 import { useNavigate } from 'react-router-dom'
 import '../styles/vendorList.css'
 
-const AddPlant = ({ authenticatedUser }) => {
-  console.log(authenticatedUser)
+const AddPlant = ({ authenticatedUser, setUpdated }) => {
   let navigate = useNavigate()
   let vendorId = authenticatedUser._id
   const [plants, setPlants] = useState(null)
@@ -22,15 +21,13 @@ const AddPlant = ({ authenticatedUser }) => {
   const [addedPlantIds, setAddedPlantIds] = useState([])
   const [first, setFirst] = useState(0)
   const [rows, setRows] = useState(12)
-  console.log(vendorId)
+
   useEffect(() => {
     const handleVendorPlants = async () => {
       const data = await getAllVendorPlants(vendorId)
       setVendorPlants(data)
-      console.log('data', data)
     }
     handleVendorPlants()
-    console.log('vp', vendorPlants)
   }, [authenticatedUser])
 
   const handleSearch = async (e) => {
@@ -58,7 +55,6 @@ const AddPlant = ({ authenticatedUser }) => {
       scientificName: selectedPlant.scientific_name[0],
       family: selectedPlant.family,
       cycle: selectedPlant.cycle,
-      // watering: selectedPlant.watering,
       sunlight: selectedPlant.sunlight[0],
       pruningMonth: selectedPlant.pruning_month,
       pruningCount: {
@@ -73,8 +69,10 @@ const AddPlant = ({ authenticatedUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     navigate('/account')
+
     await addPlant(plantDetails)
     setAddedPlantIds([...addedPlantIds, plantDetails.apiId])
+    setUpdated((prev) => !prev)
   }
 
   const vendorApiIds = Array.isArray(vendorPlants)
@@ -90,7 +88,8 @@ const AddPlant = ({ authenticatedUser }) => {
   )
 
   return (
-    authenticatedUser && (
+    authenticatedUser &&
+    authenticatedUser.role === 'vendor' && (
       <div>
         <form onSubmit={handleSearch}>
           <div className="flex justify-center  mt-20">

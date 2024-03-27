@@ -12,6 +12,13 @@ const PlantCard = ({ plant }) => {
   const toggleDetails = () => {
     setShowDetails(!showDetails)
   }
+  const truncateDescription = (description) => {
+    if (description.split(' ').length > 20) {
+      return description.split(' ').slice(0, 20).join(' ') + '...'
+    } else {
+      return description
+    }
+  }
 
   return (
     <div>
@@ -96,7 +103,7 @@ const PlantCard = ({ plant }) => {
                   <h2 className=" text-xl pt-5 mr-4">BHD {plant.price}</h2>
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
-                  {plant.description}
+                  {truncateDescription(plant.description)}
                 </p>
               </div>
               <div className="items-center mx-4 absolute bottom-3 right-0 ">

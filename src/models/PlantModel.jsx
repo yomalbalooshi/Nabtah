@@ -12,7 +12,7 @@ const PlantModel = ({ isRotating, setIsRotating, ...props }) => {
 
   const lastX = useRef(0)
   const lastY = useRef(0)
-  const rotationSpeed = useRef({ x: 0, y: 0 }) 
+  const rotationSpeed = useRef({ x: 0, y: 0 })
   const dampingFactor = 0.95
 
   const handlePointerDown = (e) => {
@@ -51,12 +51,19 @@ const PlantModel = ({ isRotating, setIsRotating, ...props }) => {
       lastX.current = clientX
       lastY.current = clientY
 
-      rotationSpeed.current = { x: deltaX * 0.01 * Math.PI, y: deltaY * 0.01 * Math.PI }
+      rotationSpeed.current = {
+        x: deltaX * 0.01 * Math.PI,
+        y: deltaY * 0.01 * Math.PI
+      }
     }
   }
 
   useFrame(() => {
-    if (!isRotating && (Math.abs(rotationSpeed.current.x) > 0 || Math.abs(rotationSpeed.current.y) > 0)) {
+    if (
+      !isRotating &&
+      (Math.abs(rotationSpeed.current.x) > 0 ||
+        Math.abs(rotationSpeed.current.y) > 0)
+    ) {
       rotationSpeed.current.x *= dampingFactor
       rotationSpeed.current.y *= dampingFactor
       plantRef.current.rotation.y += rotationSpeed.current.x
@@ -90,7 +97,7 @@ const PlantModel = ({ isRotating, setIsRotating, ...props }) => {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.root_HP_1_Mat2_0.geometry}  
+            geometry={nodes.root_HP_1_Mat2_0.geometry}
             material={materials['Mat.2']}
             position={[0.071, 0.06, 0.219]}
           />

@@ -15,7 +15,7 @@ const Landing = () => {
     if (window.innerWidth < 768) {
       screenScale = [0.9, 0.9, 0.9]
     } else {
-      screenScale = [20, 20, 20]
+      screenScale = [30, 30, 30]
     }
     return [screenScale, screenPosition, rotation]
   }
@@ -40,8 +40,8 @@ const Landing = () => {
           camera={{ near: 0.1, far: 1000 }}
         >
           <Suspense fallback={<Loader />}>
-            <directionalLight position={[5, 1, 1]} intensity={3} />
-            <ambientLight intensity={0.5} />
+            <directionalLight position={[20, 10, 1]} intensity={3} />
+            <ambientLight intensity={5} />
             <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" />
 
             <PlantModel
