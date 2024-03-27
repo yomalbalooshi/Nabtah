@@ -173,7 +173,6 @@ const PlantList = ({}) => {
             rows={rows}
             totalRecords={searchedPlants.length}
             onPageChange={onPageChange}
-            className="w-1/2"
           />
         </div>
       </div>
