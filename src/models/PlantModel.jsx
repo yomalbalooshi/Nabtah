@@ -59,6 +59,9 @@ const PlantModel = ({ isRotating, setIsRotating, ...props }) => {
   }
 
   useFrame(() => {
+    if (!isRotating) {
+      plantRef.current.rotation.y += 0.005
+    }
     if (
       !isRotating &&
       (Math.abs(rotationSpeed.current.x) > 0 ||
