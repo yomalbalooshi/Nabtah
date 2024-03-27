@@ -22,3 +22,7 @@ body {
 .ant-badge-status-success {
   background-color: rgb(28, 190, 188) !important;
 }
+
+.p-timeline-event-connector {
+  background-color: green;
+}
