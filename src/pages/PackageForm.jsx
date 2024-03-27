@@ -11,8 +11,9 @@ import {
 } from '../services/vendor'
 import { addPackage } from '../services/package'
 
-const PackageForm = () => {
+const PackageForm = ({ authenticatedUser }) => {
   let navigate = useNavigate()
+  let vendorId = authenticatedUser._id
   const [available, setAvailable] = useState(null)
   const [vendorPlants, setVendorPlants] = useState(null)
   const [vendorProduce, setVendorProduce] = useState(null)
@@ -22,9 +23,6 @@ const PackageForm = () => {
   const [selectedProduce, setSelectedProduce] = useState(null)
   const [selectedServices, setSelectedServices] = useState(null)
   const [selectedTools, setSelectedTools] = useState(null)
-
-  let vendorId = '65fcf85f7fd2d32df8293118'
-  // const { vendorId } = useParams('vendorId')
   const [formValues, setFormValues] = useState({
     name: '',
     price: '',
@@ -66,15 +64,17 @@ const PackageForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     const vendorPackage = {
       ...formValues,
       available: available,
       plants: selectedPlants.map((plant) => plant._id),
       produce: selectedProduce.map((produce) => produce._id),
       services: selectedServices.map((service) => service._id),
-      tools: selectedTools.map((tool) => tool._id)
-      // vendorId
+      tools: selectedTools.map((tool) => tool._id),
+      vendorId: vendorId
     }
+    navigate(`/account`)
     await addPackage(vendorPackage)
     setFormValues({
       name: '',
@@ -87,19 +87,18 @@ const PackageForm = () => {
       tools: [],
       available: null
     })
-    navigate(`/`)
   }
   console.log('selected plants ', selectedPlants)
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-5xl font-semibold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-10 text-center text-5xl font-semibold leading-9 tracking-tight text-gray-700">
           Package
         </h2>
       </div>
 
       <div>
-        <div className=" shadow-2xl max-w-2xl mx-auto flex justify-center pb-16 mt-20 mb-10">
+        <div className=" shadow-2xl max-w-2xl mx-auto flex justify-center pb-16 mt-10 mb-10">
           <form className="space-y-8  w-96 pt-10 " onSubmit={handleSubmit}>
             <div>
               <label
