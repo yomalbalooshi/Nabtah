@@ -64,12 +64,15 @@ const AddToCart = ({ product, productType }) => {
   return (
     <div>
       <Button
-        className="w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle"
+        className="w-10 mt-2 pt-3 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle"
         onClick={() =>
           showAddtoCartModal('bottom', product.name, product.price)
         }
       >
-        <FaShoppingCart />
+        {/* <img src={ShoppingCartSVG} alt="Shopping Cart" /> */}
+        <span>
+          <FaShoppingCart />
+        </span>
       </Button>
       <Dialog
         header={`Add ${addtoCartModalTitle} to Cart!`}

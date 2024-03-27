@@ -10,6 +10,11 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.102.6",
     "@react-three/fiber": "^8.16.0",

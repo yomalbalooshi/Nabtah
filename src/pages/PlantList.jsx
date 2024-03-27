@@ -30,7 +30,7 @@ const PlantList = () => {
       let response = await getAllVendors()
       const allOption = { name: 'All', _id: null }
       setVendors([allOption, ...response])
-      setSearchedPlants(response)
+      // setSearchedPlants(response)
     }
     getVendorDetails()
   }, [])

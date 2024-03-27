@@ -70,10 +70,17 @@ const ShoppingCart = ({ authenticatedUser }) => {
               >
                 <div className="grid sm:grid-cols-2 items-center gap-4">
                   <div className="w-full h-full p-4 shrink-0 bg-gray-100">
-                    <img
-                      src={item.itemId.image}
-                      className="w-full h-full object-contain"
-                    />
+                    {item.itemId.image ? (
+                      <img
+                        src={item.itemId.image}
+                        className="w-full h-full object-contain"
+                      />
+                    ) : (
+                      <img
+                        src="https://img.freepik.com/free-photo/plants-pot-with-watering-can_23-2148905231.jpg"
+                        className="w-full h-full object-contain"
+                      />
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="text-xl font-extrabold text-[#333]">
