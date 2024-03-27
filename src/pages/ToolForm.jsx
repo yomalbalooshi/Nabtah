@@ -4,12 +4,10 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { addTool } from '../services/tool'
 
-const ToolForm = () => {
+const ToolForm = ({ authenticatedUser }) => {
   let navigate = useNavigate()
-
-  // const { vendorId } = useParams('vendorId')
+  let vendorId = authenticatedUser._id
   const [available, setAvailable] = useState(null)
-
   const [formValues, setFormValues] = useState({
     name: '',
     description: '',
@@ -27,8 +25,8 @@ const ToolForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    navigate(`/`)
-    const tool = { ...formValues, available: available, vendorId }
+    navigate(`/account`)
+    const tool = { ...formValues, available: available, vendor: vendorId }
     await addTool(tool)
     setFormValues({
       name: '',
@@ -42,13 +40,13 @@ const ToolForm = () => {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-5xl font-semibold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-10 text-center text-5xl font-semibold leading-9 tracking-tight text-gray-700">
           Tool
         </h2>
       </div>
 
       <div>
-        <div className=" shadow-2xl max-w-2xl mx-auto flex justify-center pb-16 mt-20 mb-10">
+        <div className=" shadow-2xl max-w-2xl mx-auto flex justify-center pb-16 mt-10 mb-10">
           <form className="space-y-8  w-96 pt-10 " onSubmit={handleSubmit}>
             <div>
               <label

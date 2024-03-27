@@ -72,7 +72,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<Landing />} />
-          <Route path="/produceform" element={<ProduceForm />} />
+          <Route
+            path="/produceform"
+            element={<ProduceForm authenticatedUser={authenticatedUser} />}
+          />
           <Route
             path="/updateproduce/:id"
             element={<UpdateProduce setUpdated={setUpdated} />}

@@ -5,6 +5,7 @@ import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api'
 import ShoppingCartProvider from './context/ShoppingCartContext'
+import.meta.env.VITE_
 const root = createRoot(document.getElementById('root'))
 
 root.render(
@@ -12,8 +13,8 @@ root.render(
     <ShoppingCartProvider>
       <BrowserRouter>
         <Auth0Provider
-          domain="dev-f5rw4k1kqjxemglt.us.auth0.com"
-          clientId="auCnFStgTFuxrGi8OgdhHSRGEdkVjsOn"
+          domain={import.meta.env.VITE_AUTH0_DOMAIN}
+          clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
           authorizationParams={{
             redirect_uri: window.location.origin
           }}
