@@ -14,11 +14,9 @@ const Schedule = ({ authenticatedUser, updated }) => {
   const [selectedDate, setSelectedDate] = useState(null)
   const [visible, setVisible] = useState(false)
 
-  console.log('id', authenticatedUser._id)
   useEffect(() => {
     const getOrders = async () => {
       const data = await getCustomerOrders(id)
-      console.log('data', data)
       setCustomerOrders(data)
     }
     getOrders()

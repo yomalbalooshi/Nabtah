@@ -36,7 +36,6 @@ const ToolList = ({}) => {
     }
     getTools()
   }, [])
-  console.log(searchedTool)
   useEffect(() => {
     handleSearch()
   }, [price, search, selectedVendor])

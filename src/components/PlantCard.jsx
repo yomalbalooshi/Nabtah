@@ -114,9 +114,6 @@ const PlantCard = ({ plant }) => {
                   >
                     See More
                   </button>
-                  {/* <button className=" w-10 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded flex justify-center align-middle">
-                    <FaShoppingCart />
-                  </button> */}
                   <AddToCart product={plant} productType={'Plant'} />
                 </div>
               </div>

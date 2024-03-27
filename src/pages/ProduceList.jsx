@@ -36,7 +36,6 @@ const PlantList = ({}) => {
     }
     getProduce()
   }, [])
-  console.log(searchedproduce)
   useEffect(() => {
     handleSearch()
   }, [price, search, selectedVendor])

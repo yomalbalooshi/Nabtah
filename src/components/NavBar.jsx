@@ -19,7 +19,7 @@ const NavBar = () => {
     <div>
       <div>
         <div className=" flex justify-around items-center  bg-green-200 text-blue-900">
-          <Link to="/home">Home</Link>
+          <Link to="/">Home</Link>
           <Link to="/servicelist">Services</Link>
           <Link to="/vendorlist">Vendors</Link>
           <Link to="/serviceform">Add a Service</Link>
