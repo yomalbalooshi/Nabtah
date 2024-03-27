@@ -31,7 +31,6 @@ const UpdateCustomerDetails = ({ setUpdated, authenticatedUser }) => {
       ...formValues,
       [e.target.id]: e.target.value
     })
-    console.log(formValues)
   }
 
   const handleSubmit = async (e) => {

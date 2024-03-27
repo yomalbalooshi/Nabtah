@@ -14,7 +14,6 @@ const ServiceList = () => {
   useEffect(() => {
     const getServices = async () => {
       const response = await Client.get('/service')
-      console.log(response.data)
       setServices(response.data)
     }
     getServices()
@@ -48,9 +47,6 @@ const ServiceList = () => {
               <p>
                 <span className="font-bold">Quantity:</span> {service.quantity}
               </p>
-              {/* <button className=" text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded">
-                Add to Cart
-              </button> */}
               <AddToCart product={service} productType={'Service'} />
             </div>
             <div className=" flex flex-col justify-center text-center ">
