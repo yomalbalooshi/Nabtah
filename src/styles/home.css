@@ -1,0 +1,5 @@
+.background-image {
+  background-image: url('../../public/images/nabtahbg1.png');
+  background-size: cover;
+  /* filter: brightness(0.3); */
+}

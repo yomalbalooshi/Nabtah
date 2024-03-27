@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Client from '../services/api'
 import { Accordion, AccordionTab } from 'primereact/accordion'
 import { Paginator } from 'primereact/paginator'
+import AddToCart from '../components/AddToCart'
 import '../styles/vendorList.css'
 
 const ServiceList = () => {
@@ -47,9 +48,10 @@ const ServiceList = () => {
               <p>
                 <span className="font-bold">Quantity:</span> {service.quantity}
               </p>
-              <button className=" text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded">
+              {/* <button className=" text-sm w-32 mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded">
                 Add to Cart
-              </button>
+              </button> */}
+              <AddToCart product={service} productType={'Service'} />
             </div>
             <div className=" flex flex-col justify-center text-center ">
               <p className=" text-xs">Provided by</p>

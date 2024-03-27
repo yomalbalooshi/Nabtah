@@ -3,7 +3,6 @@ import { useState, useContext } from 'react'
 import { Button } from 'primereact/button'
 import { ShoppingCartContext } from '../context/ShoppingCartContext'
 import { FaShoppingCart } from 'react-icons/fa'
-import ShoppingCartSVG from '../../public/svg/shopping-cart.svg'
 
 const AddToCart = ({ product, productType }) => {
   const [visible, setVisible] = useState(false)

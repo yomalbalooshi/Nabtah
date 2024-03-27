@@ -15,25 +15,31 @@ const PlantDetail = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center mt-20">
-        <h2>{plantDetail.name} details</h2>
+      <div className="flex flex-col items-center justify-center mt-10">
+        <h2 className="text-2xl pb-4">{plantDetail.name} details</h2>
         <img
-          className=" max-w-96"
+          className=" max-w-96 border-2 border-gray-200 shadow-xl mb-6"
           src={plantDetail.image}
           alt={plantDetail.name}
         />
-        <p>{plantDetail.description}</p>
-        <p>Sunlight needed: {plantDetail.sunlight}</p>
-        <p>Watering Instruction: {plantDetail.watering}</p>
-        <p>Pruning month(s):</p>
-        <div>
-          {plantDetail?.pruningMonth?.map((prune, i) => (
-            <p key={i}>{prune}</p>
-          ))}
+        <div className="flex flex-col gap-2 text-center pb-8">
+          <p>{plantDetail.description}</p>
+          <p>Sunlight needed: {plantDetail.sunlight}</p>
+          <p>Watering Instruction: {plantDetail.watering}</p>
+          <p>Pruning month(s):</p>
+          <div>
+            {plantDetail?.pruningMonth?.map((prune, i) => (
+              <p key={i}>{prune}</p>
+            ))}
+          </div>
         </div>
-        <Link to="/home">
-          <button className="bg-green-400">Back</button>
-        </Link>
+        <div className="mb-4">
+          <Link to="/home">
+            <button className="text-sm w-32 mt-2 bg-green-700 hover:bg-green-800 text-white font-bold py-2 rounded">
+              Back
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   )
