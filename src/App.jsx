@@ -30,7 +30,9 @@ import ShoppingCart from './components/ShoppingCart'
 import PaymentFailed from './pages/PaymentFailed'
 import PaymentSuccess from './pages/PaymentSuccess'
 import Package from './pages/Package'
-
+import UpdateVendorDetails from './pages/UpdateVendorDetails'
+import UpdateCustomerDetails from './pages/UpdateCustomerDetails'
+import ContactUs from './pages/ContactUs'
 const App = () => {
   const [updated, setUpdated] = useState(false)
   const { user, isAuthenticated, isLoading } = useAuth0()
@@ -41,6 +43,14 @@ const App = () => {
     if (isAuthenticated && user) {
       const getuserDetails = async () => {
         let response = await showUserDetails(user.sub, user)
+        if (
+          !user ||
+          !user['https://nabtah.com/roles'] ||
+          user['https://nabtah.com/roles'].length === 0
+        ) {
+          //for the case the role wasnt loaded
+          window.location.reload()
+        }
         response.role = user['https://nabtah.com/roles'][0]
         setauthenticatedUser(response)
         localStorage.setItem('auth0_id', user.sub)
@@ -120,11 +130,23 @@ const App = () => {
             path="/shoppingcart"
             element={<ShoppingCart authenticatedUser={authenticatedUser} />}
           />
-          <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route
+            path="/paymentsuccess"
+            element={<PaymentSuccess authenticatedUser={authenticatedUser} />}
+          />
           <Route path="/paymentfailed" element={<PaymentFailed />} />
           <Route path="/schedule/:id" element={<Schedule />} />
           <Route path="/toollist" element={<ToolList />} />
           <Route path="/packages" element={<Package />} />
+          <Route
+            path="/updateVendor/:id"
+            element={<UpdateVendorDetails setUpdated={setUpdated} />}
+          />
+          <Route
+            path="/updateCustomer/:id"
+            element={<UpdateCustomerDetails setUpdated={setUpdated} />}
+          />
+          <Route path="/contactus" element={<ContactUs />} />
         </Routes>
       </main>
     </div>
