@@ -2,7 +2,7 @@ import { RiPlantFill } from 'react-icons/ri'
 import { FaTools } from 'react-icons/fa'
 import { MdOutlineRoomService } from 'react-icons/md'
 import { GiFruitBowl } from 'react-icons/gi'
-
+import AddToCart from './AddToCart'
 const PackageCard = ({ pack }) => {
   return (
     <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
@@ -83,19 +83,19 @@ const PackageCard = ({ pack }) => {
           <div className="mx-auto max-w-xs px-8">
             <p className="text-base font-semibold text-gray-600">Total Price</p>
             <p className="mt-6 flex items-baseline justify-center gap-x-2">
-              <span className="text-5xl font-bold tracking-tight text-gray-900">
-                {pack.price}
-              </span>
-              <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
-                BHD
-              </span>
+              <div className="flex">
+                <span className="text-5xl font-bold tracking-tight text-gray-900">
+                  {pack.price}
+                </span>
+                <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
+                  BHD
+                </span>
+                <div className="ml-4">
+                  <AddToCart product={pack} productType={'Package'} />
+                </div>
+              </div>
             </p>
-            <a
-              href="#"
-              className="mt-10 block w-full rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-800"
-            >
-              Purchase
-            </a>
+            <div className="flex justify-center"></div>
             <p className="mt-6 text-xs leading-5 text-gray-600">
               Invoices and receipts available for easy company reimbursement
             </p>

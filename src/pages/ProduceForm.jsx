@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { addProduce } from '../services/produce'
 
-const ProduceForm = ({ authenticatedUser }) => {
+const ProduceForm = ({ authenticatedUser, setUpdated }) => {
   let navigate = useNavigate()
   let vendorId = authenticatedUser._id
   const [available, setAvailable] = useState(null)
@@ -32,6 +32,7 @@ const ProduceForm = ({ authenticatedUser }) => {
     }
     navigate(`/account`)
     await addProduce(produce)
+    setUpdated((prev) => !prev)
     setFormValues({
       name: '',
       type: '',
@@ -43,6 +44,7 @@ const ProduceForm = ({ authenticatedUser }) => {
   }
 
   return (
+    authenticatedUser &&
     authenticatedUser.role === 'vendor' && (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">

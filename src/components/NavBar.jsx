@@ -26,12 +26,9 @@ const NavBar = () => {
           <Link to="/produceform">Add a Produce</Link>
           <Link to="/packageform">Add a Package</Link>
           <Link to="/toolform">Add a tool</Link>
-
           <Link to="/plantlist">Plants</Link>
-
           {!isAuthenticated && <LoginButton />}
           {isAuthenticated && <Link to="/account">Account</Link>}
-
           {isAuthenticated && user['https://nabtah.com/roles'] == 'customer' ? (
             <Link to="/shoppingcart">
               <ShoppingCartIcon ItemsCount={cartTotalProducts} />

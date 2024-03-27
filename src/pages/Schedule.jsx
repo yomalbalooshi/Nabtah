@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getCustomerOrders } from '../services/customer'
 import React from 'react'
@@ -9,24 +8,33 @@ import { MdWaterDrop } from 'react-icons/md'
 import { FaToolbox } from 'react-icons/fa'
 import { GiGardeningShears } from 'react-icons/gi'
 
-const Schedule = () => {
-  let { id } = useParams()
-  const [customerOrders, setCustomerOrders] = useState()
+const Schedule = ({ authenticatedUser, updated }) => {
+  let id = authenticatedUser._id
+  const [customerOrders, setCustomerOrders] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
   const [visible, setVisible] = useState(false)
 
+  console.log('id', authenticatedUser._id)
   useEffect(() => {
     const getOrders = async () => {
       const data = await getCustomerOrders(id)
+      console.log('data', data)
       setCustomerOrders(data)
     }
     getOrders()
-  }, [])
+  }, [authenticatedUser, updated])
 
+  const getMonthData = (value) => {
+    // if (value.month() === 8) {
+    //   return 1394
+    // }
+  }
   const getPurchasedPlants = () => {
-    return customerOrders?.flatMap((order) =>
-      order.orderItems.filter((item) => item.itemModel === 'Plant')
-    )
+    return Array.isArray(customerOrders)
+      ? customerOrders.flatMap((order) =>
+          order.orderItems.filter((item) => item.itemModel === 'Plant')
+        )
+      : []
   }
 
   const getPurchasedServices = () => {
@@ -102,12 +110,14 @@ const Schedule = () => {
 
   const onPanelChange = (value, mode) => {
     setSelectedDate(null)
-    setVisible(null)
+    setVisible(false)
   }
+
   const onSelect = (value) => {
     setSelectedDate(value)
     setVisible(true)
   }
+
   const monthCellRender = (value) => {
     const num = getMonthData(value)
     return num ? <div className="notes-month"></div> : null
@@ -164,7 +174,7 @@ const Schedule = () => {
     const twoYearsLater = moment(createdAt).add(2, 'years')
 
     while (currentDate.isBefore(twoYearsLater)) {
-      currentDate.add(intervalDays, 'days') //change order if want to show for day purchased
+      currentDate.add(intervalDays, 'days')
       pruningDates.push(currentDate.format('YYYY-MM-DD'))
     }
 
@@ -229,43 +239,47 @@ const Schedule = () => {
   }
 
   return (
-    <div>
-      <Calendar
-        cellRender={cellRender}
-        onPanelChange={onPanelChange}
-        onSelect={onSelect}
-      />
-      <Dialog
-        header="Schedule for the Day"
-        visible={visible}
-        style={{ width: '50vw' }}
-        onHide={() => {
-          setVisible(false)
-          setSelectedDate(null)
-        }}
-      >
-        {getPlantsToWater(selectedDate)?.map((plant, index) => (
-          <div key={index} className="flex">
-            <MdWaterDrop style={{ marginRight: '8px' }} />
-            <p className="text-sky-700"> Water {plant.name}</p>
-          </div>
-        ))}
-        {getServicesToPerform(selectedDate)?.map((service, index) => (
-          <div key={`service_${index}`} className="flex">
-            <FaToolbox style={{ marginRight: '8px', marginTop: '3px' }} />
-            <p className="text-teal-700">{service.name} Scheduled</p>
-          </div>
-        ))}
-        {getPruningsToPerform(selectedDate)?.map((plant, index) => (
-          <div key={`plant${index}`} className="flex">
-            <GiGardeningShears
-              style={{ marginRight: '8px', marginTop: '3px' }}
-            />
-            <p className="text-yellow-600"> Prune {plant.name} </p>
-          </div>
-        ))}
-      </Dialog>
-    </div>
+    authenticatedUser &&
+    authenticatedUser.role === 'customer' &&
+    Array.isArray(customerOrders) && (
+      <div>
+        <Calendar
+          cellRender={cellRender}
+          onPanelChange={onPanelChange}
+          onSelect={onSelect}
+        />
+        <Dialog
+          header="Schedule"
+          visible={visible}
+          style={{ width: '50vw' }}
+          onHide={() => {
+            setVisible(false)
+            setSelectedDate(null)
+          }}
+        >
+          {getPlantsToWater(selectedDate)?.map((plant, index) => (
+            <div key={index} className="flex">
+              <MdWaterDrop style={{ marginRight: '8px' }} />
+              <p className="text-sky-700"> Water {plant.name}</p>
+            </div>
+          ))}
+          {getServicesToPerform(selectedDate)?.map((service, index) => (
+            <div key={`service_${index}`} className="flex">
+              <FaToolbox style={{ marginRight: '8px', marginTop: '3px' }} />
+              <p className="text-teal-700">{service.name} Scheduled</p>
+            </div>
+          ))}
+          {getPruningsToPerform(selectedDate)?.map((plant, index) => (
+            <div key={`plant${index}`} className="flex">
+              <GiGardeningShears
+                style={{ marginRight: '8px', marginTop: '3px' }}
+              />
+              <p className="text-yellow-600"> Prune {plant.name} </p>
+            </div>
+          ))}
+        </Dialog>
+      </div>
+    )
   )
 }
 

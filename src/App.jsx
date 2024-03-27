@@ -33,6 +33,8 @@ import Package from './pages/Package'
 import UpdateVendorDetails from './pages/UpdateVendorDetails'
 import UpdateCustomerDetails from './pages/UpdateCustomerDetails'
 import ContactUs from './pages/ContactUs'
+import VendorProducts from './pages/VendorProducts'
+import ProduceList from './pages/ProduceList'
 const App = () => {
   const [updated, setUpdated] = useState(false)
   const { user, isAuthenticated, isLoading } = useAuth0()
@@ -74,43 +76,93 @@ const App = () => {
           <Route path="/about" element={<Landing />} />
           <Route
             path="/produceform"
-            element={<ProduceForm authenticatedUser={authenticatedUser} />}
+            element={
+              <ProduceForm
+                authenticatedUser={authenticatedUser}
+                setUpdated={setUpdated}
+              />
+            }
           />
           <Route
             path="/updateproduce/:id"
-            element={<UpdateProduce setUpdated={setUpdated} />}
+            element={
+              <UpdateProduce
+                setUpdated={setUpdated}
+                authenticatedUser={authenticatedUser}
+              />
+            }
           />
           <Route
             path="/toolform"
-            element={<ToolForm authenticatedUser={authenticatedUser} />}
+            element={
+              <ToolForm
+                authenticatedUser={authenticatedUser}
+                setUpdated={setUpdated}
+              />
+            }
           />
           <Route
             path="/updatetool/:id"
-            element={<UpdateToolForm setUpdated={setUpdated} />}
+            element={
+              <UpdateToolForm
+                setUpdated={setUpdated}
+                authenticatedUser={authenticatedUser}
+              />
+            }
           />
           <Route
             path="/serviceform"
-            element={<ServiceForm authenticatedUser={authenticatedUser} />}
+            element={
+              <ServiceForm
+                authenticatedUser={authenticatedUser}
+                setUpdated={setUpdated}
+              />
+            }
           />
           <Route
             path="/updateservice/:id"
-            element={<UpdateService setUpdated={setUpdated} />}
+            element={
+              <UpdateService
+                setUpdated={setUpdated}
+                authenticatedUser={authenticatedUser}
+              />
+            }
           />
           <Route
             path="/packageform"
-            element={<PackageForm authenticatedUser={authenticatedUser} />}
+            element={
+              <PackageForm
+                authenticatedUser={authenticatedUser}
+                setUpdated={setUpdated}
+              />
+            }
           />
           <Route
             path="/updatepackage/:id"
-            element={<UpdatePackage setUpdated={setUpdated} />}
+            element={
+              <UpdatePackage
+                setUpdated={setUpdated}
+                authenticatedUser={authenticatedUser}
+              />
+            }
           />
           <Route
             path="/addplant"
-            element={<AddPlant authenticatedUser={authenticatedUser} />}
+            element={
+              <AddPlant
+                authenticatedUser={authenticatedUser}
+                setUpdated={setUpdated}
+              />
+            }
           />
           <Route
             path="/updateplant/:id"
-            element={<UpdatePlant setUpdated={setUpdated} />}
+            element={
+              <UpdatePlant
+                setUpdated={setUpdated}
+                authenticatedUser={authenticatedUser}
+              />
+            }
           />
           <Route path="/plantDetail/:plantId" element={<PlantDetail />} />
           <Route path="/vendorlist" element={<VendorList />} />
@@ -125,6 +177,7 @@ const App = () => {
             }
           />
           <Route path="/plantlist" element={<PlantList />} />
+          <Route path="/producelist" element={<ProduceList />} />
           <Route
             path="/shoppingcart"
             element={<ShoppingCart authenticatedUser={authenticatedUser} />}
@@ -134,7 +187,15 @@ const App = () => {
             element={<PaymentSuccess authenticatedUser={authenticatedUser} />}
           />
           <Route path="/paymentfailed" element={<PaymentFailed />} />
-          <Route path="/schedule/:id" element={<Schedule />} />
+          <Route
+            path="/schedule"
+            element={
+              <Schedule
+                authenticatedUser={authenticatedUser}
+                updated={updated}
+              />
+            }
+          />
           <Route path="/toollist" element={<ToolList />} />
           <Route path="/packages" element={<Package />} />
           <Route
@@ -146,6 +207,7 @@ const App = () => {
             element={<UpdateCustomerDetails setUpdated={setUpdated} />}
           />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/vendorproducts/:id" element={<VendorProducts />} />
         </Routes>
       </main>
     </div>
