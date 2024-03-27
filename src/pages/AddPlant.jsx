@@ -90,7 +90,7 @@ const AddPlant = ({ authenticatedUser, setUpdated }) => {
   return (
     authenticatedUser &&
     authenticatedUser.role === 'vendor' && (
-      <div>
+      <div className="mt-40">
         <form onSubmit={handleSearch}>
           <div className="flex justify-center  mt-20">
             <div>
