@@ -49,6 +49,14 @@ export const getAllVendorPackages = async (id) => {
     throw error
   }
 }
+export const getAllVendorOrders = async (id) => {
+  try {
+    const res = await Client.get(`vendor/${id}/customerorders`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
 
 export const getVendorCustomerOrders = async (id) => {
   try {
