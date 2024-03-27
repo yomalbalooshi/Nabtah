@@ -67,12 +67,11 @@ const App = () => {
 
   return (
     <div>
-      <h1 className=" text-cyan-900 text-3xl text-center">Nabtah</h1>
       <NavBar />
       <main>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<Landing />} />
           <Route path="/produceform" element={<ProduceForm />} />
           <Route
             path="/updateproduce/:id"
