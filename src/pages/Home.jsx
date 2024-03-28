@@ -156,7 +156,7 @@ const Home = () => {
             </h4>
           </div>
         </div>
-        <div className="flex items-center h-12 text-xl justify-around mt-4">
+        <div className="flex items-center h-12 text-xl justify-around py-4 shadow-sm">
           <button
             className=" ml-40 hover:text-green-600 hover:underline underline-offset-8"
             onClick={() => {
