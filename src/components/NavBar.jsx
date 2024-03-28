@@ -144,7 +144,7 @@ const NavBar = ({ authenticatedUser }) => {
                     Add Tools
                   </Link>
                   <Link
-                    to="/addpackage"
+                    to="/packageform"
                     className="block my-1 p-2 hover:bg-emerald-100"
                   >
                     Add Package
