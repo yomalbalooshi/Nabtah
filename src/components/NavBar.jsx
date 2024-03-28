@@ -44,6 +44,7 @@ const NavBar = ({ authenticatedUser }) => {
   }, []) // Run only once on component mount
   return (
     <div>
+
       <div
         className={`flex justify-between pb-2 text-xl fixed top-0 z-50 w-full ${navbarBg} `}
       >
@@ -172,6 +173,7 @@ const NavBar = ({ authenticatedUser }) => {
           <Link to="/about" className="mx-4 mt-4">
             About
           </Link>
+
 
           {isAuthenticated && user['https://nabtah.com/roles'] == 'customer' ? (
             <Link className="mx-4" to="/shoppingcart">

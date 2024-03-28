@@ -22,7 +22,6 @@ export function ShoppingCartProvider({ children }) {
 
   function setCartFromDb(cartItems) {
     setCartProducts(cartItems)
-    console.log(cartItems)
   }
   function clearCart() {
     setCartProducts([])
@@ -73,10 +72,6 @@ export function ShoppingCartProvider({ children }) {
             quantity: cartItemToUpdate.quantity + 1
           }
         )
-        console.log('getCustomerCartItem')
-        console.log(cartItemToUpdate._id)
-        console.log('updatedCartItem')
-        console.log(updatedCartItem)
       } catch (error) {
         console.log(error)
       }

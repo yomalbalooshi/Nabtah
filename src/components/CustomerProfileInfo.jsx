@@ -91,7 +91,6 @@ const CustomerProfileInfo = ({ authenticatedUser, updated }) => {
                         </dt>
                         <dd className="sm:mt-1">
                           <time>{changeDateFormat(order.createdAt)}</time>
-                          {/* <p>{order.createdAt}</p> */}
                         </dd>
                       </div>
                       <div className="flex justify-between pt-6 sm:block sm:pt-0">
@@ -133,11 +132,20 @@ const CustomerProfileInfo = ({ authenticatedUser, updated }) => {
                             <tr key={product._id}>
                               <td className="py-6 pr-8">
                                 <div className="flex items-center">
-                                  <img
-                                    src={product.itemId.image}
-                                    alt={product.name}
-                                    className="mr-6 h-16 w-16 rounded object-cover object-center"
-                                  />
+                                  {product.itemId.image ? (
+                                    <img
+                                      src={product.itemId.image}
+                                      alt={product.name}
+                                      className="mr-6 h-16 w-16 rounded object-cover object-center"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="https://img.freepik.com/free-photo/plants-pot-with-watering-can_23-2148905231.jpg"
+                                      alt={product.name}
+                                      className="mr-6 h-16 w-16 rounded object-cover object-center"
+                                    />
+                                  )}
+
                                   <div>
                                     <div className="font-medium text-gray-900">
                                       {product.itemId.name}

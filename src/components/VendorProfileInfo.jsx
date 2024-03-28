@@ -28,10 +28,8 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
   const [vendorPackages, setVendorPackages] = useState(null)
   const [vendorOrders, setvendorOrders] = useState(null)
 
-  console.log(updated)
   useEffect(() => {
     if (authenticatedUser) {
-      console.log(authenticatedUser)
       setuserDetails(authenticatedUser)
     }
   }, [authenticatedUser])

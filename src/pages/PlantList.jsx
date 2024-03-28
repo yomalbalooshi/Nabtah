@@ -32,7 +32,6 @@ const PlantList = ({}) => {
       let response = await getAllVendors()
       const allOption = { name: 'All', _id: null }
       setVendors([allOption, ...response])
-      // setSearchedPlants(response)
     }
     getVendorDetails()
   }, [])
@@ -44,7 +43,6 @@ const PlantList = ({}) => {
       setSearchedPlants(response)
     }
     getPlants()
-    console.log(plants)
   }, [])
 
   useEffect(() => {
@@ -170,6 +168,7 @@ const PlantList = ({}) => {
             </Card>
           ))}
           <Paginator
+            className="w-1/2"
             first={first}
             rows={rows}
             totalRecords={searchedPlants.length}
