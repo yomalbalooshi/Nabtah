@@ -28,6 +28,8 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
   const [vendorPackages, setVendorPackages] = useState(null)
   const [vendorOrders, setvendorOrders] = useState(null)
 
+  console.log(vendorServices)
+
   useEffect(() => {
     if (authenticatedUser) {
       setuserDetails(authenticatedUser)
