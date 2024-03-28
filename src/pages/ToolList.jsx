@@ -145,6 +145,7 @@ const ToolList = ({}) => {
           <Paginator
             first={first}
             rows={rows}
+            className="w-1/2"
             totalRecords={searchedTool.length}
             onPageChange={onPageChange}
           />

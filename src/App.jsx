@@ -69,8 +69,8 @@ const App = () => {
 
   return (
     <div>
-      <NavBar />
-      <main>
+      <NavBar authenticatedUser={authenticatedUser} />
+      <main className="mt-28">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<Landing />} />

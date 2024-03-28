@@ -145,6 +145,7 @@ const PlantList = ({}) => {
           <Paginator
             first={first}
             rows={rows}
+            className="w-1/2"
             totalRecords={searchedproduce.length}
             onPageChange={onPageChange}
           />

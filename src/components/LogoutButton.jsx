@@ -5,11 +5,12 @@ const LogoutButton = () => {
 
   return (
     <button
+      className="mx-4 mt-2"
       onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })
       }
     >
-      Log Out
+      Sign Out
     </button>
   )
 }
