@@ -73,7 +73,7 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
     handleVendorPackages()
     handleVendorOrders()
   }, [updated])
-
+  console.log(updated)
   const imageBodyTemplate = (product) => {
     return (
       <img

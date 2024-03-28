@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import CustomerProfileInfo from '../components/CustomerProfileInfo'
 import VendorProfileInfo from '../components/VendorProfileInfo'
 const Account = ({ authenticatedUser }) => {
-  const { user, isAuthenticated, isLoading } = useAuth0()
+  const { user, isAuthenticated, isLoading, updated } = useAuth0()
   const [userDetails, setuserDetails] = useState({})
   useEffect(() => {
     if (authenticatedUser) {
@@ -28,7 +28,10 @@ const Account = ({ authenticatedUser }) => {
           </div>
         </div>
         {authenticatedUser.role === 'vendor' && (
-          <VendorProfileInfo authenticatedUser={authenticatedUser} />
+          <VendorProfileInfo
+            authenticatedUser={authenticatedUser}
+            updated={updated}
+          />
         )}
         {authenticatedUser.role === 'customer' && (
           <CustomerProfileInfo authenticatedUser={authenticatedUser} />
