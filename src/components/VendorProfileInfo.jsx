@@ -71,7 +71,7 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
     handleVendorPackages()
     handleVendorOrders()
   }, [updated])
-
+  console.log(updated)
   const imageBodyTemplate = (product) => {
     return (
       <img
@@ -211,7 +211,6 @@ const VendorProfileInfo = ({ authenticatedUser, updated }) => {
     let formattedDate = changeDateFormat(rowData.createdAt)
     return <span>{formattedDate}</span>
   }
-
 
   return (
     authenticatedUser && (
