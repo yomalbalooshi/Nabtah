@@ -5,7 +5,7 @@
   <p>
     Your one-stop destination for all your plant and plant care needs.
     <br />
-    <a href="www.nabtah.com">
+    <a href="https://rmnd7bkgem.us-east-1.awsapprunner.com/">
       <br />
       <strong>Visit the website</strong></a>
     <br />
