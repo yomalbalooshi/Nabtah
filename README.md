@@ -75,19 +75,19 @@ If you are a business, you can sign up from our business portal and work with us
 
 Home Page
 
- <img src="https://i.imgur.com/SIFCv3N.png" alt="Nabtah HomePage" width="900" height="500">
+ <img src="https://i.imgur.com/SIFCv3N.png" alt="Nabtah HomePage" width="900" height="450">
 
 Calendar
 
- <img src="https://i.imgur.com/rxNcdl7.png" alt="Nabtah HomePage" width="900" height="500">
+ <img src="https://i.imgur.com/rxNcdl7.png" alt="Nabtah HomePage" width="900" height="450">
 
 Customer Profile Page
 
- <img src="https://i.imgur.com/RaPvSg2.png" alt="Nabtah HomePage" width="900" height="500">
+ <img src="https://i.imgur.com/RaPvSg2.png" alt="Nabtah HomePage" width="900" height="450">
  
 Plant creation Form
 
- <img src="https://i.imgur.com/lVkw94D.png" alt="Nabtah HomePage" width="900" height="500">
+ <img src="https://i.imgur.com/lVkw94D.png" alt="Nabtah HomePage" width="900" height="450">
 
 ---
 
