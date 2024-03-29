@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/BzpkaYR.png" alt="Nabtah Logo" width="140" height="80">
+  <img src="https://i.imgur.com/BzpkaYR.png" alt="Nabtah Logo" width="180" height="80">
   <h1>Nabtah</h1>
   <br />
   <p>
