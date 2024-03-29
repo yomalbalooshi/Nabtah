@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://s3.us-east-1.amazonaws.com/cdn.designcrowd.com/blog/101-plant-logos-for-creative-ideas/green-recycling-plant-by-marcololstudio-brandcrowd.png" alt="Nabtah Logo" width="80" height="80">
+  <img src="https://i.imgur.com/BzpkaYR.png" alt="Nabtah Logo" width="140" height="80">
   <h1>Nabtah</h1>
   <br />
   <p>
