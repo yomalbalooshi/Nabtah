@@ -68,7 +68,26 @@ If you are a business, you can sign up from our business portal and work with us
 
 - **Expand Your Reach**: Showcase your products to a large audience of gardening enthusiasts and expand your customer base.
 - **Marketing Opportunities**: Take advantage of marketing opportunities such as featured listings and promotions to increase visibility.
-- **Analytics and Insights**: Gain insights into customer behavior and preferences through analytics tools to optimize your offerings and strategies.
+
+---
+
+##Website Overview
+
+Home Page
+
+ <img src="https://i.imgur.com/SIFCv3N.png" alt="Nabtah HomePage" width="900" height="600">
+
+Calendar
+
+ <img src="https://i.imgur.com/rxNcdl7.png" alt="Nabtah HomePage" width="900" height="600">
+
+Customer Profile Page
+
+ <img src="https://i.imgur.com/RaPvSg2.png" alt="Nabtah HomePage" width="900" height="600">
+ 
+Plant creation Form
+
+ <img src="https://i.imgur.com/lVkw94D.png" alt="Nabtah HomePage" width="900" height="600">
 
 ---
 
